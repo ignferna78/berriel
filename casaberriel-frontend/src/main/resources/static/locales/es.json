@@ -1,0 +1,51 @@
+{
+  "navbar": {
+    "home": "Inicio",
+    "about": "Sobre Nosotros",
+    "services": "Servicios",
+    "gallery": "Galería",
+    "contact": "Contacto",
+    "login": "Iniciar Sesión"
+  },
+  "banner": {
+    "title": "Bienvenidos a CASA BERRIEL",
+    "subtitle": "Una experiencia rural única en un entorno natural incomparable.",
+    "button": "Descubre Más"
+  },
+  "about": {
+    "title": "Sobre Nosotros",
+    "content": "CASA BERRIEL es una casa rural que ofrece una estancia tranquila y confortable en el corazón de la naturaleza. Ideal para desconectar y disfrutar de la belleza de nuestro entorno."
+  },
+  "services": {
+    "title": "Nuestros Servicios",
+    "service1": "Alojamientos Completos",
+    "service1_desc": "Habitaciones amplias y cómodas para un descanso perfecto.",
+    "service2": "Entorno Natural",
+    "service2_desc": "Disfruta de rutas de senderismo, vistas y actividades al aire libre.",
+    "service3": "Cocina Regional",
+    "service3_desc": "Saborea la gastronomía local con productos frescos y de calidad."
+  },
+  "gallery": {
+    "title": "Galería"
+  },
+  "contact": {
+    "title": "Contacto",
+    "address": "Dirección:",
+    "phone": "Teléfono:",
+    "email": "Email:",
+    "send_message": "Envíanos un mensaje:",
+    "name_placeholder": "Tu Nombre",
+    "email_placeholder": "Tu Email",
+    "message_placeholder": "Tu Mensaje",
+    "send_button": "Enviar"
+  },
+  "login": {
+    "title": "Iniciar Sesión",
+    "email_placeholder": "Ingresa tu email",
+    "password_placeholder": "Ingresa tu contraseña",
+    "submit_button": "Iniciar Sesión"
+  },
+  "footer": {
+    "text": "&copy; 2024 CASA BERRIEL. Todos los derechos reservados."
+  }
+}
