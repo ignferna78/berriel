@@ -2,6 +2,9 @@ package com.project.casaberriel.model;
 
 
 import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 
 @Entity
@@ -13,13 +16,45 @@ public class Reserva {
     private Long id;
 
     @Column(nullable = false)
-    private String cliente;
-
+    private String nombre;
+    
     @Column(nullable = false)
+    private String apellidos;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaEntrada;
 
-    @Column(nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaSalida;
+    
+    @Column(nullable = false)
+    private String email;
+
+    
+    
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellidos() {
+		return apellidos;
+	}
+
+	public void setApellidos(String apellidos) {
+		this.apellidos = apellidos;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	public Long getId() {
 		return id;
@@ -27,14 +62,6 @@ public class Reserva {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(String cliente) {
-		this.cliente = cliente;
 	}
 
 	public LocalDate getFechaEntrada() {

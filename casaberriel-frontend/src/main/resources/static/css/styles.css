@@ -1,0 +1,41 @@
+@charset "UTF-8";
+/* Custom styles for Casa Berriel */
+
+/* Banner Styles */
+.banner {
+    background: url('../images/444534966.jpg') no-repeat center center/cover;
+    height: 70vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.banner h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.banner p {
+    font-size: 1.2rem;
+}
+
+.banner .btn {
+    font-size: 1.2rem;
+}
+
+/* Section Padding */
+section {
+    padding: 60px 0;
+}
+
+#services i {
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+
+footer {
+    background: #343a40;
+}

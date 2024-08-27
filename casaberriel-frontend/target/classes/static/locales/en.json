@@ -1,0 +1,51 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "About Us",
+    "services": "Services",
+    "gallery": "Gallery",
+    "contact": "Contact",
+    "login": "Login"
+  },
+  "banner": {
+    "title": "Welcome to CASA BERRIEL",
+    "subtitle": "A unique rural experience in an unparalleled natural setting.",
+    "button": "Discover More"
+  },
+  "about": {
+    "title": "About Us",
+    "content": "CASA BERRIEL is a rural house that offers a peaceful and comfortable stay in the heart of nature. Ideal for disconnecting and enjoying the beauty of our surroundings."
+  },
+  "services": {
+    "title": "Our Services",
+    "service1": "Complete Accommodations",
+    "service1_desc": "Spacious and comfortable rooms for perfect rest.",
+    "service2": "Natural Environment",
+    "service2_desc": "Enjoy hiking trails, views, and outdoor activities.",
+    "service3": "Regional Cuisine",
+    "service3_desc": "Savor local cuisine with fresh and quality products."
+  },
+  "gallery": {
+    "title": "Gallery"
+  },
+  "contact": {
+    "title": "Contact",
+    "address": "Address:",
+    "phone": "Phone:",
+    "email": "Email:",
+    "send_message": "Send us a message:",
+    "name_placeholder": "Your Name",
+    "email_placeholder": "Your Email",
+    "message_placeholder": "Your Message",
+    "send_button": "Send"
+  },
+  "login": {
+    "title": "Login",
+    "email_placeholder": "Enter your email",
+    "password_placeholder": "Enter your password",
+    "submit_button": "Login"
+  },
+  "footer": {
+    "text": "&copy; 2024 CASA BERRIEL. All rights reserved."
+  }
+}
