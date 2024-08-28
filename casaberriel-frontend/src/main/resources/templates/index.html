@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 	<meta charset="UTF-8">
@@ -7,8 +7,7 @@
 	<title >Casa Berriel</title>
 	<link rel="icon" href="images/icon.jpg">
 	<!-- Bootstrap CSS -->
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Custom CSS -->
+	<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css}" rel="stylesheet">	<!-- Custom CSS -->
 	<link rel="stylesheet" href="css/styles.css">
 </head>
 
@@ -54,6 +53,8 @@
 			<a href="#about" class="btn btn-primary mt-3" data-i18n="banner.button">Descubre Más</a>
 		</div>
 	</header>
+
+<body>
 
 	<!-- About Section -->
 	<section id="about" class="py-5">
@@ -194,11 +195,6 @@
 	</div></br>
 
 
-	<!-- Footer -->
-	<footer class="bg-dark text-white text-center py-3">
-		<p>&copy; 2024 CASA BERRIEL. Todos los derechos reservados.</p>
-	</footer>
-
 	<!-- Bootstrap JS and dependencies -->
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
@@ -207,6 +203,7 @@
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<script src="js/i18n.js"></script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrrBWCYL7Bsoh4kqjgmW0hQoM_zIKJywU&callback=initMap"></script>
+    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js}"></script>
 	
 	
 	
@@ -228,6 +225,10 @@
 			});
 		}
 	</script>
+ <!-- Footer -->
+            <th:block th:include="componentes/footer.html"></th:block>
+            <!-- Boton subir -->
+            <th:block th:include="componentes/botonSubir.html"></th:block>
 
 </body>
 
