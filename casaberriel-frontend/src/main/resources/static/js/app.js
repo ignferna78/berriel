@@ -8,4 +8,8 @@ $(document).ready(function() {
 	  let deleteUrl = '/reservas/eliminar/' + id;
 	  modal.find('#confirmDeleteButton').attr('href', deleteUrl); // Asigna la URL de eliminación al botón
 	});
+	
+	
+	
+	
 });

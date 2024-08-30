@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+    <!-- Head Start -->
+    <th:block th:include="componentes/_head.html"></th:block>
+    <!-- Head End -->
+</head>
+<div class="row">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/reservas"> <img src="/images/icon.jpg" alt="icono" style="height:32px; width:32px;">CASA BERRIEL</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="/reservas/lista" data-i18n="navbar.booking"></a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#about" data-i18n="navbar.about">
+                    </a></li>
+            <li class="nav-item"><a class="nav-link" href="#services" data-i18n="services.title"></a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#gallery" data-i18n="navbar.gallery"></a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#contact" data-i18n="navbar.contact"></a>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-outline-primary" data-toggle="modal" data-target="#loginModal"
+                    data-i18n="navbar.login">Login</button>
+            </li>
+            <li class="nav-item"><select id="languageSelector" class="form-control">
+                    <option value="es">Español</option>
+                    <option value="en">English</option>
+                </select></li>
+        </ul>
+    </div>
+</nav>
+</div>
