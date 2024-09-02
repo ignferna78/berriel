@@ -31,8 +31,11 @@
   },
   "contact": {
     "title": "Contacto",
+    "subtitle": "Estamos a tu disposición para cualquier consulta o reserva.",
     "address": "Dirección:",
-    "phone": "Teléfono:",
+    "address_desc": "Lugar de abajo, 5, Tías , Lanzarote",
+    "phone_title": "Teléfono:",
+      "phone": "+34 606 986 345:",
     "email": "Email:",
     "send_message": "Envíanos un mensaje:",
     "name_placeholder": "Tu Nombre",
