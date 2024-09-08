@@ -30,3 +30,4 @@ document.getElementById("languageSelector").addEventListener("change", (event) =
 
 // Load default language (Spanish)
 loadTranslations('es');
+

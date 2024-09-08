@@ -2,21 +2,21 @@ package com.project.casaberriel.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.casaberriel.model.Reserva;
-import com.project.casaberriel.repository.ReservaRepository;
+import com.project.casaberriel.model.reservas.Reserva;
+import com.project.casaberriel.repositorios.ReservaRepositorio;
 
 import java.util.List;
 
 @Service
 public class ReservaService {
 
-    public ReservaService(ReservaRepository reservaRepository) {
+    public ReservaService(ReservaRepositorio reservaRepository) {
 		super();
 		this.reservaRepository = reservaRepository;
 	}
 
 	@Autowired
-    private ReservaRepository reservaRepository;
+    private ReservaRepositorio reservaRepository;
 
     public List<Reserva> listarReservas() {
         return reservaRepository.findAll();

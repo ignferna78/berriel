@@ -1,6 +1,6 @@
 //*Metodo para confirmar eliminar una reserva
-$(document).ready(function() {
-	$('#deleteModal').on('show.bs.modal', function (event) {
+
+$('#deleteModal').on('show.bs.modal', function (event) {
 	  let button = $(event.relatedTarget); // Botón que activó el modal
 	  let id = button.data('id'); // Extrae la información de data-id
 
@@ -9,7 +9,25 @@ $(document).ready(function() {
 	  modal.find('#confirmDeleteButton').attr('href', deleteUrl); // Asigna la URL de eliminación al botón
 	});
 	
+
+function initMap() {
+	// Coordenadas de tu localización (latitud y longitud)
+	const location = {lat: 28.956167, lng: -13.640944}; // Reemplaza con las coordenadas reales de tu ubicación
+
+	// Crear el mapa centrado en la localización
+	const map = new google.maps.Map(document.getElementById("map"), {
+		zoom: 15,
+		center: location,
+	});
+
+	// Añadir un marcador en la localización
+	const marker = new google.maps.Marker({
+		position: location,
+		map: map,
+	});
+}
+
+$('#limpiar').click(function(){
+	$('#form').trigger('reset');
+	}
 	
-	
-	
-});

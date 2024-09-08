@@ -1,0 +1,53 @@
+<!DOCTYPE xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<!-- Head Start -->
+<th:block th:include="componentes/_head.html"></th:block>
+<!-- Head End -->
+<title data-i18n="banner.title"></title>
+</head>
+
+<body>
+	<th:block th:include="componentes/_nav.html"></th:block>
+
+	<div class="container">
+		<h1 class="mb-4">Formulario de registro</h1>
+		<div class="card">
+			<div class="card-body">
+				<form th:action="@{/registro/nuevo}" method="post"
+					th:object="${usuario}" id="limpiar">
+					<div class="form-group">
+						<label for="nombre">Nombre</label> <input type="text"
+							name="nombre" class="form-control" id="nombre"
+							placeholder="Ingresa tu nombre">
+					</div>
+					<div class="form-group">
+						<label for="apellidos">apellidos</label> <input type="text"
+							name="apellidos" class="form-control" id="apellidos"
+							placeholder="Ingresa tu apellidos">
+					</div>
+					<div class="form-group">
+						<label for="email">Email</label> <input type="text" name="email"
+							class="form-control" id="email" placeholder="Ingresa tu email">
+					</div>
+					<div class="form-group">
+						<label for="password">Contraseña</label> <input type="password"
+							name="password" class="form-control" id="password"
+							placeholder="Ingresa tu contraseña">
+					</div>
+					<button type="submit" class="btn btn-primary">Registrate</button>
+
+				</form>
+				<!-- Agrega más campos según sea necesario -->
+			</div>
+		</div>
+		<a href="/reservas" class="btn btn-primary mt-4">Volver</a> <br>
+		<div th:if=${param.exito} class="alert alert-info">Bienvenido a
+			Casa Berriel, se ha registrado con exito !</div>
+	</div>
+
+
+</body>
+
+<th:block th:include="componentes/footer.html"></th:block>
+</html>
