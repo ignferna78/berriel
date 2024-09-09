@@ -4,19 +4,23 @@ public class ReservaForm {
 
 	private String nombre;
 	private String apellidos;
+	private String email;
+	private String direccion;
 	private String fechaEntrada;
 	private String fechaSalida;
-	private String email;
+	
 
 	public ReservaForm() {
 	}
 
-	public ReservaForm(String nombre, String apellidos, String fechaEntrada, String fechaSalida, String email) {
+	public ReservaForm(String nombre, String apellidos, String email, String direccion, String fechaEntrada, String fechaSalida) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
+		this.email = email;
+		this.direccion = direccion;
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
-		this.email = email;
+		
 	}
 	
 	public String getNombre() {
@@ -25,6 +29,14 @@ public class ReservaForm {
 	
 	public String getApellidos() {
 		return apellidos;
+	}
+	
+	public String getDireccion() {
+		return direccion;
+	}
+	
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 	
 	public String getEmail() {

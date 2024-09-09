@@ -3,7 +3,7 @@
 
 /* Banner Styles */
 .banner {
-    background: url('../images/444534966.jpg') no-repeat center center/cover;
+    background: url('../images/lago_verde.jpg') no-repeat center center/cover;
     height: 70vh;
     color: white;
     display: flex;
@@ -38,4 +38,32 @@ section {
 
 footer {
     background: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
+#gallery .carousel-item img {
+    height: 700px; /* Altura fija para las imágenes */
+    object-fit: cover; /* Ajusta la imagen para que cubra el contenedor */
+    width: 100%; /* El ancho siempre ocupará el 100% del contenedor */
+    border-radius: 5px;
+}
+
+html, body {
+    overflow-x: hidden;
+}
+
+

@@ -38,10 +38,7 @@ public class RegitroUsuarioController {
 
 
 	
-	@GetMapping("/login")
-	public String iniciarSesion() {
-		return "index";
-	}
+
 	
 	@GetMapping("/inicio")
 	public String verPaginaDeInicio(Model modelo) {

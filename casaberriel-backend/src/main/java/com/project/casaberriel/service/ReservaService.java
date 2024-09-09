@@ -2,7 +2,7 @@ package com.project.casaberriel.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.casaberriel.model.reservas.Reserva;
+import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.repositorios.ReservaRepositorio;
 
 import java.util.List;
@@ -18,15 +18,15 @@ public class ReservaService {
 	@Autowired
     private ReservaRepositorio reservaRepository;
 
-    public List<Reserva> listarReservas() {
+    public List<ReservaEntity> listarReservas() {
         return reservaRepository.findAll();
     }
 
-    public Reserva guardarReserva(Reserva reserva) {
+    public ReservaEntity guardarReserva(ReservaEntity reserva) {
         return reservaRepository.save(reserva);
     }
 
-    public Reserva obtenerReservaPorId(Long id) {
+    public ReservaEntity obtenerReservaPorId(Long id) {
         return reservaRepository.findById(id).orElse(null);
     }
 

@@ -12,14 +12,22 @@
 <th:block th:include="componentes/_nav.html"></th:block>
 
 	<div class="container mt-5">
+	<div class="card">
+	<div class="card-header">
 		<h1 class="mb-4">Detalle de la Reserva</h1>
-		<div class="card">
+		</div>
 			<div class="card-body">
 				<p class="mb-1">
-					<strong>Cliente:</strong> <span th:text="${reserva.nombre}"></span>
+					<strong>NOMBRE:</strong> <span th:text="${reserva.nombre}"></span>
 				</p>
 				<p class="mb-1">
 					<strong>Apellidos:</strong> <span th:text="${reserva.apellidos}"></span>
+				</p>
+				<p class="mb-1">
+					<strong>eMAIL:</strong> <span th:text="${reserva.email}"></span>
+				</p>
+				<p class="mb-1">
+					<strong>dIRECCION:</strong> <span th:text="${reserva.direccion}"></span>
 				</p>
 				<p class="mb-1">
 					<strong>Fecha de Entrada:</strong> <span
@@ -37,6 +45,9 @@
 		</div>
 		<a href="/reservas/lista" class="btn btn-primary mt-4">Volver</a>
 	</div>
+		</div>
+			</div>
+			</div>
 	
 </body>
 

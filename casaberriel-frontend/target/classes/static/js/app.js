@@ -27,7 +27,17 @@ function initMap() {
 	});
 }
 
-$('#limpiar').click(function(){
-	$('#form').trigger('reset');
-	}
+
+	
+	function limpiarCriterios() {
+	         const form = document.getElementById("formReserva");
+	         const inputs = form.querySelectorAll("input, select");
+	         inputs.forEach(input => {
+	             if (input.type === "checkbox" || input.type === "radio") {
+	                 input.checked = false;
+	             } else {
+	                 input.value = "";
+	             }
+	         });
+	     }
 	

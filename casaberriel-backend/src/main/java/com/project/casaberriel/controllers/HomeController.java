@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.project.casaberriel.model.reservas.Reserva;
+import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.service.ReservaService;
 
 @Controller
@@ -21,7 +21,7 @@ public class HomeController {
 
 	private ReservaService reservaService;
 
-	@GetMapping
+	@GetMapping("/index")
 	public String index() {
 		return "index";
 	}
@@ -36,13 +36,13 @@ public class HomeController {
 
 	@GetMapping("/nueva")
 	public String mostrarFormularioReserva(Model model) {
-		model.addAttribute("reserva", new Reserva());
+		model.addAttribute("reserva", new ReservaEntity());
 		return "reservas";
 	}
 
 	@GetMapping("/detalle/{id}")
 	public String detalleReserva(@PathVariable Long id, Model model) {
-		Reserva reserva = reservaService.obtenerReservaPorId(id);
+		ReservaEntity reserva = reservaService.obtenerReservaPorId(id);
 		if (reserva != null) {
 			model.addAttribute("reserva", reserva);
 		} else {
@@ -52,9 +52,9 @@ public class HomeController {
 	}
 
 	@PostMapping("/guardar")
-	public String guardarReserva(Reserva reserva) {
+	public String guardarReserva(ReservaEntity reserva) {
 		reservaService.guardarReserva(reserva);
-		return "detalle_reserva"; // Nombre de la vista Thymeleaf";
+		return "redirect:/reservas/lista"; // Nombre de la vista Thymeleaf";
 	}
 
 	@GetMapping("/editar/{id}")

@@ -3,49 +3,79 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-
 <head>
 <title>Reservas</title>
-    <!-- Head Start -->
-    <th:block th:include="componentes/_head.html"></th:block>
-    <!-- Head End -->
+<!-- Head Start -->
+<th:block th:include="componentes/_head.html"></th:block>
+<!-- Head End -->
 </head>
 <body>
 	<th:block th:include="componentes/_nav.html"></th:block>
+	<br>
 
-	<form th:action="@{/reservas/guardar}" method="post">
-
-
+	<form th:action="@{/reservas/guardar}" method="post" id="formReserva" th:object="${reserva}">
 		<div class="container">
-			<h1 class="my-4">Nueva Reserva</h1>
-			<div class="form-group">
-				<div class="form-group">
-					<label for="nombre" data-i18n="contact.name_placeholder"></label> <input type="text"
-						class="form-control" id="nombre" name="nombre" required>
+			<div class="card mt-3">
+				<div class="card-header">
+					 <span th:text="'▪ '" class="fw-bold text-warning"></span>
+                                  <span th:href="@{/reservas}" data-i18n="contact.booking_form" class="fw-bold"></span>
+                                   <button th:title="'Limpiar criterios de busqueda'" id="iniciolink" class="btn btn-link p-0" onclick="limpiarCriterios();">
+                                      <span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eraser-fill" viewBox="2 0 12 22">
+                                          <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z"></path>
+                                      </svg></span>
+                                  </button>
 				</div>
-				<div class="form-group">
-					<label for="apellidos">Apellidos</label> <input type="text"
-						class="form-control" id="apellidos" name="apellidos" required>
-				</div>
-				<div class="form-group">
-					<label for="fechaEntrada">Fecha de Entrada</label> <input
-						type="date" class="form-control" id="fechaEntrada"
-						name="fechaEntrada" required>
-				</div>
-				<div class="form-group">
-					<label for="fechaSalida">Fecha de Salida</label> <input type="date"
-						class="form-control" id="fechaSalida" name="fechaSalida" required>
-				</div>
+				<div class="card-body">
+					<!-- Nombre y apellidos -->
+					<div class="form-group mb-3">
+						<label for="nombre" class="form-label">Nombre y Apellidos</label>
+						<div class="input-group">
+							<input type="text" id="nombre" name="nombre" aria-label="First name"
+								class="form-control" placeholder="Nombre" required> 
+							<input type="text" aria-label="apellidos" id="apellidos" name="apellidos" class="form-control"
+								placeholder="Apellidos" required>
+						</div>
+					</div>
+					<div class="row">
+						<!-- Email -->
+						<div class="col-md-6 mb-3">
+							<label for="email" class="form-label" data-i18n="contact.email"></label>
+							<input type="email" class="form-control" id="email" name="email"
+								placeholder="example@correo.com" required>
+						</div>
+						<div class="col-md-6 mb-3">
+							<label for="direccion" class="form-label" data-i18n="contact.address"></label> <input
+								type="text" class="form-control" id="direccion" name="direccion"
+								placeholder="Tu dirección" required>
+						</div>
+					</div>
+					<div class="row">
+						<!-- Fecha de Entrada -->
+						<div class="col-md-6 mb-3">
+							<label for="fechaEntrada" class="form-label">Fecha de
+								Entrada</label> <input type="date" class="form-control datepicker"
+								id="fechaEntrada" name="fechaEntrada" required>
+						</div>
 
-				<div class="form-group">
-					<label for="email" data-i18n="contact.email_placeholder"></label> <input type="email"
-						class="form-control" id="email" name="email" required>
-				</div>
-				<br>
-				<button type="submit" class="btn btn-primary" data-i18n="contact.send_button"></button>
+						<!-- Fecha de Salida -->
+						<div class="col-md-6 mb-3">
+							<label for="fechaSalida" class="form-label">Fecha de
+								Salida</label> <input type="date" class="form-control datepicker" id="fechaSalida"
+								name="fechaSalida" required>
+						</div>
+					</div>
 
+					<div class="row mt-4 pt-4">
+						<div class="col text-center">
+							<!-- Centramos el contenido en la columna -->
+							<button type="submit" class="btn btn-primary">Enviar</button>
+						</div>
+					</div>
+				</div>
 			</div>
+		</div>
 	</form>
+
 
 
 
@@ -58,9 +88,11 @@
 					<th scope="col">ID</th>
 					<th scope="col">Nombre</th>
 					<th scope="col">Apellidos</th>
+						<th scope="col">Email</th>
+					<th scope="col">Direccion</th>
 					<th scope="col">Fecha de Entrada</th>
 					<th scope="col">Fecha de Salida</th>
-					<th scope="col">Email</th>
+					
 
 				</tr>
 			</thead>
@@ -69,9 +101,11 @@
 					<td th:text="${reserva.id}"></td>
 					<td th:text="${reserva.nombre}"></td>
 					<td th:text="${reserva.apellidos}"></td>
+					<td th:text="${reserva.email}"></td>
+					<td th:text="${reserva.direccion}"></td>
 					<td th:text="${reserva.fechaEntrada}"></td>
 					<td th:text="${reserva.fechaSalida}"></td>
-					<td th:text="${reserva.email}"></td>
+					
 
 					<td><a class="btn btn-outline-success" title="Editar Reserva"
 						th:href="@{'/reservas/editar/' + ${reserva.id}}"> <svg
@@ -130,7 +164,7 @@
 
 	</div>
 
-	
+
 	<th:block th:include="componentes/_scripts.html"></th:block>
 </body>
 
