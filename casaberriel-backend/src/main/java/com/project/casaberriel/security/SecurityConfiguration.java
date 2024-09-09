@@ -46,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	            // Permitir acceso a recursos estáticos
 	            .antMatchers("/css/**", "/js/**", "/images/**", "/lib/**", "/locales/**").permitAll()
 	            // Permitir acceso a la página de inicio sin autenticación
-	            .antMatchers("/", "/reservas/**", "/index", "/home").permitAll()
+	            .antMatchers("/", "/reservas/**", "/index", "/login").permitAll()
 	            .antMatchers("/registro/**").permitAll()
 	            .anyRequest().authenticated()  // El resto de las rutas requiere autenticación
 	        .and()

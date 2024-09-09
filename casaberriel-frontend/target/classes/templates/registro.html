@@ -36,6 +36,7 @@
 							placeholder="Ingresa tu contraseña">
 					</div>
 					<button type="submit" class="btn btn-primary">Registrate</button>
+					<span>Si ya estas registrado <a th:href="@{/login}">Inicia sesión aquí</a></span>
 
 				</form>
 				<!-- Agrega más campos según sea necesario -->
@@ -44,6 +45,7 @@
 		<a href="/reservas/index" class="btn btn-primary mt-4">Volver</a> <br>
 		<div th:if=${param.exito} class="alert alert-info">Bienvenido a
 			Casa Berriel, se ha registrado con exito !</div>
+			<span th:if="${error}" th:text="${error}" class="error"></span>
 	</div>
 
 

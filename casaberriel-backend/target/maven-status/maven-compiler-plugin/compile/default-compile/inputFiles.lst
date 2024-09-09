@@ -7,11 +7,11 @@ C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\
 C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\usuarios\Rol.java
 C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\usuarios\Usuario.java
 C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\controllers\HomeController.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\reservas\ReservaEntity.java
 C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\dto\UsuarioRegistroDto.java
 C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\service\UsuarioService.java
 C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\dto\ReservaDto.java
 C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\WelcomeHandler.java
-C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\reservas\Reserva.java
 C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\service\UsuarioServiceImpl.java
 C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\controllers\RegistroControlador.java
 C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\reservas\ReservaForm.java
