@@ -1,11 +1,15 @@
 package com.project.casaberriel.controllers;
 
+import java.time.LocalDate;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.service.ReservaService;
@@ -67,6 +71,17 @@ public class HomeController {
 	public String eliminarReserva(@PathVariable Long id) {
 		reservaService.eliminarReserva(id);
 		return "redirect:/reservas/lista";
+	}
+	
+	@PostMapping("/comprobar-disponibilidad")
+	public String comprobarDisponibilidad(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaEntrada,
+	                                      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaSalida,
+	                                      Model model) {
+	    // Aquí iría la lógica para comprobar disponibilidad entre las fechas
+	    boolean disponible = reservaService.comprobarDisponibilidad(fechaEntrada, fechaSalida);
+
+	    model.addAttribute("disponible", disponible);
+	    return "index"; // Vista donde mostrarás si está disponible o no
 	}
 
 }

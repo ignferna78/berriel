@@ -12,7 +12,7 @@
 <header class="banner">
 	<div class="container text-center">
 		<h1 data-i18n="banner.title"></h1>
-		<p data-i18n="banner.subtitle"> </p>
+		<p data-i18n="banner.subtitle"></p>
 		<a href="#about" class="btn btn-primary mt-3" data-i18n="banner.button"></a>
 	</div>
 </header>
@@ -62,39 +62,91 @@
 		<div class="container">
 			<h2 class="text-center" data-i18n="gallery.title">Galería</h2>
 			<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-			 <div class="carousel-inner">
-				 <div class="carousel-item active">
-					<img src="images/425084696.jpg" class="d-block w-100" alt="Casa Berriel">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="images/425084696.jpg" class="d-block w-100" alt="Casa Berriel">
+					</div>
+					<div class="carousel-item">
+						<img src="images/114138927.jpg" class="d-block w-100" alt="Casa Berriel">
+					</div>
+					<div class="carousel-item">
+						<img src="images/444534966.jpg" class="d-block w-100" alt="Casa Berriel">
+					</div>
+					<div class="carousel-item">
+						<img src="images/lago_verde.jpg" class="d-block w-100" alt="Casa Berriel">
+					</div>
+					<div class="carousel-item">
+						<img src="images/444534966.jpg" class="d-block w-100" alt="Casa Berriel">
+					</div>
+					<div class="carousel-item">
+						<img src="images/444534966.jpg" class="d-block w-100" alt="Casa Berriel">
+					</div>
+
 				</div>
-				 <div class="carousel-item">
-					<img src="images/114138927.jpg" class="d-block w-100" alt="Casa Berriel">
-				</div>
-				 <div class="carousel-item">
-					<img src="images/444534966.jpg" class="d-block w-100" alt="Casa Berriel">
-				</div>
-				 <div class="carousel-item">
-					<img src="images/lago_verde.jpg" class="d-block w-100" alt="Casa Berriel">
-				</div>
-				 <div class="carousel-item">
-					<img src="images/444534966.jpg" class="d-block w-100" alt="Casa Berriel">
-				</div>
-			 <div class="carousel-item">
-					<img src="images/444534966.jpg" class="d-block w-100" alt="Casa Berriel">
-				</div>
-		
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+					data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Anterior</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+					data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Siguiente</span>
+				</button>
 			</div>
-			 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Anterior</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Siguiente</span>
-  </button>
-		</div>
 		</div>
 	</section>
+	<section id="fechas" class="py-8">
+	    <div class="container">
+	        <h2 class="text-center">Comprobar Disponibilidad</h2>
+	        <form id="comprobar-disponibilidad-form" th:action="@{/reservas/comprobar-disponibilidad}" method="POST">
+	            <div class="row">
+	                <div class="col-md-6">
+	                    <label for="fecha-inicio">Fecha de Inicio:</label>
+	                    <input type="date" id="fechaEntrada" name="fechaEntrada" class="form-control" required>
+	                </div>
+	                <div class="col-md-6">
+	                    <label for="fecha-fin">Fecha de Fin:</label>
+	                    <input type="date" id="fechaSalida" name="fechaSalida" class="form-control" required>
+	                </div>
+	            </div>
+	            <div class="text-center mt-4">
+	                <button type="button" id="comprobar-disponibilidad-formBtn" class="btn btn-primary">
+	                    Comprobar Disponibilidad
+	                </button>
+	            </div>
+	            <br>
+	        </form>
+	    </div>
+	    <div class="container">
+	        <div id="resultados-disponibilidad">
+	            <!-- Aquí se mostrarán los resultados de disponibilidad -->
+	            <div th:if="${disponible != null and !disponible}">
+	                <div class="card">
+	                    <div class="alert alert-warning" role="alert">
+	                        <h4 class="alert-heading">No Disponible</h4>
+	                        <p>La casa no está disponible para las fechas seleccionadas</p>
+	                        <hr>
+	                        <p class="mb-0">Por favor, seleccione otras fechas</p>
+	                    </div>
+	                </div>
+	            </div>
 
+	            <div th:if="${disponible}">
+	                <div class="card">
+	                    <div class="alert alert-success" role="alert">
+	                        <h4 class="alert-heading">Disponible</h4>
+	                        <p>La casa está disponible para las fechas seleccionadas</p>
+	                        <hr>
+	                        <a href="/reservas/lista" class="btn btn-primary mt-3">Reservar</a>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</section>
+
+	
 	<!-- Contact Section -->
 	<section id="contact" class="bg-light py-5">
 		<div class="container">
@@ -137,6 +189,34 @@
 
 	<th:block th:include="componentes/footer.html"></th:block>
 	<th:block th:include="componentes/_scripts.html"></th:block>
+
+
+	<script>
+	    $(document).ready(function () {
+	        // Maneja el evento de clic en el botón
+	        $('#comprobar-disponibilidad-formBtn').on('click', function (event) {
+	            event.preventDefault(); // Evita la recarga de la página
+	            
+	            // Serializa los datos del formulario
+	            var formData = $('#comprobar-disponibilidad-form').serialize();
+
+	            // Llamada AJAX para comprobar la disponibilidad
+	            $.ajax({
+	                url: $('#comprobar-disponibilidad-form').attr('action'), // La URL del formulario
+	                type: 'POST',
+	                data: formData,
+	                success: function (response) {
+	                    // Actualiza solo la sección de disponibilidad con la respuesta del servidor
+	                    $('#resultados-disponibilidad').html($(response).find('#resultados-disponibilidad').html());
+	                },
+	                error: function (error) {
+	                    console.log("Error en la comprobación de disponibilidad: ", error);
+	                }
+	            });
+	        });
+	    });
+	</script>
+
 
 </body>
 

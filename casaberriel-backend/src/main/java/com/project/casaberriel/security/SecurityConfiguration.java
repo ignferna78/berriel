@@ -48,6 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	            // Permitir acceso a la página de inicio sin autenticación
 	            .antMatchers("/", "/reservas/**", "/index", "/login").permitAll()
 	            .antMatchers("/registro/**").permitAll()
+	            .antMatchers("/reservas/comprobar-disponibilidad").permitAll()
 	            .anyRequest().authenticated()  // El resto de las rutas requiere autenticación
 	        .and()
 	            .formLogin()
