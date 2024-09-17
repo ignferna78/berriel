@@ -13,7 +13,7 @@
 	<div class="container text-center">
 		<h1 data-i18n="banner.title"></h1>
 		<p data-i18n="banner.subtitle"></p>
-		<a href="#about" class="btn btn-primary mt-3" data-i18n="banner.button"></a>
+		<a href="reservas/index/#about" class="btn btn-primary mt-3" data-i18n="banner.button"></a>
 	</div>
 </header>
 
@@ -97,56 +97,56 @@
 		</div>
 	</section>
 	<section id="fechas" class="py-8">
-	    <div class="container">
-	        <h2 class="text-center">Comprobar Disponibilidad</h2>
-	        <form id="comprobar-disponibilidad-form" th:action="@{/reservas/comprobar-disponibilidad}" method="POST">
-	            <div class="row">
-	                <div class="col-md-6">
-	                    <label for="fecha-inicio">Fecha de Inicio:</label>
-	                    <input type="date" id="fechaEntrada" name="fechaEntrada" class="form-control" required>
-	                </div>
-	                <div class="col-md-6">
-	                    <label for="fecha-fin">Fecha de Fin:</label>
-	                    <input type="date" id="fechaSalida" name="fechaSalida" class="form-control" required>
-	                </div>
-	            </div>
-	            <div class="text-center mt-4">
-	                <button type="button" id="comprobar-disponibilidad-formBtn" class="btn btn-primary">
-	                    Comprobar Disponibilidad
-	                </button>
-	            </div>
-	            <br>
-	        </form>
-	    </div>
-	    <div class="container">
-	        <div id="resultados-disponibilidad">
-	            <!-- Aquí se mostrarán los resultados de disponibilidad -->
-	            <div th:if="${disponible != null and !disponible}">
-	                <div class="card">
-	                    <div class="alert alert-warning" role="alert">
-	                        <h4 class="alert-heading">No Disponible</h4>
-	                        <p>La casa no está disponible para las fechas seleccionadas</p>
-	                        <hr>
-	                        <p class="mb-0">Por favor, seleccione otras fechas</p>
-	                    </div>
-	                </div>
-	            </div>
+		<div class="container">
+			<h2 class="text-center">Comprobar Disponibilidad</h2>
+			<form id="comprobar-disponibilidad-form" th:action="@{/reservas/comprobar-disponibilidad}" method="POST">
+				<div class="row">
+					<div class="col-md-6">
+						<label for="fecha-inicio">Fecha de Inicio:</label>
+						<input type="date" id="fechaEntrada" name="fechaEntrada" class="form-control" required>
+					</div>
+					<div class="col-md-6">
+						<label for="fecha-fin">Fecha de Fin:</label>
+						<input type="date" id="fechaSalida" name="fechaSalida" class="form-control" required>
+					</div>
+				</div>
+				<div class="text-center mt-4">
+					<button type="button" id="comprobar-disponibilidad-formBtn" class="btn btn-primary">
+						Comprobar Disponibilidad
+					</button>
+				</div>
+				<br>
+			</form>
+		</div>
+		<div class="container">
+			<div id="resultados-disponibilidad">
+				<!-- Aquí se mostrarán los resultados de disponibilidad -->
+				<div th:if="${disponible != null and !disponible}">
+					<div class="card">
+						<div class="alert alert-warning" role="alert">
+							<h4 class="alert-heading">No Disponible</h4>
+							<p>La casa no está disponible para las fechas seleccionadas</p>
+							<hr>
+							<p class="mb-0">Por favor, seleccione otras fechas</p>
+						</div>
+					</div>
+				</div>
 
-	            <div th:if="${disponible}">
-	                <div class="card">
-	                    <div class="alert alert-success" role="alert">
-	                        <h4 class="alert-heading">Disponible</h4>
-	                        <p>La casa está disponible para las fechas seleccionadas</p>
-	                        <hr>
-	                        <a href="/reservas/lista" class="btn btn-primary mt-3">Reservar</a>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
+				<div th:if="${disponible}">
+					<div class="card">
+						<div class="alert alert-success" role="alert">
+							<h4 class="alert-heading">Disponible</h4>
+							<p>La casa está disponible para las fechas seleccionadas</p>
+							<hr>
+							<a href="/reservas/lista" class="btn btn-primary mt-3">Reservar</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 
-	
+
 	<!-- Contact Section -->
 	<section id="contact" class="bg-light py-5">
 		<div class="container">
@@ -182,39 +182,75 @@
 
 
 	<div class="container mt-5">
-		<h3 class="text-center">Nuestra Ubicación</h3>
-		<div id="map" style="height: 300px; width: 100%;"></div>
+	    <h3 class="text-center">Nuestra Ubicación</h3>
+	    <div id="map" style="height: 300px; width: 100%;">
+	        <iframe
+	            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3491.0582279848313!2d-13.643495123730197!3d28.955997369316968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc46242be1e3037f%3A0x826571f1f27a3aa1!2sCam.%20Lugar%20de%20Abajo%2C%205%2C%2035572%20T%C3%ADas%2C%20Las%20Palmas!5e0!3m2!1ses!2ses!4v1726559353589!5m2!1ses!2ses"
+	            style="border:0; width: 100%; height: 100%;" allowfullscreen="" loading="lazy"
+	            referrerpolicy="no-referrer-when-downgrade">
+	        </iframe>
+	    </div>
 	</div>
+
 	<br>
+	<button id="btnSubir" title="Subir" onclick="subirArriba()">	<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-caret-up" viewBox="0 0 16 16">
+	  <path d="M3.204 11h9.592L8 5.519zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659"/>
+	</svg>
+	</button>
 
 	<th:block th:include="componentes/footer.html"></th:block>
 	<th:block th:include="componentes/_scripts.html"></th:block>
 
 
 	<script>
-	    $(document).ready(function () {
-	        // Maneja el evento de clic en el botón
-	        $('#comprobar-disponibilidad-formBtn').on('click', function (event) {
-	            event.preventDefault(); // Evita la recarga de la página
-	            
-	            // Serializa los datos del formulario
-	            var formData = $('#comprobar-disponibilidad-form').serialize();
+		$(document).ready(function () {
+			// Maneja el evento de clic en el botón
+			$('#comprobar-disponibilidad-formBtn').on('click', function (event) {
+				event.preventDefault(); // Evita la recarga de la página
 
-	            // Llamada AJAX para comprobar la disponibilidad
-	            $.ajax({
-	                url: $('#comprobar-disponibilidad-form').attr('action'), // La URL del formulario
-	                type: 'POST',
-	                data: formData,
-	                success: function (response) {
-	                    // Actualiza solo la sección de disponibilidad con la respuesta del servidor
-	                    $('#resultados-disponibilidad').html($(response).find('#resultados-disponibilidad').html());
-	                },
-	                error: function (error) {
-	                    console.log("Error en la comprobación de disponibilidad: ", error);
-	                }
-	            });
-	        });
-	    });
+				// Serializa los datos del formulario
+				var formData = $('#comprobar-disponibilidad-form').serialize();
+
+				// Llamada AJAX para comprobar la disponibilidad
+				$.ajax({
+					url: $('#comprobar-disponibilidad-form').attr('action'), // La URL del formulario
+					type: 'POST',
+					data: formData,
+					success: function (response) {
+						// Actualiza solo la sección de disponibilidad con la respuesta del servidor
+						$('#resultados-disponibilidad').html($(response).find('#resultados-disponibilidad').html());
+					},
+					error: function (error) {
+						console.log("Error en la comprobación de disponibilidad: ", error);
+					}
+				});
+			});
+		});
+		
+
+		// Mostrar el botón cuando el usuario hace scroll hacia abajo 20px
+		window.onscroll = function() {
+		    mostrarBoton();
+		};
+
+		function mostrarBoton() {
+		    const btn = document.getElementById("btnSubir");
+		    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+		        btn.style.display = "block"; // Mostrar el botón
+		    } else {
+		        btn.style.display = "none"; // Ocultar el botón
+		    }
+		}
+
+		// Volver al inicio de la página
+		function subirArriba() {
+		    document.body.scrollTop = 0; // Para Safari
+		    document.documentElement.scrollTop = 0; // Para Chrome, Firefox, IE y Opera
+		}
+		
+		
+
+
 	</script>
 
 

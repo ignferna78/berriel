@@ -67,3 +67,24 @@ html, body {
 }
 
 
+#btnSubir {
+    display: none; /* Inicialmente oculto */
+    position: fixed; /* Posición fija */
+    bottom: 20px; /* 20px desde la parte inferior */
+    right: 30px; /* 30px desde el lado derecho */
+    z-index: 99; /* Asegura que esté por encima de otros elementos */
+    font-size: 30px;
+    border: none;
+    outline: none;
+    background-color: #408080; /* Color de fondo */
+    color: white; /* Color del texto */
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+#btnSubir:hover {
+    background-color: #8000ff; /* Color cuando se pasa el ratón por encima */
+}
+
+
