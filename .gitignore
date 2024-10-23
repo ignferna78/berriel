@@ -1,0 +1,58 @@
+# Directorio target de Maven
+target/
+
+# Archivos de configuración de Eclipse
+.classpath
+.project
+.settings/
+
+# Directorio bin temporal para clases compiladas
+bin/
+
+# Archivos de metadatos de Eclipse
+.metadata
+.recommenders/
+
+# Carpetas de trabajo específicas de Eclipse
+RemoteSystemsTempFiles/
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de volcados de memoria
+*.dump
+*.swp
+*.swo
+
+# Directorios de compilación y paquetes
+out/
+build/
+dist/
+
+# Archivos de paquetes
+*.jar
+*.war
+*.ear
+
+# Archivos temporales
+tmp/
+temp/
+*.tmp
+*.log
+
+# Archivos de IDE y editores de texto
+.idea/
+*.iml
+*.sublime-workspace
+*.sublime-project
+.vscode/
+*.code-workspace
+nbproject/
+# Archivos de configuracion
+.factorypath
+/hibernate.cfg.xml
+/hibernate.hbm.xml
+/hibernate.reveng.xml
+/orm.xml
+/persistence.xml
