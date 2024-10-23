@@ -62,7 +62,7 @@
 					</div>
 
 					<div class="modal-body">
-						<form th:action="@{/login}" method="post" th:object="${usuario}">
+						<form th:action="@{registro/inicio}" method="post" th:object="${usuario}">
 						
 							<div th:if=${param.error}>
 						<div class="alert alert-danger">Usuario o contraseña

@@ -1,0 +1,68 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+.gradle/
+build/
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Logs
+*.log
+logs/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+
+# VS Code
+.vscode/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos temporales y de sistema
+*.swp
+*.swo
+*.bak
+*.tmp
+*~
+
+# Configuración específica del entorno
+.env
+*.local.properties
+
+# Archivos de compilación
+*.class
+*.war
+*.jar
+*.ear
+
+# Archivos de caché
+*.cache
+*.temp
+*.pid
+
+# Archivos de cobertura de código y análisis
+/coverage/
+*.lcov
+/target/site/
+**/test-results/

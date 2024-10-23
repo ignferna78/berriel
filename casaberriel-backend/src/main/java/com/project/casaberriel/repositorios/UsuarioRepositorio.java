@@ -8,5 +8,6 @@ import com.project.casaberriel.model.usuarios.Usuario;
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Long>{
 
-	public Usuario findByEmail(String email);
+	Usuario findByEmail(String email);
+	
 }

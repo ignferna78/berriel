@@ -1,17 +1,21 @@
 package com.project.casaberriel.controllers;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Locale;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.casaberriel.model.reservas.ReservaEntity;
+import com.project.casaberriel.model.reservas.ReservaForm;
 import com.project.casaberriel.service.ReservaService;
 
 @Controller
@@ -24,19 +28,20 @@ public class HomeController {
 	}
 
 	private ReservaService reservaService;
+	private static final String REDIRECT_LISTA_RESERVAS = "redirect:/reservas/lista";
 
 	@GetMapping("/index")
 	public String index() {
 		return "index";
 	}
-	
-	@GetMapping("/lista")
+
+	/*@GetMapping("/lista")
 	public String listarReservas(Model model) {
 
 		model.addAttribute("reservas", reservaService.listarReservas());
 
 		return "reservas";
-	}
+	}*/
 
 	@GetMapping("/nueva")
 	public String mostrarFormularioReserva(Model model) {
@@ -55,16 +60,11 @@ public class HomeController {
 		return "detalle_reserva";
 	}
 
-	@PostMapping("/guardar")
-	public String guardarReserva(ReservaEntity reserva) {
-		reservaService.guardarReserva(reserva);
-		return "redirect:/reservas/lista"; // Nombre de la vista Thymeleaf";
-	}
 
 	@GetMapping("/editar/{id}")
 	public String mostrarFormularioEditarReserva(Model model, @PathVariable Long id) {
 		model.addAttribute("reserva", reservaService.obtenerReservaPorId(id));
-		return "redirect:/reservas/lista";
+		return REDIRECT_LISTA_RESERVAS;
 	}
 
 	@GetMapping("/eliminar/{id}")
@@ -72,16 +72,65 @@ public class HomeController {
 		reservaService.eliminarReserva(id);
 		return "redirect:/reservas/lista";
 	}
-	
-	@PostMapping("/comprobar-disponibilidad")
-	public String comprobarDisponibilidad(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaEntrada,
-	                                      @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaSalida,
-	                                      Model model) {
-	    // Aquí iría la lógica para comprobar disponibilidad entre las fechas
-	    boolean disponible = reservaService.comprobarDisponibilidad(fechaEntrada, fechaSalida);
 
-	    model.addAttribute("disponible", disponible);
-	    return "index"; // Vista donde mostrarás si está disponible o no
+	@GetMapping("/comprobar-disponibilidad")
+	public String comprobarDisponibilidad(@RequestParam(required = false) String fechaEntrada,
+	                                      @RequestParam(required = false) String fechaSalida, 
+	                                      Model model) {
+
+	    // Define los formateadores de fecha para entrada y salida
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
+	    LocalDate entrada = null;
+	    LocalDate salida = null;
+
+	    try {
+	        // Intenta convertir las fechas recibidas
+	        if (fechaEntrada != null && !fechaEntrada.isEmpty()) {
+	            entrada = LocalDate.parse(fechaEntrada, formatter);
+	        }
+	        if (fechaSalida != null && !fechaSalida.isEmpty()) {
+	            salida = LocalDate.parse(fechaSalida, formatter);
+	        }
+	    } catch (DateTimeParseException e) {
+	        // Si hay un error en el formato, vuelve a la página con un mensaje de error
+	        model.addAttribute("error", "Formato de fecha no válido");
+	        return "index";
+	    }
+
+	    // Verifica disponibilidad solo si ambas fechas son válidas
+	    if (entrada != null && salida != null) {
+	        ReservaForm reservaForm = new ReservaForm();
+	        reservaForm.setFechaEntrada(entrada.format(formatter));
+	        reservaForm.setFechaSalida(salida.format(formatter));
+
+	        boolean disponible = reservaService.comprobarDisponibilidad(reservaForm);
+	        model.addAttribute("disponible", disponible);
+	    } else {
+	        model.addAttribute("error", "Las fechas de entrada y salida son requeridas.");
+	    }
+
+	    // Agrega las fechas formateadas al modelo para mostrarlas en el formulario
+	    model.addAttribute("fechaEntradaFormateada", entrada != null ? entrada.format(formatter) : "");
+	    model.addAttribute("fechaSalidaFormateada", salida != null ? salida.format(formatter) : "");
+
+	    return "index"; // Retorna a la página principal o el formulario de reservas
+	}
+
+	
+	@GetMapping("/lista")
+	public String mostrarFormularioReserva(@RequestParam String fechaEntrada, @RequestParam String fechaSalida, Model model, HttpSession session) {
+		
+		 if (session.getAttribute("usuario") == null) {
+		        // Redirigir al modal de login
+		        model.addAttribute("redirectUrl", "/reservas/lista?fechaEntrada=" + fechaEntrada + "&fechaSalida=" + fechaSalida);
+		        return "registro";  // Nombre de la vista del modal de login
+		    }
+	    ReservaForm reservaForm = new ReservaForm();
+	    reservaForm.setFechaEntrada(fechaEntrada);
+	    reservaForm.setFechaSalida(fechaSalida);
+	    model.addAttribute("reservaForm", reservaForm);
+	   
+	    return "reservas";
 	}
 
 }

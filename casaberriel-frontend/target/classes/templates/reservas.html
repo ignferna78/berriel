@@ -3,78 +3,74 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<head>
 <title>Reservas</title>
 <!-- Head Start -->
 <th:block th:include="componentes/_head.html"></th:block>
 <!-- Head End -->
+
 </head>
 <body>
 	<th:block th:include="componentes/_nav.html"></th:block>
 	<br>
 
-	<form th:action="@{/reservas/guardar}" method="post" id="formReserva" th:object="${reserva}">
-		<div class="container">
-			<div class="card mt-3">
-				<div class="card-header">
-					 <span th:text="'▪ '" class="fw-bold text-warning"></span>
-                                  <span th:href="@{/reservas}" data-i18n="contact.booking_form" class="fw-bold"></span>
-                                   <button th:title="'Limpiar criterios de busqueda'" id="iniciolink" class="btn btn-link p-0" onclick="limpiarCriterios();">
-                                      <span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eraser-fill" viewBox="2 0 12 22">
-                                          <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z"></path>
-                                      </svg></span>
-                                  </button>
-				</div>
-				<div class="card-body">
-					<!-- Nombre y apellidos -->
-					<div class="form-group mb-3">
-						<label for="nombre" class="form-label">Nombre y Apellidos</label>
-						<div class="input-group">
-							<input type="text" id="nombre" name="nombre" aria-label="First name"
-								class="form-control" placeholder="Nombre" required> 
-							<input type="text" aria-label="apellidos" id="apellidos" name="apellidos" class="form-control"
-								placeholder="Apellidos" required>
-						</div>
-					</div>
-					<div class="row">
-						<!-- Email -->
-						<div class="col-md-6 mb-3">
-							<label for="email" class="form-label" data-i18n="contact.email"></label>
-							<input type="email" class="form-control" id="email" name="email"
-								placeholder="example@correo.com" required>
-						</div>
-						<div class="col-md-6 mb-3">
-							<label for="direccion" class="form-label" data-i18n="contact.address"></label> <input
-								type="text" class="form-control" id="direccion" name="direccion"
-								placeholder="Tu dirección" required>
-						</div>
-					</div>
-					<div class="row">
-						<!-- Fecha de Entrada -->
-						<div class="col-md-6 mb-3">
-							<label for="fechaEntrada" class="form-label">Fecha de
-								Entrada</label> <input type="date" class="form-control datepicker"
-								id="fechaEntrada" name="fechaEntrada" required>
-						</div>
+	<form th:action="@{/reservas/guardar}" method="post" id="formReserva" th:object="${reservaForm}">
+	    <div class="container">
+	        <div class="card mt-3">
+	            <div class="card-header">
+	                <span class="fw-bold text-warning">▪</span>
+	                <span class="fw-bold" data-i18n="contact.booking_form"></span>
+	                <button title="Limpiar criterios de búsqueda" id="iniciolink" class="btn btn-link p-0" onclick="limpiarCriterios();">
+	                    <span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eraser-fill" viewBox="2 0 12 22">
+	                        <path d="..."></path>
+	                    </svg></span>
+	                </button>
+	            </div>
+	            <div class="card-body">
+	                <!-- Nombre y apellidos -->
+	                <div class="form-group mb-3">
+	                    <label for="nombre" class="form-label">Nombre y Apellidos</label>
+	                    <div class="input-group">
+	                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>
+	                        <input type="text" id="apellidos" name="apellidos" class="form-control" placeholder="Apellidos" required>
+	                    </div>
+	                </div>
+	                
+	                <div class="row">
+	                    <!-- Email -->
+	                    <div class="col-md-6 mb-3">
+	                        <label for="email" class="form-label">Email</label>
+	                        <input type="email" class="form-control" id="email" name="email" placeholder="example@correo.com" required>
+	                    </div>
+	                    <!-- Dirección -->
+	                    <div class="col-md-6 mb-3">
+	                        <label for="direccion" class="form-label">Dirección</label>
+	                        <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Tu dirección" required>
+	                    </div>
+	                </div>
 
-						<!-- Fecha de Salida -->
-						<div class="col-md-6 mb-3">
-							<label for="fechaSalida" class="form-label">Fecha de
-								Salida</label> <input type="date" class="form-control datepicker" id="fechaSalida"
-								name="fechaSalida" required>
-						</div>
-					</div>
+	                <div class="row">
+	                    <!-- Fecha de Entrada -->
+	                    <div class="col-md-6 mb-3">
+	                        <label for="fechaEntrada" class="form-label">Fecha de Entrada</label>
+	                        <input type="text" class="form-control datepicker" id="fechaEntrada" name="fechaEntrada" value="${reservaForm.fechaEntrada}" readonly>
+	                    </div>
+	                    <!-- Fecha de Salida -->
+	                    <div class="col-md-6 mb-3">
+	                        <label for="fechaSalida" class="form-label">Fecha de Salida</label>
+	                        <input type="text" class="form-control datepicker" id="fechaSalida" name="fechaSalida" value="${reservaForm.fechaSalida}" readonly>
+	                    </div>
+	                </div>
 
-					<div class="row mt-4 pt-4">
-						<div class="col text-center">
-							<!-- Centramos el contenido en la columna -->
-							<button type="submit" class="btn btn-primary">Enviar</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+	                <div class="row mt-4 pt-4">
+	                    <div class="col text-center">
+	                        <button type="submit" class="btn btn-primary">Enviar</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
 	</form>
+
 
 
 
@@ -164,20 +160,20 @@
 
 	</div>
 
-
 	<th:block th:include="componentes/_scripts.html"></th:block>
+<th:block th:include="componentes/footer.html"></th:block>
 </body>
 
 <script>
 
-	$('.deleteReservaBtn').on('click', function() {
-		event.preventDefault();
-		var confirmDeletion = confirm('¿Está seguro de que quiere eliminar esta reserva?');
-		if (confirmDeletion) {
-			window.location.href = $(this).attr('href');
-		}
-	});
+	$('.deleteReservaBtn').on('click', function(event) {
+				event.preventDefault();
+				var confirmDeletion = confirm('¿Está seguro de que quiere eliminar esta reserva?');
+				if (confirmDeletion) {
+					window.location.href = $(this).attr('href');
+				}
+			});
   
 </script>
-<th:block th:include="componentes/footer.html"></th:block>
+
 </html>

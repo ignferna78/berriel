@@ -47,6 +47,7 @@
 			Casa Berriel, se ha registrado con exito !</div>
 			<span th:if="${error}" th:text="${error}" class="error"></span>
 	</div>
+	<input type="hidden" name="redirectUrl" th:value="${redirectUrl}">
 
 
 </body>

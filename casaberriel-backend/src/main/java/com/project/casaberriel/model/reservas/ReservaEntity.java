@@ -1,11 +1,20 @@
 package com.project.casaberriel.model.reservas;
 
+import java.util.Date;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDate;
+import com.project.casaberriel.model.usuarios.Usuario;
 
 @Entity
 @Table(name = "reservas")
@@ -17,17 +26,41 @@ public class ReservaEntity {
 
     @Column(nullable = false)
     private String nombre;
-    
+
     @Column(nullable = false)
     private String apellidos;
-    
+
     @Column(nullable = false)
     private String email;
-    
-    @Column(nullable = false)
-	private String direccion;
 
-    public String getDireccion() {
+    @Column(nullable = false)
+    private String direccion;
+
+    @Column(name = "fecha_entrada", nullable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaEntrada;
+
+    @Column(name = "fecha_salida", nullable = false)
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaSalida;
+
+    // Relación Many-to-One con Usuario
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public ReservaEntity() {
+	}
+
+	public String getDireccion() {
 		return direccion;
 	}
 
@@ -35,19 +68,6 @@ public class ReservaEntity {
 		this.direccion = direccion;
 	}
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate fechaEntrada;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate fechaSalida;
-    
-   
-	public ReservaEntity() {
-	}
-	
-	
-    
-    
 	public String getNombre() {
 		return nombre;
 	}
@@ -80,24 +100,23 @@ public class ReservaEntity {
 		this.id = id;
 	}
 
-	public LocalDate getFechaEntrada() {
+	public Date getFechaEntrada() {
 		return fechaEntrada;
 	}
 
-	public void setFechaEntrada(LocalDate fechaEntrada) {
+	public void setFechaEntrada(Date fechaEntrada) {
 		this.fechaEntrada = fechaEntrada;
 	}
 
-	public LocalDate getFechaSalida() {
+	public Date getFechaSalida() {
 		return fechaSalida;
 	}
 
-	public void setFechaSalida(LocalDate fechaSalida) {
+	public void setFechaSalida(Date fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
 
-    // Getters y Setters
-    // Constructor vacío y personalizado si es necesario
-    
-    
+	// Getters y Setters
+	// Constructor vacío y personalizado si es necesario
+
 }

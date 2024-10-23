@@ -1,5 +1,7 @@
 package com.project.casaberriel.dto;
 
+import java.util.Date;
+
 public class ReservaDto implements java.io.Serializable{
 
 	/**
@@ -10,13 +12,13 @@ public class ReservaDto implements java.io.Serializable{
 	private String apellidos;
 	private String email;
 	private String direccion;
-	private String fechaEntrada;
-	private String fechaSalida;
+	private Date fechaEntrada;
+	private Date fechaSalida;
 
 	public ReservaDto() {
 	}
 
-	public ReservaDto(String nombre,String apellidos, String direccion, String fechaEntrada, String fechaSalida) {
+	public ReservaDto(String nombre,String apellidos, String direccion, Date fechaEntrada, Date fechaSalida) {
 		this.nombre = nombre;
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
@@ -54,21 +56,21 @@ public class ReservaDto implements java.io.Serializable{
 		this.direccion = direccion;
 	}
 	
-	public String getFechaEntrada() {
+	public Date getFechaEntrada() {
 		return fechaEntrada;
 	}
 
-	public String getFechaSalida() {
+	public Date getFechaSalida() {
 		return fechaSalida;
 	}
 
 	
 
-	public void setFechaEntrada(String fechaEntrada) {
+	public void setFechaEntrada(Date fechaEntrada) {
 		this.fechaEntrada = fechaEntrada;
 	}
 
-	public void setFechaSalida(String fechaSalida) {
+	public void setFechaSalida(Date fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
 }
