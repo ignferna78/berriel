@@ -1,10 +1,20 @@
-C:\Users\ignferna\OneDrive - Capgemini\Documents\SPRING-PROJECTS\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\GreetingHandler.java
-C:\Users\ignferna\OneDrive - Capgemini\Documents\SPRING-PROJECTS\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\repository\ReservaRepository.java
-C:\Users\ignferna\OneDrive - Capgemini\Documents\SPRING-PROJECTS\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\ReservaForm.java
-C:\Users\ignferna\OneDrive - Capgemini\Documents\SPRING-PROJECTS\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\service\ReservaService.java
-C:\Users\ignferna\OneDrive - Capgemini\Documents\SPRING-PROJECTS\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\controllers\ReservaController.java
-C:\Users\ignferna\OneDrive - Capgemini\Documents\SPRING-PROJECTS\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\Greeting.java
-C:\Users\ignferna\OneDrive - Capgemini\Documents\SPRING-PROJECTS\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\App.java
-C:\Users\ignferna\OneDrive - Capgemini\Documents\SPRING-PROJECTS\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\Reserva.java
-C:\Users\ignferna\OneDrive - Capgemini\Documents\SPRING-PROJECTS\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\WelcomeHandler.java
-C:\Users\ignferna\OneDrive - Capgemini\Documents\SPRING-PROJECTS\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\ReservaDto.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\utils\DateUtils.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\Greeting.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\repositorios\UsuarioRepositorio.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\service\Impl\UsuarioServiceImpl.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\repositorios\ReservaRepositorio.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\service\ReservaService.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\controllers\RegitroUsuarioController.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\usuarios\Rol.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\usuarios\Usuario.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\controllers\HomeController.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\reservas\ReservaEntity.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\dto\UsuarioRegistroDto.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\service\UsuarioService.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\dto\ReservaDto.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\service\Impl\ReservaServiceImpl.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\WelcomeHandler.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\controllers\RegistroControlador.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\model\reservas\ReservaForm.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\App.java
+C:\Users\ignferna\git\berriel\casaberriel\casaberriel-backend\src\main\java\com\project\casaberriel\GreetingHandler.java

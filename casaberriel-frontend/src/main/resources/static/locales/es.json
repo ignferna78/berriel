@@ -1,6 +1,7 @@
 {
   "navbar": {
     "home": "Inicio",
+    "booking": "Reservas",
     "about": "Sobre Nosotros",
     "services": "Servicios",
     "gallery": "Galería",
@@ -9,19 +10,19 @@
   },
   "banner": {
     "title": "Bienvenidos a CASA BERRIEL",
-    "subtitle": "Una experiencia rural única en un entorno natural incomparable.",
+    "subtitle": "Una experiencia única en un entorno natural incomparable.",
     "button": "Descubre Más"
   },
   "about": {
     "title": "Sobre Nosotros",
-    "content": "CASA BERRIEL es una casa rural que ofrece una estancia tranquila y confortable en el corazón de la naturaleza. Ideal para desconectar y disfrutar de la belleza de nuestro entorno."
+    "content": "CASA BERRIEL es una casa que ofrece una estancia tranquila y confortable en el corazón de la isla. Ideal para desconectar y disfrutar de la belleza de nuestro entorno."
   },
   "services": {
     "title": "Nuestros Servicios",
     "service1": "Alojamientos Completos",
-    "service1_desc": "Habitaciones amplias y cómodas para un descanso perfecto.",
+    "service1_desc": "Apartamentos amplios y cómodas para un descanso perfecto.",
     "service2": "Entorno Natural",
-    "service2_desc": "Disfruta de rutas de senderismo, vistas y actividades al aire libre.",
+    "service2_desc": "Disfruta de la playa, rutas de senderismo a través de los volcanes, vistas y actividades al aire libre.",
     "service3": "Cocina Regional",
     "service3_desc": "Saborea la gastronomía local con productos frescos y de calidad."
   },
@@ -30,14 +31,18 @@
   },
   "contact": {
     "title": "Contacto",
+    "subtitle": "Estamos a tu disposición para cualquier consulta o reserva.",
     "address": "Dirección:",
-    "phone": "Teléfono:",
+    "address_desc": "Lugar de abajo, 5, Tías , Lanzarote",
+    "phone_title": "Teléfono:",
+      "phone": "+34 606 986 345:",
     "email": "Email:",
     "send_message": "Envíanos un mensaje:",
     "name_placeholder": "Tu Nombre",
     "email_placeholder": "Tu Email",
     "message_placeholder": "Tu Mensaje",
-    "send_button": "Enviar"
+    "send_button": "Enviar",
+    "booking_form": "Formulario de reserva"
   },
   "login": {
     "title": "Iniciar Sesión",
