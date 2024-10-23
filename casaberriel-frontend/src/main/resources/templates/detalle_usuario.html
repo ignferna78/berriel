@@ -1,0 +1,42 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>	<!-- Head Start -->
+	<th:block th:include="componentes/_head.html"></th:block>
+	<!-- Head End -->
+	<title data-i18n="banner.title"></title>
+</head>
+
+<body>
+<th:block th:include="componentes/_nav.html"></th:block>
+
+	<div class="container mt-5">
+		<h1 class="mb-4">Detalle del Usuario</h1>
+		<div class="card">
+			<div class="card-body">
+				<p class="mb-1">
+					<strong>Nombre:</strong> <span th:text="${usuario.nombre}"></span>
+				</p>
+				<p class="mb-1">
+					<strong>Apellidos:</strong> <span th:text="${usuario.apellidos}"></span>
+				</p>
+				<p class="mb-1">
+					<strong>Email:</strong> <span
+						th:text="${usuario.email}"></span>
+				</p>
+				<p class="mb-1">
+					<strong>Pass</strong> <span
+						th:text="${usuario.password}"></span>
+				</p>
+				
+				<!-- Agrega más campos según sea necesario -->
+			</div>
+		</div>
+		<a href="/reservas" class="btn btn-primary mt-4">Volver</a>
+	</div>
+	
+</body>
+
+<th:block th:include="componentes/footer.html"></th:block>
+</html>
