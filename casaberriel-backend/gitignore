@@ -5,6 +5,7 @@ pom.xml.releaseBackup
 pom.xml.versionsBackup
 pom.xml.next
 release.properties
+pom.properties
 
 # Gradle
 .gradle/
@@ -64,5 +65,5 @@ Thumbs.db
 # Archivos de cobertura de código y análisis
 /coverage/
 *.lcov
-/target/site/
+/target/**
 **/test-results/

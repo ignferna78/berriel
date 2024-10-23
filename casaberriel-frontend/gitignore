@@ -65,5 +65,6 @@ Thumbs.db
 # Archivos de cobertura de código y análisis
 /coverage/
 *.lcov
-/target/site/
+
 **/test-results/
+/target/**
