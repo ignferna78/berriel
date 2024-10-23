@@ -1,0 +1,44 @@
+<!-- Datable Start -->
+<th:block th:include="componentes/_import_datatable.html"></th:block>
+<!-- Datable End -->
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	$(document).ready(function () {
+		$('#reservaDatatable').DataTable({
+			"serverSide": false,
+			"deferRender": 0,
+			"autoWidth": true,
+			"ordering": true,
+			"order": // Ordenar solo por la primera columna 
+				[
+					[0, "asc"]
+				],
+			"searching": true,
+			"info": true,
+			"paging": true,
+			// Personalizar la cantidad de elementos a mostrar
+			"lengthMenu": [10, 20, 30],
+			"language": {
+				"url": 'static/lib/datatables/i18n/es-ES.json',
+				"emptyTable": "<strong>Ningún resultado con el criterio de búsqueda actual</strong>"
+			},
+			"columnDefs": [
+				{"data": "fechaEntrada", "width": 'auto', "orderSequence": ['desc', 'asc']},
+				{"data": "fechaSalida", "width": 'auto', "orderSequence": ['desc', 'asc']},
+				{"data": "precioTotal", "width": 'auto', "orderSequence": ['desc', 'asc']},
+				
+			],
+			"initComplete": function () {
+
+				$('.dataTables_wrapper').css({
+					'padding': '2px',
+					'margin-left': '15px',
+					'margin-right': '15px'
+				});
+
+			}
+		});
+	});
+
+	/*]]>*/
+</script>

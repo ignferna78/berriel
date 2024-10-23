@@ -1,6 +1,7 @@
 {
   "navbar": {
     "home": "Home",
+    "booking": "Booking",
     "about": "About Us",
     "services": "Services",
     "gallery": "Gallery",
@@ -9,19 +10,19 @@
   },
   "banner": {
     "title": "Welcome to CASA BERRIEL",
-    "subtitle": "A unique rural experience in an unparalleled natural setting.",
+    "subtitle": "A unique experience in an unparalleled natural setting.",
     "button": "Discover More"
   },
   "about": {
     "title": "About Us",
-    "content": "CASA BERRIEL is a rural house that offers a peaceful and comfortable stay in the heart of nature. Ideal for disconnecting and enjoying the beauty of our surroundings."
+    "content": "CASA BERRIEL is a house that offers a peaceful and comfortable stay in the heart of island. Ideal for disconnecting and enjoying the beauty of our surroundings."
   },
   "services": {
     "title": "Our Services",
     "service1": "Complete Accommodations",
-    "service1_desc": "Spacious and comfortable rooms for perfect rest.",
+    "service1_desc": "Spacious and comfortable apartments for perfect rest.",
     "service2": "Natural Environment",
-    "service2_desc": "Enjoy hiking trails, views, and outdoor activities.",
+    "service2_desc": "Enjoy the beach through the volcanos, hiking trails, views, and outdoor activities.",
     "service3": "Regional Cuisine",
     "service3_desc": "Savor local cuisine with fresh and quality products."
   },
@@ -30,15 +31,18 @@
   },
   "contact": {
     "title": "Contact",
+    "subtitle": "We are here to help you. Contact us for more information",
     "address": "Address:",
-    "phone": "Phone:",
-    "email": "Email:",
+     "address_desc": "Lugar de abajo, 5, Tías , Lanzarote",
+    "phone_title": "phone:",
+     "phone": "+34 606 986 345:",    "email": "Email:",
     "send_message": "Send us a message:",
     "name_placeholder": "Your Name",
     "email_placeholder": "Your Email",
     "message_placeholder": "Your Message",
-    "send_button": "Send"
-  },
+    "send_button": "Send",
+    "booking_form": "Booking form"
+  ,
   "login": {
     "title": "Login",
     "email_placeholder": "Enter your email",
@@ -48,4 +52,5 @@
   "footer": {
     "text": "&copy; 2024 CASA BERRIEL. All rights reserved."
   }
+}
 }

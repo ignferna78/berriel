@@ -1,112 +1,179 @@
 <!DOCTYPE html>
-<html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>Reservas</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!-- Head Start -->
+<th:block th:include="componentes/_head.html"></th:block>
+<!-- Head End -->
 
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/reservas">CASA BERRIEL</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                    <a class="nav-link" href="/reservas/lista">Reservas</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#about">Sobre Nosotros</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#services">Servicios</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#gallery">Galería</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contacto</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+	<th:block th:include="componentes/_nav.html"></th:block>
+	<br>
 
-	<form th:action="@{/reservas/guardar}" method="post">
-	        
-	 
-			<div class="container">
-				<h1 class="my-4">Nueva Reserva</h1>
-				<div class="form-group">
-				    <div class="form-group">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" class="form-control" id="nombre" name="nombre" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="apellidos">Apellidos</label>
-                        <input type="text" class="form-control" id="apellidos" name="apellidos" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fechaEntrada">Fecha de Entrada</label>
-                        <input type="date" class="form-control" id="fechaEntrada" name="fechaEntrada" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fechaSalida">Fecha de Salida</label>
-                        <input type="date" class="form-control" id="fechaSalida" name="fechaSalida" required>
-                    </div>
-                     
-                     <div class="form-group">
-                     <label for="email">Email</label>
-					<input type="email" class="form-control" id="email" name="email" required>	
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Guardar</button>
-                    
-               </div>
-               
-      </form>
-                     
+	<form th:action="@{/reservas/guardar}" method="post" id="formReserva" th:object="${reservaForm}">
+	    <div class="container">
+	        <div class="card mt-3">
+	            <div class="card-header">
+	                <span class="fw-bold text-warning">▪</span>
+	                <span class="fw-bold" data-i18n="contact.booking_form"></span>
+	                <button title="Limpiar criterios de búsqueda" id="iniciolink" class="btn btn-link p-0" onclick="limpiarCriterios();">
+	                    <span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eraser-fill" viewBox="2 0 12 22">
+	                        <path d="..."></path>
+	                    </svg></span>
+	                </button>
+	            </div>
+	            <div class="card-body">
+	                <!-- Nombre y apellidos -->
+	                <div class="form-group mb-3">
+	                    <label for="nombre" class="form-label">Nombre y Apellidos</label>
+	                    <div class="input-group">
+	                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>
+	                        <input type="text" id="apellidos" name="apellidos" class="form-control" placeholder="Apellidos" required>
+	                    </div>
+	                </div>
+	                
+	                <div class="row">
+	                    <!-- Email -->
+	                    <div class="col-md-6 mb-3">
+	                        <label for="email" class="form-label">Email</label>
+	                        <input type="email" class="form-control" id="email" name="email" placeholder="example@correo.com" required>
+	                    </div>
+	                    <!-- Dirección -->
+	                    <div class="col-md-6 mb-3">
+	                        <label for="direccion" class="form-label">Dirección</label>
+	                        <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Tu dirección" required>
+	                    </div>
+	                </div>
+
+	                <div class="row">
+	                    <!-- Fecha de Entrada -->
+	                    <div class="col-md-6 mb-3">
+	                        <label for="fechaEntrada" class="form-label">Fecha de Entrada</label>
+	                        <input type="text" class="form-control datepicker" id="fechaEntrada" name="fechaEntrada" value="${reservaForm.fechaEntrada}" readonly>
+	                    </div>
+	                    <!-- Fecha de Salida -->
+	                    <div class="col-md-6 mb-3">
+	                        <label for="fechaSalida" class="form-label">Fecha de Salida</label>
+	                        <input type="text" class="form-control datepicker" id="fechaSalida" name="fechaSalida" value="${reservaForm.fechaSalida}" readonly>
+	                    </div>
+	                </div>
+
+	                <div class="row mt-4 pt-4">
+	                    <div class="col text-center">
+	                        <button type="submit" class="btn btn-primary">Enviar</button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</form>
 
 
-    <div class="container">
-        <h1 class="my-4">Lista de Reservas</h1><a href="/index.html">Inicio</a>
-        <table class="table table-striped table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellidos</th>
-                    <th scope="col">Fecha de Entrada</th>
-                    <th scope="col">Fecha de Salida</th>
-                    <th scope="col">Email</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="reserva : ${reservas}">
-                    <td th:text="${reserva.id}"></td>
-                    <td th:text="${reserva.nombre}"></td>
-                    <td th:text="${reserva.apellidos}"></td>
-                    <td th:text="${reserva.fechaEntrada}"></td>
-                    <td th:text="${reserva.fechaSalida}"></td>
-                    <td th:text="${reserva.email}"></td>
-               
-                    <td>
-                        <a th:href="@{'/reservas/editar/' + ${reserva.id}}">Editar</a>
-                        <a th:href="@{'/reservas/eliminar/' + ${reserva.id}}">Eliminar</a>
-                        <a th:href="@{'/reservas/detalle/' + ${reserva.id}}">Ver Detalle</a>
-                        </td>
-                </tr>
-            </tbody>
-        </table>
-        
-        
-    </div>
+
+
+
+	<div class="container">
+		<h1 class="my-4">Lista de Reservas</h1>
+		<a href="/index.html">Inicio</a>
+		<table class="table table-striped table-hover">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Apellidos</th>
+						<th scope="col">Email</th>
+					<th scope="col">Direccion</th>
+					<th scope="col">Fecha de Entrada</th>
+					<th scope="col">Fecha de Salida</th>
+					
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="reserva : ${reservas}">
+					<td th:text="${reserva.id}"></td>
+					<td th:text="${reserva.nombre}"></td>
+					<td th:text="${reserva.apellidos}"></td>
+					<td th:text="${reserva.email}"></td>
+					<td th:text="${reserva.direccion}"></td>
+					<td th:text="${reserva.fechaEntrada}"></td>
+					<td th:text="${reserva.fechaSalida}"></td>
+					
+
+					<td><a class="btn btn-outline-success" title="Editar Reserva"
+						th:href="@{'/reservas/editar/' + ${reserva.id}}"> <svg
+								xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+								fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                        <path
+									d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
+                         </svg></a> <a
+						class="btn btn-outline-danger deleteReservaBtn"
+						title="Eliminar Reserva"
+						th:href="@{'/reservas/eliminar/' + ${reserva.id}}"
+						data-toggle="modal"
+						th:attr="data-target='#deleteModal' + ${reserva.id}"
+						data-target="#deleteModal" data-id="${reserva.id}"> <svg
+								xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+								fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                                                    <path
+									d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
+                                                </svg></a> <a title="Ver Reserva"
+						class="btn btn-outline-info"
+						th:href="@{'/reservas/detalle/' + ${reserva.id}}"><svg
+								xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+								fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+  <path
+									d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+  <path
+									d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+</svg></a></td>
+				</tr>
+			</tbody>
+			<!-- Modal HTML -->
+			<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+				aria-labelledby="deleteModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="deleteModalLabel">Confirmar
+								Eliminación</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">¿Estás seguro de que deseas eliminar
+							esta reserva?</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Cancelar</button>
+							<a id="confirmDeleteButton" href="#" class="btn btn-danger">Eliminar</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</table>
+
+
+	</div>
+
+	<th:block th:include="componentes/_scripts.html"></th:block>
+<th:block th:include="componentes/footer.html"></th:block>
 </body>
-   <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3">
-        <p>&copy; 2024 CASA BERRIEL. Todos los derechos reservados.</p>
-    </footer>
+
+<script>
+
+	$('.deleteReservaBtn').on('click', function(event) {
+				event.preventDefault();
+				var confirmDeletion = confirm('¿Está seguro de que quiere eliminar esta reserva?');
+				if (confirmDeletion) {
+					window.location.href = $(this).attr('href');
+				}
+			});
+  
+</script>
 
 </html>
