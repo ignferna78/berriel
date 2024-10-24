@@ -7,6 +7,9 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.model.reservas.ReservaForm;
+import com.project.casaberriel.model.usuarios.Usuario;
 import com.project.casaberriel.service.ReservaService;
 
 @Controller
@@ -31,17 +35,14 @@ public class HomeController {
 	private static final String REDIRECT_LISTA_RESERVAS = "redirect:/reservas/lista";
 
 	@GetMapping("/index")
-	public String index() {
-		return "index";
+	public String index(Model model,Usuario user) {
+		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        String username = auth.getName(); // Obtiene el nombre del usuario autenticado
+	        model.addAttribute("username", username);
+	        model.addAttribute("mail", user.getNombre());
+	        return "index";
 	}
-
-	/*@GetMapping("/lista")
-	public String listarReservas(Model model) {
-
-		model.addAttribute("reservas", reservaService.listarReservas());
-
-		return "reservas";
-	}*/
+	
 
 	@GetMapping("/nueva")
 	public String mostrarFormularioReserva(Model model) {
@@ -49,6 +50,7 @@ public class HomeController {
 		return "reservas";
 	}
 
+	
 	@GetMapping("/detalle/{id}")
 	public String detalleReserva(@PathVariable Long id, Model model) {
 		ReservaEntity reserva = reservaService.obtenerReservaPorId(id);

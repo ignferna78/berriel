@@ -14,7 +14,7 @@
 		<h1 class="mb-4">Formulario de registro</h1>
 		<div class="card">
 			<div class="card-body">
-				<form th:action="@{/registro/nuevo}" method="post"
+				<form th:action="@{/registro/nuevo}" method="POST"
 					th:object="${usuario}" id="limpiar">
 					<div class="form-group">
 						<label for="nombre">Nombre</label> <input type="text"
@@ -34,10 +34,8 @@
 						<label for="password">Contraseña</label> <input type="password"
 							name="password" class="form-control" id="password"
 							placeholder="Ingresa tu contraseña">
-					</div>
+					</div><br>
 					<button type="submit" class="btn btn-primary">Registrate</button>
-					<span>Si ya estas registrado <a th:href="@{/login}">Inicia sesión aquí</a></span>
-
 				</form>
 				<!-- Agrega más campos según sea necesario -->
 			</div>

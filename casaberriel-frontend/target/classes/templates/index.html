@@ -19,6 +19,62 @@
 
 <body>
 	<main>
+		<section id="fechas" class="py-8">
+			<div class="container">
+			    <h2 class="text-center mb-4">Comprobar Disponibilidad</h2>
+			    <form id="comprobar-disponibilidad-form" th:action="@{/reservas/comprobar-disponibilidad}">
+			        <div class="row justify-content-center">
+			            <div class="col-md-4">
+			                <label>Selecciona fecha de Entrada: </label>
+			                <div class="input-group date datepicker">
+			                    <input class="form-control" type="text" id="fechaEntrada" name="fechaEntrada" readonly />
+			                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			                </div>
+			            </div>
+			            <div class="col-md-4">
+			                <label>Selecciona fecha de salida: </label>
+			                <div class="input-group date datepicker">
+			                    <input class="form-control" type="text" id="fechaSalida" name="fechaSalida" readonly />
+			                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+			                </div>
+			            </div>
+			        </div>
+			        <div class="text-center mt-4">
+			            <button type="submit" id="comprobar-disponibilidad-formBtn" class="btn btn-success">
+			                Comprobar Disponibilidad
+			            </button>
+			        </div>
+			    </form>
+			</div>
+			<div class="container">
+				<div id="resultados-disponibilidad">
+					<!-- Aquí se mostrarán los resultados de disponibilidad -->
+					<div th:if="${disponible != null and !disponible}">
+						<div class="card">
+							<div class="alert alert-warning" role="alert">
+								<h4 class="alert-heading">No Disponible</h4>
+								<p>La casa no está disponible para las fechas seleccionadas</p>
+								<hr>
+								<p class="mb-0">Por favor, seleccione otras fechas</p>
+							</div>
+						</div>
+					</div>
+
+					<div th:if="${disponible}">
+						<div class="card">
+							<div class="alert alert-success" role="alert">
+								<h4 class="alert-heading">Disponible</h4>
+								<p>La casa está disponible para las fechas seleccionadas</p>
+								<hr>
+								
+								<a th:href="@{/reservas/lista(fechaEntrada=${fechaEntradaFormateada}, fechaSalida=${fechaSalidaFormateada})}" class="btn btn-primary mt-3">Reservar</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
 		<!-- About Section -->
 		<section id="about" class="py-5">
 			<div class="container">
@@ -97,62 +153,6 @@
 				</div>
 			</div>
 		</section>
-		<section id="fechas" class="py-8">
-			<div class="container">
-			    <h2 class="text-center mb-4">Comprobar Disponibilidad</h2>
-			    <form id="comprobar-disponibilidad-form" th:action="@{/reservas/comprobar-disponibilidad}">
-			        <div class="row justify-content-center">
-			            <div class="col-md-4">
-			                <label>Selecciona fecha de Entrada: </label>
-			                <div class="input-group date datepicker">
-			                    <input class="form-control" type="text" id="fechaEntrada" name="fechaEntrada" readonly />
-			                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-			                </div>
-			            </div>
-			            <div class="col-md-4">
-			                <label>Selecciona fecha de salida: </label>
-			                <div class="input-group date datepicker">
-			                    <input class="form-control" type="text" id="fechaSalida" name="fechaSalida" readonly />
-			                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-			                </div>
-			            </div>
-			        </div>
-			        <div class="text-center mt-4">
-			            <button type="submit" id="comprobar-disponibilidad-formBtn" class="btn btn-success">
-			                Comprobar Disponibilidad
-			            </button>
-			        </div>
-			    </form>
-			</div>
-			<div class="container">
-				<div id="resultados-disponibilidad">
-					<!-- Aquí se mostrarán los resultados de disponibilidad -->
-					<div th:if="${disponible != null and !disponible}">
-						<div class="card">
-							<div class="alert alert-warning" role="alert">
-								<h4 class="alert-heading">No Disponible</h4>
-								<p>La casa no está disponible para las fechas seleccionadas</p>
-								<hr>
-								<p class="mb-0">Por favor, seleccione otras fechas</p>
-							</div>
-						</div>
-					</div>
-
-					<div th:if="${disponible}">
-						<div class="card">
-							<div class="alert alert-success" role="alert">
-								<h4 class="alert-heading">Disponible</h4>
-								<p>La casa está disponible para las fechas seleccionadas</p>
-								<hr>
-								
-								<a th:href="@{/reservas/lista(fechaEntrada=${fechaEntradaFormateada}, fechaSalida=${fechaSalidaFormateada})}" class="btn btn-primary mt-3">Reservar</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
 
 		<!-- Contact Section -->
 		<section id="contact" class="bg-light py-5">

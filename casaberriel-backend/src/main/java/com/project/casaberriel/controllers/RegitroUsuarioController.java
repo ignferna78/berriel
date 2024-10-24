@@ -23,27 +23,18 @@ public class RegitroUsuarioController {
 		return new UsuarioRegistroDto();
 	}
 	
-	/*@PostMapping("/nuevo")
+	@PostMapping("/nuevo")
 	public String guardarCuentaUser(@ModelAttribute("usuario")UsuarioRegistroDto registroDto, Model model)
 	{
 		model.addAttribute("usuario",usuarioService.guardar(registroDto));
 		
 		return "redirect:/registro/nuevo?exito"; 
-	}*/
-	
-	@GetMapping("/nuevo")
-	public String mostrarFormularioRegistro(Model modelo) {	
-		return "registro";
 	}
 
-
-	
-
-	
-	@PostMapping("/inicio")
+	@GetMapping("/inicio")
 	public String verPaginaDeInicio(Model modelo) {
 		modelo.addAttribute("usuarios", usuarioService.listarUsuarios());
-		return "index";
+		return "registro";
 	}
 	
 }
