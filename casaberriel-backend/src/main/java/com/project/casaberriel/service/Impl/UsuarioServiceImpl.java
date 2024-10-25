@@ -1,15 +1,17 @@
 package com.project.casaberriel.service.Impl;
 
-import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,47 +23,59 @@ import com.project.casaberriel.repositorios.UsuarioRepositorio;
 import com.project.casaberriel.service.UsuarioService;
 
 @Service
-public class UsuarioServiceImpl implements UsuarioService {
+public class UsuarioServiceImpl implements UserDetailsService {
 
 	@Autowired
-	private UsuarioRepositorio usuarioRepositorio;
-	
-	
-	private BCryptPasswordEncoder passwordEncoder;
+	private UsuarioRepositorio usuarioRepository;
+
+	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+	@Bean
+	private UsuarioService usuarioService() {
+		return new UsuarioService() {
+
+
+			@Override
+			public List<Usuario> listarUsuarios() {
+				return usuarioRepository.findAll();
+			}
+
+			@Override
+			public Usuario guardar(UsuarioRegistroDto registroDto) {
+				Usuario usuario = new Usuario();
+				usuario.setNombre(registroDto.getNombre());
+				usuario.setApellidos(registroDto.getApellidos());
+				usuario.setEmail(registroDto.getEmail());
+				usuario.setPassword(registroDto.getPassword());
+				usuario.setPassword(passwordEncoder.encode(registroDto.getPassword()));
+				// Asignación de un rol por defecto (por ejemplo, "USER")
+				Rol userRole = new Rol("ROLE_USER"); // Asegúrate de que el rol "USER" existe en la BD
+				usuario.setRoles(Collections.singletonList(userRole));
+
+				// Guardado en el repositorio
+				return usuarioRepository.save(usuario);
+			}
+
+			public UserDetails loadUserByUsername(String username) {
+				return null;
+			}
+		};
+	}
 
 	@Override
-	public Usuario guardar(UsuarioRegistroDto registroDto) {
-		Usuario usuario = null;
-		try {
-			usuario = new Usuario(registroDto.getNombre(), registroDto.getApellidos(),passwordEncoder.encode(registroDto.getPassword()) ,
-					registroDto.getEmail(), Arrays.asList(new Rol("ROLE_USER")));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return usuarioRepositorio.save(usuario);
-	}
-	
-	@Override
-	public List<Usuario> listarUsuarios() {
-		return usuarioRepositorio.findAll();
-	}
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Usuario usuario = usuarioRepositorio.findByEmail(username);
+	public UserDetails loadUserByUsername(String username) {
+		Usuario usuario = usuarioRepository.findByEmail(username);
 		if (usuario == null) {
-			throw new UsernameNotFoundException("Usuario no encontrado");
+			throw new UsernameNotFoundException("Usuario no encontrado con email: " + username);
 		} else {
-			return new User(usuario.getEmail(), usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
+			System.out.println("Usuario encontrado: " + usuario.getEmail());
+			return new User(usuario.getEmail(), usuario.getPassword(),
+					mapearAutoridadesRoles(usuario.getRoles()));
 		}
 	}
 	
-	private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles){
+	private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles) {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getNombre())).collect(Collectors.toList());
 	}
-	
-
-	
 
 }

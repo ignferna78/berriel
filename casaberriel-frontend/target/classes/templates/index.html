@@ -17,7 +17,7 @@
 	</div>
 </header>
 
-<body>
+<body><span th:text="${username}"></span>
 	<main>
 		<section id="fechas" class="py-8">
 			<div class="container">
@@ -59,12 +59,12 @@
 							</div>
 						</div>
 					</div>
-
+					<span th:text="${username}"></span>
 					<div th:if="${disponible}">
 						<div class="card">
 							<div class="alert alert-success" role="alert">
 								<h4 class="alert-heading">Disponible</h4>
-								<p>La casa está disponible para las fechas seleccionadas</p>
+								<span>La casa está disponible para las fechas seleccionadas,  <span th:text="${username}"></span></span>
 								<hr>
 								
 								<a th:href="@{/reservas/lista(fechaEntrada=${fechaEntradaFormateada}, fechaSalida=${fechaSalidaFormateada})}" class="btn btn-primary mt-3">Reservar</a>

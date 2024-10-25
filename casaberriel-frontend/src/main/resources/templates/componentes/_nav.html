@@ -21,52 +21,58 @@
 		<!-- Contenido del menú alineado a la derecha -->
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ms-auto">
-			    <!-- Visible para usuarios con rol 'ROLE_USER' -->
-			    <li sec:authorize="hasRole('ROLE_USER')" class="nav-item">
-			        <a class="nav-link">
-			            <span class="navbar-text">Bienvenido, <span th:text="${username}"></span></span>
-			        </a>
-			    </li>
-			    
-			    <!-- Enlaces comunes para todos los usuarios -->
-			    <li class="nav-item">
-			        <a class="nav-link" href="/reservas/lista" data-i18n="navbar.booking">Reservas</a>
-			    </li>
-			    <li class="nav-item">
-			        <a class="nav-link" href="/reservas/index/#about" data-i18n="navbar.about">Sobre Nosotros</a>
-			    </li>
-			    <li class="nav-item">
-			        <a class="nav-link" href="/reservas/index/#services" data-i18n="services.title">Servicios</a>
-			    </li>
-			    <li class="nav-item">
-			        <a class="nav-link" href="/reservas/index/#gallery" data-i18n="navbar.gallery">Galería</a>
-			    </li>
-			    <li class="nav-item">
-			        <a class="nav-link" href="/reservas/index/#contact" data-i18n="navbar.contact">Contacto</a>
-			    </li>
+				<!-- Visible para usuarios con rol 'ROLE_USER' -->
+				<li sec:authorize="hasRole('ROLE_USER')" class="nav-item">
+					<a class="nav-link">
+						<span class="navbar-text"> <b>Bienvenid@ <span th:text="${username}"></span></b></span>
+					</a>
+				</li>
+				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+					<a class="nav-link">
+						<span class="navbar-text"><b><span th:text="${username}"></span></b></span>
+					</a>
+				</li>
 
-			    <!-- Visible solo para usuarios con rol 'ROLE_ADMIN' -->
-			    <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
-			        <a class="nav-link" href="/admin/lista">Admin Panel</a>
-			    </li>
+				<!-- Enlaces comunes para todos los usuarios -->
+				<li class="nav-item">
+					<a class="nav-link" href="/reservas/lista" data-i18n="navbar.booking">Reservas</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/reservas/index/#about" data-i18n="navbar.about">Sobre Nosotros</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/reservas/index/#services" data-i18n="services.title">Servicios</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/reservas/index/#gallery" data-i18n="navbar.gallery">Galería</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="/reservas/index/#contact" data-i18n="navbar.contact">Contacto</a>
+				</li>
 
-			    <!-- Opción de Logout si el usuario está autenticado -->
+				<!-- Visible solo para usuarios con rol 'ROLE_ADMIN' -->
+				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+					<a class="btn btn-outline-primary" href="/admin/lista">Panel de administración</a>
+				</li>
+
+				<!-- Opción de Logout si el usuario está autenticado -->
 				<li th:if="${#httpServletRequest.remoteUser != null}" class="nav-item">
-									<a class="btn btn-outline-danger" href="/logout">Logout</a>
-								</li>
+					<a class="btn btn-outline-danger" href="/logout">Logout</a>
+				</li>
 
-			    <!-- Opción de Login si el usuario no está autenticado -->
-			    <li th:if="${#httpServletRequest.remoteUser == null}" class="nav-item">
-			        <button class="btn btn-outline-primary" data-toggle="modal" data-target="#loginModal" data-i18n="navbar.login"></button>
-			    </li>
+				<!-- Opción de Login si el usuario no está autenticado -->
+				<li th:if="${#httpServletRequest.remoteUser == null}" class="nav-item">
+					<button class="btn btn-outline-primary" data-toggle="modal" data-target="#loginModal"
+						data-i18n="navbar.login"></button>
+				</li>
 
-			    <!-- Selector de idioma -->
-			    <li class="nav-item">
-			        <select id="languageSelector" class="form-control">
-			            <option value="es">Español</option>
-			            <option value="en">English</option>
-			        </select>
-			    </li>
+				<!-- Selector de idioma -->
+				<li class="nav-item">
+					<select id="languageSelector" class="form-control">
+						<option value="es">Español</option>
+						<option value="en">English</option>
+					</select>
+				</li>
 			</ul>
 
 		</div>
@@ -88,12 +94,6 @@
 								<div class="alert alert-danger">Usuario o contraseña
 									inválidos</div>
 							</div>
-
-							<div th:if=${param.logout}>
-								<div class="alert alert-info">Ha cerrado sesión exitosamente
-								</div>
-							</div>
-
 							<div class="form-group">
 								<label for="email">Email</label> <input type="username" id="email" name="username"
 									class="form-control" placeholder="Ingresa tu email">
@@ -113,5 +113,31 @@
 				</div>
 			</div>
 		</div>
+	
+		
+		<!-- Modal de confirmación de cierre de sesión -->
+		<div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="logoutConfirmModalLabel">Confirmación de Cierre de Sesión</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <div class="modal-body">
+		                ¿Estás seguro de que deseas cerrar sesión?
+		            </div>
+		            <div class="modal-footer">
+		                <!-- Este botón debería cerrar el modal automáticamente -->
+		                <button type="button" class="btn btn-secondary"  data-dismiss="modal">Cancelar</button>
+		                <button type="button" id="confirmLogoutBtn" class="btn btn-danger">Cerrar Sesión</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+
 	</div>
 </nav>
+<th:block th:include="componentes/_scripts.html"></th:block>

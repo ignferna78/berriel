@@ -3,7 +3,7 @@ package com.project.casaberriel.dto;
 public class UsuarioRegistroDto {
 
 	private Long id;
-	private String username;
+	private String nombre;
 	private String apellidos;
 	private String email;
 	private String password;
@@ -15,7 +15,7 @@ public class UsuarioRegistroDto {
 
 	public UsuarioRegistroDto(String nombre, String apellidos, String email, String password) {
 		super();
-		this.username = nombre;
+		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
 		this.password = password;
@@ -24,7 +24,7 @@ public class UsuarioRegistroDto {
 	public UsuarioRegistroDto(Long id, String nombre, String apellidos, String email, String password) {
 		super();
 		this.id = id;
-		this.username = nombre;
+		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.email = email;
 		this.password = password;
@@ -44,11 +44,11 @@ public class UsuarioRegistroDto {
 	}
 
 	public String getNombre() {
-		return username;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		this.username = nombre;
+		this.nombre = nombre;
 	}
 
 	public String getApellidos() {
