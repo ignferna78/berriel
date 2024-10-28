@@ -165,4 +165,11 @@ h2.text-center {
     padding: auto;
 }
 
+.logout-button {
+    color: inherit; /* Mantiene el color original */
+}
+
+.logout-button:hover {
+   color: red; /* Cambia el color a rojo al pasar el ratón */
+}
 

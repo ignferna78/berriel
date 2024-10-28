@@ -23,7 +23,7 @@ import com.project.casaberriel.repositorios.UsuarioRepositorio;
 import com.project.casaberriel.service.UsuarioService;
 
 @Service
-public class UsuarioServiceImpl implements UserDetailsService {
+public class UsuarioServiceImpl implements UserDetailsService,UsuarioService {
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepository;
@@ -56,9 +56,18 @@ public class UsuarioServiceImpl implements UserDetailsService {
 				return usuarioRepository.save(usuario);
 			}
 
+			@Override
 			public UserDetails loadUserByUsername(String username) {
+				
 				return null;
 			}
+
+			@Override
+			public Usuario findUserByEmail(String email) {
+				return usuarioRepository.findUserByEmail(email)
+						.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con id: " + email));
+			}
+		
 		};
 	}
 
@@ -77,5 +86,27 @@ public class UsuarioServiceImpl implements UserDetailsService {
 	private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles) {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getNombre())).collect(Collectors.toList());
 	}
+
+	@Override
+	public List<Usuario> listarUsuarios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Usuario guardar(UsuarioRegistroDto registroDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Usuario findUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	
 
 }

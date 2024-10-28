@@ -103,9 +103,6 @@ public class Usuario {
 	public void setRoles(Collection<Rol> roles) {
 		this.roles = roles;
 	}
-	
-	
-	
-	
+
 
 }

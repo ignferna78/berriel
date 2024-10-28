@@ -64,7 +64,7 @@
 						<div class="card">
 							<div class="alert alert-success" role="alert">
 								<h4 class="alert-heading">Disponible</h4>
-								<span>La casa está disponible para las fechas seleccionadas,  <span th:text="${username}"></span></span>
+								<span>La casa está disponible para las fechas seleccionadas,  <span th:text="${#httpServletRequest.remoteUser}"></span></span>
 								<hr>
 								
 								<a th:href="@{/reservas/lista(fechaEntrada=${fechaEntradaFormateada}, fechaSalida=${fechaSalidaFormateada})}" class="btn btn-primary mt-3">Reservar</a>
@@ -208,9 +208,8 @@
 		</button>
 
 		<th:block th:include="componentes/footer.html"></th:block>
-		<th:block th:include="componentes/_scripts.html"></th:block>
 	</main>
-
+	<th:block th:include="componentes/_scripts.html"></th:block>
 </body>
 
 </html>

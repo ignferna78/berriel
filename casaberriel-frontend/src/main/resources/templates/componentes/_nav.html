@@ -7,6 +7,7 @@
 	<th:block th:include="componentes/_head.html"></th:block>
 	<!-- Head End -->
 </head>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
 		<!-- "CASA BERRIEL" a la izquierda -->
@@ -21,22 +22,23 @@
 		<!-- Contenido del menú alineado a la derecha -->
 		<div class="collapse navbar-collapse" id="navbarNav">
 			<ul class="navbar-nav ms-auto">
-				<!-- Visible para usuarios con rol 'ROLE_USER' -->
-				<li sec:authorize="hasRole('ROLE_USER')" class="nav-item">
-					<a class="nav-link">
-						<span class="navbar-text"> <b>Bienvenid@ <span th:text="${username}"></span></b></span>
+				<!-- Dropdown para usuario autenticado -->
+				<li th:if="${#httpServletRequest.remoteUser != null}" class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">
+						<span th:text="${#httpServletRequest.remoteUser}">Usuario</span>
 					</a>
-				</li>
-				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
-					<a class="nav-link">
-						<span class="navbar-text"><b><span th:text="${username}"></span></b></span>
-					</a>
+					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+						<a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
+							th:href="@{/registro/detalle-usuario}">Perfil</a> <a
+							sec:authorize="hasRole('ROLE_USER')" class="dropdown-item" href="/profile">Mi reserva</a>
+						<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="/admin/lista">Panel de
+							administración</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item logout-button" href="/logout">Logout</a>
+					</div>
 				</li>
 
-				<!-- Enlaces comunes para todos los usuarios -->
-				<li class="nav-item">
-					<a class="nav-link" href="/reservas/lista" data-i18n="navbar.booking">Reservas</a>
-				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/reservas/index/#about" data-i18n="navbar.about">Sobre Nosotros</a>
 				</li>
@@ -48,16 +50,6 @@
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="/reservas/index/#contact" data-i18n="navbar.contact">Contacto</a>
-				</li>
-
-				<!-- Visible solo para usuarios con rol 'ROLE_ADMIN' -->
-				<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
-					<a class="btn btn-outline-primary" href="/admin/lista">Panel de administración</a>
-				</li>
-
-				<!-- Opción de Logout si el usuario está autenticado -->
-				<li th:if="${#httpServletRequest.remoteUser != null}" class="nav-item">
-					<a class="btn btn-outline-danger" href="/logout">Logout</a>
 				</li>
 
 				<!-- Opción de Login si el usuario no está autenticado -->
@@ -134,6 +126,8 @@
 		</div>
 	</div>
 </nav>
+
+
 <script>
 	//Modal de Login
 
@@ -151,4 +145,3 @@
 		}
 	});
 </script>
-<th:block th:include="componentes/_scripts.html"></th:block>

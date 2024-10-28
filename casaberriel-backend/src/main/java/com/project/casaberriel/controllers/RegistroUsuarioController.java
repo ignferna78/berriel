@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.casaberriel.dto.UsuarioRegistroDto;
 import com.project.casaberriel.model.usuarios.Usuario;
@@ -65,4 +67,20 @@ public class RegistroUsuarioController {
         modelo.addAttribute("usuarios", usuarioService.listarUsuarios());
         return "registro";
     }
+    // Mostrar página de registro
+    @GetMapping("/detalle-usuario")
+    public String verDatosUsuario(Model model) {
+    	// Obtener el usuario autenticado
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName(); // Obtener el nombre de usuario (email)
+    	 Usuario usuario = null;
+		try {
+			usuario = usuarioService.findUserByEmail(email);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        model.addAttribute("usuario", usuario);
+        return "detalle_usuario";
+    }
+    
 }

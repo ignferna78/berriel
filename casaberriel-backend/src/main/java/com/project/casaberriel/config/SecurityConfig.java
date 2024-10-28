@@ -44,15 +44,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/reservas/admin/**").hasRole("ADMIN").antMatchers("/admin/**")
-				.hasRole("ADMIN").antMatchers("/user/**").hasRole("USER")
+		http.authorizeRequests().antMatchers("/reservas/admin/**").hasRole("ADMIN")
+				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/user/**").hasRole("USER")
 				.antMatchers("/css/**", "/js/**", "/images/**", "/lib/**", "/locales/**").permitAll()
-				.antMatchers("/reservas/**").permitAll().antMatchers("/registro/**").permitAll()
-				.antMatchers("/", "/index", "/login").permitAll().anyRequest().authenticated().and().formLogin()
-				.loginPage("/reservas/index").loginProcessingUrl("/autenticacionUsusario")
+				.antMatchers("/reservas/**").permitAll()
+				.antMatchers("/registro/**").permitAll()
+				.antMatchers("/", "/index", "/login").permitAll()
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
+				.loginPage("/reservas/index")
+				.loginProcessingUrl("/autenticacionUsusario")
 				.failureUrl("/reservas/index?error=true") // Redirige a la página con parámetro de error
 				.successHandler(successHandler) // Usa el manejador de éxito personalizado
-				.permitAll().and().logout().logoutSuccessUrl("/reservas/index") // Redirigir a la página de inicio tras
+				.permitAll()
+				.and()
+				.logout().logoutSuccessUrl("/reservas/index") // Redirigir a la página de inicio tras
 																				// hacer logout
 				.invalidateHttpSession(true) // Invalidar la sesión al hacer logout
 				.clearAuthentication(true).permitAll();

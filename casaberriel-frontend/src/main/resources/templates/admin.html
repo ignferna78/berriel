@@ -97,6 +97,34 @@
 				</div>
 			</div>
 		</table>
+		
+		<div class="container mt-5">
+			<h1 class="mb-4">Detalle de Usuarios</h1>
+			<table class="table table-striped table-hover">
+			    <thead  class="thead-dark">
+			        <tr>
+			            <th>ID</th>
+			            <th>Nombre</th>
+						<th>Apelllidos</th>
+			            <th>Email</th>
+						<th>Contraseña</th>
+			            <!-- Agrega más columnas según tus necesidades -->
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <tr th:each="usuario : ${usuario}">
+			            <td th:text="${usuario.id}"></td>
+			            <td th:text="${usuario.nombre}"></td>
+			            <td th:text="${usuario.apellidos}"></td>
+						<td th:text="${usuario.email}"></td>
+						<td th:text="${usuario.password}"></td>
+			            <!-- Agrega más datos según tu clase Usuario -->
+			        </tr>
+			    </tbody>
+			</table>
+
+			<a href="/reservas/index" class="btn btn-primary mt-4">Volver</a>
+		</div>
 
 
 	</div>

@@ -20,6 +20,8 @@ public interface UsuarioService {
 	Usuario guardar(UsuarioRegistroDto registroDto);
 
 	UserDetails loadUserByUsername(String username);
+
+	Usuario findUserByEmail(String email); 
 		
 	
 }
