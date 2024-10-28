@@ -109,44 +109,27 @@ function formatDate(timestamp) {
 	return '';
 }
 
-$(document).ready(function(e) {
-	// Mostrar el modal si hay un error
 
-	let urlParams = new URLSearchParams(window.location.search);
-	if (urlParams.has('error')) {
-		$('#loginModal').modal('show');
-	}
-
-	// Ocultar el modal cuando se cierra con el botón o la "X"
-	$('#loginModal').on('hidden.bs.modal', function() {
-		console.log('Modal cerrado');
-		window.history.replaceState({}, document.title, window.location.pathname);
-	});
-});
-
-document.addEventListener("DOMContentLoaded", function(e) {
-	// Verifica si el parámetro 'logout' está en la URL
-	e.preventDefault()
-	const urlParams = new URLSearchParams(window.location.search);
-	if (urlParams.get('logout') === 'true') {
-		$('#logoutModal').modal('show'); // Muestra el modal de confirmación
-	}
-});
-
-
+//Modal de logout
 document.addEventListener("DOMContentLoaded", function() {
 	// Manejar el clic en el botón de logout en la barra de navegación
-	document.querySelector("a[href='/logout']").addEventListener("click", function(event) {
-		event.preventDefault(); // Prevenir el logout inmediato
-		$('#logoutConfirmModal').modal('show'); // Mostrar el modal de confirmación
-	});
+	const element = document.querySelector("a[href='/logout']");
+	if (element) {
+		element.addEventListener("click", function(event) {
+			event.preventDefault(); // Prevenir el logout inmediato
+			$('#logoutConfirmModal').modal('show'); // Mostrar el modal de confirmación
+		});
+	}
 
 	// Ejecutar el logout si se confirma
 	document.getElementById("confirmLogoutBtn").addEventListener("click", function() {
 		window.location.href = "/logout?logout=true"; // Redirigir al endpoint de logout
 	});
-	
-	
+
 });
+
+
+
+
 
 

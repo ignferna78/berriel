@@ -28,10 +28,13 @@ public class LoginController {
     }
 
     @PostMapping("/formLogin")
-    public String login(Model model) {
-      
+    public String login(@RequestParam(value = "error", required = false) Boolean error, Model model) {
+        if (error) {
+            model.addAttribute("error", "Usuario o contraseña inválidos");
+        }
         return "index";
     }
+
        
     
 

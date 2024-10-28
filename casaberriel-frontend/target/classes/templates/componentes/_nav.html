@@ -77,34 +77,33 @@
 
 		</div>
 		<!-- Login Modal -->
-		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+		<!-- Modal de Login -->
+		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true"
+			th:classappend="${error} ? 'show' : ''">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="loginModalLabel" data-i18n="navbar.login"></h5>
+						<h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
 						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-
 					<div class="modal-body">
-						<form th:action="@{/autenticacionUsusario}" method="POST" th:object="${usuario}">
+						<form th:action="@{/autenticacionUsusario}" method="POST">
+							<div id="error" class="alert alert-danger" style="display: none;"></div>
 
-							<div th:if=${param.error}>
-								<div class="alert alert-danger">Usuario o contraseña
-									inválidos</div>
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input type="text" id="email" name="username" class="form-control"
+									placeholder="Ingresa tu email">
 							</div>
 							<div class="form-group">
-								<label for="email">Email</label> <input type="username" id="email" name="username"
-									class="form-control" placeholder="Ingresa tu email">
-
+								<label for="password">Contraseña</label>
+								<input type="password" id="password" name="password" class="form-control"
+									placeholder="Ingresa tu contraseña">
 							</div>
-							<div class="form-group">
-								<label for="password">Contraseña</label> <input type="password" id="password"
-									name="password" class="form-control" placeholder="Ingresa tu contraseña">
-							</div>
-							<button type="submit" class="btn btn-primary btn-block" data-i18n="navbar.login"></button>
-							<span>Si no estás registrado<a th:href="@{/registro/inicio}">Registrate aquí</a></span>
+							<button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+							<span>Si no estás registrado, <a th:href="@{/registro/inicio}">Regístrate aquí</a></span>
 						</form>
 					</div>
 					<div class="modal-footer">
@@ -113,31 +112,43 @@
 				</div>
 			</div>
 		</div>
-	
-		
+
+
 		<!-- Modal de confirmación de cierre de sesión -->
-		<div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmModalLabel" aria-hidden="true">
-		    <div class="modal-dialog">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <h5 class="modal-title" id="logoutConfirmModalLabel">Confirmación de Cierre de Sesión</h5>
-		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                    <span aria-hidden="true">&times;</span>
-		                </button>
-		            </div>
-		            <div class="modal-body">
-		                ¿Estás seguro de que deseas cerrar sesión?
-		            </div>
-		            <div class="modal-footer">
-		                <!-- Este botón debería cerrar el modal automáticamente -->
-		                <button type="button" class="btn btn-secondary"  data-dismiss="modal">Cancelar</button>
-		                <button type="button" id="confirmLogoutBtn" class="btn btn-danger">Cerrar Sesión</button>
-		            </div>
-		        </div>
-		    </div>
+		<div class="modal fade" id="logoutConfirmModal" tabindex="-1" aria-labelledby="logoutConfirmModalLabel"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="logoutConfirmModalLabel">Confirmación de Cierre de Sesión</h5>
+					</div>
+					<div class="modal-body">
+						¿Estás seguro de que deseas cerrar sesión?
+					</div>
+					<div class="modal-footer">
+						<!-- Este botón debería cerrar el modal automáticamente -->
+						<button type="button" id="confirmLogoutBtn" class="btn btn-danger">Cerrar Sesión</button>
+					</div>
+				</div>
+			</div>
 		</div>
-
-
 	</div>
 </nav>
+<script>
+	//Modal de Login
+
+	document.addEventListener("DOMContentLoaded", function (e) {
+		// Verifica si el parámetro 'logout' está en la URL
+		e.preventDefault()
+		const urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.get('error') === 'true') {
+			$('#loginModal').modal('show'); // Muestra el modal de confirmación
+			// Agrega y muestra el mensaje de error dinámicamente
+			const errorMessageContainer = document.getElementById("error");
+			errorMessageContainer.textContent = "Usuario o contraseña inválidos";
+			errorMessageContainer.style.display = "block";
+
+		}
+	});
+</script>
 <th:block th:include="componentes/_scripts.html"></th:block>
