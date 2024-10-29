@@ -24,20 +24,18 @@
 			<ul class="navbar-nav ms-auto">
 				<!-- Dropdown para usuario autenticado -->
 				<li th:if="${#httpServletRequest.remoteUser != null}" class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">
-						<span th:text="${#httpServletRequest.remoteUser}">Usuario</span>
-					</a>
-					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-						<a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item"
-							th:href="@{/registro/detalle-usuario}">Perfil</a> <a
-							sec:authorize="hasRole('ROLE_USER')" class="dropdown-item" href="/profile">Mi reserva</a>
-						<a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="/admin/lista">Panel de
-							administración</a>
-						<div class="dropdown-divider"></div>
-						<a class="dropdown-item logout-button" href="/logout">Logout</a>
-					</div>
+				    <a class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				        <span th:text="${#httpServletRequest.remoteUser}">Usuario</span>
+				    </a>
+				    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+				        <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item" th:href="@{/registro/detalle-usuario}">Perfil</a>
+				        <a sec:authorize="hasRole('ROLE_USER')" class="dropdown-item" href="/profile">Mi reserva</a>
+				        <a sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown-item" href="/admin/lista">Panel de administración</a>
+				        <div class="dropdown-divider"></div>
+				        <a class="dropdown-item logout-button" href="/logout">Logout</a>
+				    </div>
 				</li>
+
 
 				<li class="nav-item">
 					<a class="nav-link" href="/reservas/index/#about" data-i18n="navbar.about">Sobre Nosotros</a>
@@ -69,7 +67,6 @@
 
 		</div>
 		<!-- Login Modal -->
-		<!-- Modal de Login -->
 		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true"
 			th:classappend="${error} ? 'show' : ''">
 			<div class="modal-dialog">
