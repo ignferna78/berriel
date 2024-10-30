@@ -89,12 +89,56 @@ $(function() {
 	};
 
 	$(".datepicker").datepicker({
+		startDate: 'today',
 		language: 'es',
 		autoclose: true,
 		todayHighlight: true,
 		format: 'dd/mm/yyyy',
 	}).datepicker('update', new Date());
+	
+	$('#fechaEntrada').datepicker({
+	          startDate: 'today', // No permite seleccionar fechas pasadas
+	          autoclose: true,
+	          todayHighlight: true,
+	          format: 'dd/mm/yyyy'
+	      }).on('changeDate', function (e) {
+	          // Obtener la fecha de entrada y establecerla como fecha mínima en el datepicker de salida
+	          let fechaEntrada = $('#fechaEntrada').datepicker('getDate');
+	          $('#fechaSalida').datepicker('setStartDate', fechaEntrada);
+	          $('#fechaSalida').datepicker('setDate', null); // Limpiar la fecha de salida al cambiar la fecha de entrada
+	      });
+
+	      // Configurar el datepicker para la fecha de salida
+	      $('#fechaSalida').datepicker({
+	          startDate: 'today', // No permite seleccionar fechas pasadas
+	          autoclose: true,
+	          todayHighlight: true,
+	          format: 'dd/mm/yyyy'
+	      });
+
+	      // Validación antes de enviar el formulario
+	      $('#comprobar-disponibilidad-form').on('submit', function (e) {
+	          let fechaEntrada = $('#fechaEntrada').datepicker('getDate');
+	          let fechaSalida = $('#fechaSalida').datepicker('getDate');
+
+	          // Comprobar si la fecha de salida es anterior a la fecha de entrada
+	          if (fechaSalida && fechaEntrada && fechaSalida <= fechaEntrada) {
+	              e.preventDefault(); // Evitar que se envíe el formulario
+	              alert('La fecha de salida debe ser posterior a la fecha de entrada.');
+	              return false;
+	          }
+
+	          // Comprobar que ambas fechas han sido seleccionadas
+	          if (!fechaEntrada || !fechaSalida) {
+	              e.preventDefault();
+	              alert('Por favor, selecciona ambas fechas.');
+	              return false;
+	          }
+	      });
+	
+	
 });
+
 
 
 
