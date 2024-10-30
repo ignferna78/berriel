@@ -16,7 +16,11 @@
 	<div class="card-header">
 		<h1 class="mb-4">Detalle de la Reserva</h1>
 		</div>
-			<div class="card-body">
+			<div class="card-body" th:object="${reserva}">
+				
+				<p class="mb-1">
+									<strong>ID:</strong> <span th:text="${reserva.id}"></span>
+								</p>
 				<p class="mb-1">
 					<strong>NOMBRE:</strong> <span th:text="${reserva.nombre}"></span>
 				</p>
@@ -43,12 +47,20 @@
 				<!-- Agrega más campos según sea necesario -->
 			</div>
 		</div>
-		<a href="/reservas/lista" class="btn btn-primary mt-4">Volver</a>
+	<!-- Botón para el rol ADMIN -->
+	<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" 
+	   href="/admin/lista" 
+	   class="btn btn-primary mt-4">Volver</a>
+
+	<!-- Botón para el rol USER -->
+	<a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" 
+	   href="/reservas/miReserva" 
+	   class="btn btn-primary mt-4">Volver</a>
 	</div>
 		</div>
 			</div>
 			</div>
-	
+			<th:block th:include="componentes/_scripts.html"></th:block>
 </body>
 
 <th:block th:include="componentes/footer.html"></th:block>

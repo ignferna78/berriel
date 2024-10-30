@@ -12,6 +12,7 @@ import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.model.reservas.ReservaForm;
 import com.project.casaberriel.model.usuarios.Usuario;
 import com.project.casaberriel.repositorios.ReservaRepositorio;
+import com.project.casaberriel.repositorios.UsuarioRepositorio;
 import com.project.casaberriel.service.ReservaService;
 import com.project.casaberriel.utils.DateUtils;
 
@@ -20,6 +21,9 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Autowired
 	private ReservaRepositorio reservaRepository;
+	
+	@Autowired
+	private UsuarioRepositorio usuarioRepository;
 
 	private static final String FORMATO = "dd/MM/yyyy";
 	SimpleDateFormat formatter = new SimpleDateFormat(FORMATO);
@@ -30,19 +34,32 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha) {
-		Date desde = obtenerFechaFormateada(fecha.getFechaEntrada());
-		Date hasta = obtenerFechaFormateada(fecha.getFechaSalida());
-		reserva.setFechaEntrada(desde);
-		reserva.setFechaSalida(hasta);
-		reserva.setUsuario(reserva.getUsuario());
-		
-		return reservaRepository.save(reserva);
+	public ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String email) {
+	    Date desde = obtenerFechaFormateada(fecha.getFechaEntrada());
+	    Date hasta = obtenerFechaFormateada(fecha.getFechaSalida());
+	    reserva.setFechaEntrada(desde);
+	    reserva.setFechaSalida(hasta);
+	    
+	    // Obtén el usuario autenticado desde el username y asignarlo a la reserva
+	    Usuario usuario = usuarioRepository.findByEmail(email);
+	    if (usuario != null) {
+	        reserva.setUsuario(usuario);
+	    } else {
+	        throw new IllegalArgumentException("Usuario no encontrado");
+	    }
+
+	    return reservaRepository.save(reserva);
 	}
+
 
 	@Override
 	public ReservaEntity obtenerReservaPorId(Long id) {
 		return reservaRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<ReservaEntity> obtenerReservaPorEmail(String email) {
+	    return reservaRepository.findByEmail(email);
 	}
 
 	@Override

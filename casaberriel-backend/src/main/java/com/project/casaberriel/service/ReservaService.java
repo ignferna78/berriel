@@ -11,13 +11,19 @@ public interface ReservaService {
 
 	List<ReservaEntity> listarReservas();
 
-	ReservaEntity guardarReserva(ReservaEntity reserva,ReservaForm fecha);
+	
 
 	public ReservaEntity obtenerReservaPorId(Long id);
 
 	public void eliminarReserva(Long id);
 
 	public boolean comprobarDisponibilidad(ReservaForm fecha);
+
+	ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String username);
+
+
+
+	List<ReservaEntity> obtenerReservaPorEmail(String email);
 
 
 }

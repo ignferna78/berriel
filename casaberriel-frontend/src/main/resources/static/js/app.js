@@ -32,8 +32,8 @@ $('#comprobar-disponibilidad-formBtn').on('click', function(event) {
 	var fechaEntrada = $('#fechaEntrada').val();
 	var fechaSalida = $('#fechaSalida').val();
 
-	console.log('Fecha de entrada enviada:', fechaEntrada);
-	console.log('Fecha de salida enviada:', fechaSalida);
+	//console.log('Fecha de entrada enviada:', fechaEntrada);
+	//console.log('Fecha de salida enviada:', fechaSalida);
 
 	var formData = {
 		fechaEntrada: fechaEntrada,
@@ -127,6 +127,26 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 
 });
+
+
+function handleReservar() {
+    // Obtén el valor de isUserLoggedIn desde el input oculto
+    const isUserLoggedIn = document.getElementById('isUserLoggedIn').value === 'true';
+console.log(isUserLoggedIn);
+    if (isUserLoggedIn) {
+		console.log("dentr if " + isUserLoggedIn);
+        // Redirige al formulario de reservas si el usuario está logueado
+        const fechaEntrada = document.getElementById('fechaEntrada').value;
+        const fechaSalida = document.getElementById('fechaSalida').value;
+        window.location.href = `/reservas/formReserva?fechaEntrada=${encodeURIComponent(fechaEntrada)}&fechaSalida=${encodeURIComponent(fechaSalida)}`;
+		console.log('Fecha de entrada enviada:', fechaEntrada);
+		console.log('Fecha de salida enviada:', fechaSalida);
+    } else {
+        // Muestra el modal de login si el usuario no está logueado
+        $('#modalLogin').modal('show');
+    }
+}
+
 
 
 
