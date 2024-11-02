@@ -7,10 +7,10 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Locale;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -39,6 +39,8 @@ public class HomeController {
 
 	private ReservaService reservaService;
 	private static final String REDIRECT_LISTA_RESERVAS = "redirect:/reservas/lista";
+	
+
 
 	@GetMapping("/index")
 	public String index(Model model, Usuario user) {
@@ -48,6 +50,9 @@ public class HomeController {
 		model.addAttribute("mail", user.getNombre());
 		return "index";
 	}
+	
+	
+
 	
 	
 
@@ -63,7 +68,12 @@ public class HomeController {
 	public String guardarReserva(ReservaEntity reserva, ReservaForm fecha, Principal principal, Model model) {
 	    // Obtén el nombre del usuario autenticado
 	    String username = principal.getName();
-	   reservaService.guardarReserva(reserva, fecha, username);
+	   try {
+		reservaService.guardarReserva(reserva, fecha, username);
+	} catch (MessagingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	    model.addAttribute("message", "Reserva guardada con éxito.");
 	    return "reservas";
 	}

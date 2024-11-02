@@ -2,6 +2,8 @@ package com.project.casaberriel.service;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.model.reservas.ReservaForm;
 import com.project.casaberriel.model.usuarios.Usuario;
@@ -19,7 +21,7 @@ public interface ReservaService {
 
 	public boolean comprobarDisponibilidad(ReservaForm fecha);
 
-	ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String username);
+	ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String username) throws MessagingException;
 
 
 

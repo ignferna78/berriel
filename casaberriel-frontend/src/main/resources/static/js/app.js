@@ -193,6 +193,72 @@ console.log(isUserLoggedIn);
 
 
 
+document.addEventListener("DOMContentLoaded", function () {
+    // Seleccionar el formulario y el botón de envío
+    const contactForm = document.getElementById("contactForm");
+    const contactFormBtn = document.getElementById("contactFormBtn");
+
+    // Agregar un evento de escucha para el envío del formulario
+    contactForm.addEventListener("submit", function (event) {
+        event.preventDefault(); // Evitar el envío predeterminado del formulario
+
+        // Obtener valores de los campos del formulario
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const message = document.getElementById("message").value;
+
+        // Validar que los campos no estén vacíos
+        if (!name || !email || !message) {
+            alert("Por favor, complete todos los campos.");
+            return;
+        }
+
+        // Deshabilitar el botón de enviar para evitar múltiples envíos
+        contactFormBtn.disabled = true;
+        contactFormBtn.textContent = "Enviando...";
+
+        // Crear un objeto con los datos del formulario
+        const data = {
+            name: name,
+            email: email,
+            message: message
+        };
+console.log(data);
+        // Realizar la solicitud AJAX
+		fetch("/api/send-email", {
+		    method: "POST",
+		    headers: {
+		        "Content-Type": "application/json"
+		    },
+		    body: JSON.stringify(data)
+		})
+		.then(response => {
+		    if (!response.ok) {
+		        return response.text().then(text => {
+		            throw new Error(`Error en el envío del mensaje: ${text}`);
+		        });
+		    }
+		    return response.json();
+		})
+		.then(result => {
+		    alert("Mensaje enviado con éxito.");
+		    contactForm.reset();
+		})
+		.catch(error => {
+		    alert("Hubo un error al enviar el mensaje. Inténtelo de nuevo.");
+		    console.error("Error:", error);
+		})
+		.finally(() => {
+		    contactFormBtn.disabled = false;
+		    contactFormBtn.textContent = "Enviar";
+		});
+
+    });
+});
+
+
+
+
 
 
 

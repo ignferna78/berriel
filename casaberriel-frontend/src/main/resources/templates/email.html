@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Correo de contacto</title>
+</head>
+
+<body style="font-family: Arial, sans-serif; color: #333333; margin: 0; padding: 0; background-color: #f4f4f4;">
+
+	<!-- Contenedor principal -->
+	<table align="center" border="0" cellpadding="0" cellspacing="0" width="600"
+		style="border-collapse: collapse; background-color: #ffffff; margin-top: 20px; border: 1px solid #dddddd;">
+
+		<!-- Encabezado -->
+		<tr>
+			<td align="center" bgcolor="#4CAF50"
+				style="padding: 20px 0; color: #ffffff; font-size: 24px; font-weight: bold;">
+				<span>Bienvenido</span>
+			</td>
+		</tr>
+
+		<!-- Espacio en blanco -->
+		<tr>
+			<td style="padding: 10px 20px;">
+				<p style="margin: 0;">Mensaje de  <strong th:text="${name}"></strong>!</p>
+			</td>
+		</tr>
+
+		<!-- Cuerpo del mensaje -->
+		<tr>
+			<td style="padding: 20px;">
+				<p style="font-size: 16px; line-height: 1.5; color: #666666;">
+					Correo Electronico: <strong th:text="${email}">Usuario</strong>
+				</p>
+				<blockquote
+					style="margin: 20px 0; padding: 10px 20px; background-color: #f4f4f4; border-left: 4px solid #4CAF50; color: #555555;">
+					<p th:text="${message}" style="margin: 0; font-style: italic; color: #333333;"></p>
+				</blockquote>
+			</td>
+		</tr>
+
+		<!-- Pie de página -->
+		<tr>
+			<td bgcolor="#4CAF50" style="padding: 10px 20px; color: #ffffff; text-align: center;">
+				<p style="margin: 0; font-size: 12px;">&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
+				<p style="margin: 0; font-size: 12px;">Este correo es generado automáticamente, por favor, no responder.
+				</p>
+			</td>
+		</tr>
+
+	</table>
+
+</body>
+
+</html>

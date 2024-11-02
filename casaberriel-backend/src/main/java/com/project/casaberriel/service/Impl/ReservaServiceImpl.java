@@ -5,14 +5,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.casaberriel.dto.ReservaDto;
 import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.model.reservas.ReservaForm;
 import com.project.casaberriel.model.usuarios.Usuario;
 import com.project.casaberriel.repositorios.ReservaRepositorio;
 import com.project.casaberriel.repositorios.UsuarioRepositorio;
+import com.project.casaberriel.service.IEmailService;
 import com.project.casaberriel.service.ReservaService;
 import com.project.casaberriel.utils.DateUtils;
 
@@ -24,6 +28,9 @@ public class ReservaServiceImpl implements ReservaService {
 	
 	@Autowired
 	private UsuarioRepositorio usuarioRepository;
+	
+	@Autowired
+	private IEmailService emailService;
 
 	private static final String FORMATO = "dd/MM/yyyy";
 	SimpleDateFormat formatter = new SimpleDateFormat(FORMATO);
@@ -34,7 +41,7 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String email) {
+	public ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String email) throws MessagingException {
 	    Date desde = obtenerFechaFormateada(fecha.getFechaEntrada());
 	    Date hasta = obtenerFechaFormateada(fecha.getFechaSalida());
 	    reserva.setFechaEntrada(desde);
@@ -47,8 +54,9 @@ public class ReservaServiceImpl implements ReservaService {
 	    } else {
 	        throw new IllegalArgumentException("Usuario no encontrado");
 	    }
-
-	    return reservaRepository.save(reserva);
+	    ReservaEntity savedReserva = reservaRepository.save(reserva);
+	    emailService.sendReservationConfirmation(savedReserva);
+	    return savedReserva;
 	}
 
 

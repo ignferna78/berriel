@@ -5,6 +5,8 @@ target/
 .classpath
 .project
 .settings/
+/.settings/
+
 
 # Directorio bin temporal para clases compiladas
 bin/
@@ -57,3 +59,4 @@ nbproject/
 /orm.xml
 /persistence.xml
 /pom.properties
+email.properties
