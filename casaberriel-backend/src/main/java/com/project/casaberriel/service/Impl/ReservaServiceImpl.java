@@ -2,6 +2,8 @@ package com.project.casaberriel.service.Impl;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +20,7 @@ import com.project.casaberriel.repositorios.ReservaRepositorio;
 import com.project.casaberriel.repositorios.UsuarioRepositorio;
 import com.project.casaberriel.service.IEmailService;
 import com.project.casaberriel.service.ReservaService;
-import com.project.casaberriel.utils.DateUtils;
+import com.project.casaberriel.utils.Utils;
 
 @Service
 public class ReservaServiceImpl implements ReservaService {
@@ -41,7 +43,7 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String email) throws MessagingException {
+	public ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String email,boolean cancelada, boolean modificada) throws MessagingException {
 	    Date desde = obtenerFechaFormateada(fecha.getFechaEntrada());
 	    Date hasta = obtenerFechaFormateada(fecha.getFechaSalida());
 	    reserva.setFechaEntrada(desde);
@@ -54,8 +56,13 @@ public class ReservaServiceImpl implements ReservaService {
 	    } else {
 	        throw new IllegalArgumentException("Usuario no encontrado");
 	    }
+	    LocalDate fechaEntrada = LocalDate.parse(fecha.getFechaEntrada(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	    LocalDate fechaSalida = LocalDate.parse(fecha.getFechaSalida(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	    double precioTotal = Utils.calculateTotalPrice(fechaEntrada, fechaSalida, reserva.getPrecioPorDia());
+	    reserva.setPrecioTotal(precioTotal);
+	    reserva.setPrecioPorDia(80.0);
 	    ReservaEntity savedReserva = reservaRepository.save(reserva);
-	    emailService.sendReservationConfirmation(savedReserva);
+	    emailService.sendReservationConfirmation(savedReserva,cancelada,modificada);
 	    return savedReserva;
 	}
 
@@ -99,7 +106,7 @@ public class ReservaServiceImpl implements ReservaService {
 	private Date obtenerFechaFormateada(String fecha) {
 		if (fecha != null && !fecha.isBlank()) {
 			try {
-				return DateUtils.obtenerDate(fecha, FORMATO);
+				return Utils.obtenerDate(fecha, FORMATO);
 			} catch (ParseException e) {
 				e.getMessage();
 			}

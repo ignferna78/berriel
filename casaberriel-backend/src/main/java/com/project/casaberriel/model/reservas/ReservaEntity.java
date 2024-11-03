@@ -43,8 +43,22 @@ public class ReservaEntity {
     @Column(name = "fecha_salida", nullable = false)
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date fechaSalida;
+    
+    @Column(nullable = false)
+    private double precioPorDia = 80.0;
+    
+    @Column(nullable = false)
+    private double precioTotal;
 
-    // Relación Many-to-One con Usuario
+    public double getPrecioTotal() {
+		return precioTotal;
+	}
+
+	public void setPrecioTotal(double precioTotal) {
+		this.precioTotal = precioTotal;
+	}
+
+	// Relación Many-to-One con Usuario
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
@@ -114,6 +128,14 @@ public class ReservaEntity {
 
 	public void setFechaSalida(Date fechaSalida) {
 		this.fechaSalida = fechaSalida;
+	}
+
+	public double getPrecioPorDia() {
+		return precioPorDia;
+	}
+
+	public void setPrecioPorDia(double precioPorDia) {
+		this.precioPorDia = precioPorDia;
 	}
 
 	// Getters y Setters

@@ -21,30 +21,31 @@
 	<main>
 		<section id="fechas" class="py-8">
 			<div class="container">
-			    <h2 class="text-center mb-4">Comprobar Disponibilidad</h2>
-			    <form id="comprobar-disponibilidad-form" th:action="@{/reservas/comprobar-disponibilidad}">
-			        <div class="row justify-content-center">
-			            <div class="col-md-4">
-			                <label>Selecciona fecha de Entrada: </label>
-			                <div class="input-group date datepicker">
-			                    <input class="form-control" type="text" id="fechaEntrada" name="fechaEntrada" readonly />
-			                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-			                </div>
-			            </div>
-			            <div class="col-md-4">
-			                <label>Selecciona fecha de salida: </label>
-			                <div class="input-group date datepicker">
-			                    <input class="form-control" type="text" id="fechaSalida" name="fechaSalida" readonly />
-			                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-			                </div>
-			            </div>
-			        </div>
-			        <div class="text-center mt-4">
-			            <button type="submit" id="comprobar-disponibilidad-formBtn" class="btn btn-success">
-			                Comprobar Disponibilidad
-			            </button>
-			        </div>
-			    </form>
+				<h2 class="text-center mb-4">Comprobar Disponibilidad</h2>
+				<form id="comprobar-disponibilidad-form" th:action="@{/reservas/comprobar-disponibilidad}">
+					<div class="row justify-content-center">
+						<div class="col-md-4">
+							<label>Selecciona fecha de Entrada: </label>
+							<div class="input-group date datepicker">
+								<input class="form-control" type="text" id="fechaEntrada" name="fechaEntrada"
+									readonly />
+								<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<label>Selecciona fecha de salida: </label>
+							<div class="input-group date datepicker">
+								<input class="form-control" type="text" id="fechaSalida" name="fechaSalida" readonly />
+								<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+					<div class="text-center mt-4">
+						<button type="submit" id="comprobar-disponibilidad-formBtn" class="btn btn-success">
+							Comprobar Disponibilidad
+						</button>
+					</div>
+				</form>
 			</div>
 			<div class="container">
 				<div id="resultados-disponibilidad">
@@ -65,9 +66,11 @@
 							<input type="hidden" id="isUserLoggedIn" th:value="${isUserLoggedIn}">
 							<div class="alert alert-success" role="alert">
 								<h4 class="alert-heading">Disponible</h4>
-								<span>La casa está disponible para las fechas seleccionadas,  <span th:text="${#httpServletRequest.remoteUser}"></span></span>
+								<span>La casa está disponible para las fechas seleccionadas,<strong> Precio:
+										80€/noche</strong> </span>
 								<hr>
-								<button class="btn btn-primary mt-3" id="botonReservar" onclick="handleReservar()">Reservar</button>
+								<button class="btn btn-primary mt-3" id="botonReservar"
+									onclick="handleReservar()">Reservar</button>
 
 							</div>
 						</div>
@@ -76,40 +79,41 @@
 			</div>
 			<!-- Login Modal -->
 			<div class="modal fade" id="modalLogin" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true"
-			    th:classappend="${error} ? 'show' : ''">
-			    <div class="modal-dialog">
-			        <div class="modal-content">
-			            <div class="modal-header">
-			                <h5 class="modal-title" id="loginModalLabel">Para reservar inicia sesión o registrate</h5>
-			                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			            </div>
-			            <div class="modal-body">
-			                <form th:action="@{/autenticacionUsusario}" method="POST">
-			                    <div id="error" class="alert alert-danger" style="display: none;"></div>
+				th:classappend="${error} ? 'show' : ''">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="loginModalLabel">Para reservar inicia sesión o registrate</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form th:action="@{/autenticacionUsusario}" method="POST">
+								<div id="error" class="alert alert-danger" style="display: none;"></div>
 
-			                    <div class="form-group">
-			                        <label for="email">Email</label>
-			                        <input type="text" id="email" name="username" class="form-control"
-			                            placeholder="Ingresa tu email">
-			                    </div>
-			                    <div class="form-group">
-			                        <label for="password">Contraseña</label>
-			                        <input type="password" id="password" name="password" class="form-control"
-			                            placeholder="Ingresa tu contraseña">
-			                    </div>
-			                    <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
-			                    <span>Si no estás registrado, <a th:href="@{/registro/inicio}">Regístrate aquí</a></span>
-			                </form>
-			            </div>
-			            <div class="modal-footer">
-			                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-			            </div>
-			        </div>
-			    </div>
+								<div class="form-group">
+									<label for="email">Email</label>
+									<input type="text" id="email" name="username" class="form-control"
+										placeholder="Ingresa tu email">
+								</div>
+								<div class="form-group">
+									<label for="password">Contraseña</label>
+									<input type="password" id="password" name="password" class="form-control"
+										placeholder="Ingresa tu contraseña">
+								</div>
+								<button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+								<span>Si no estás registrado, <a th:href="@{/registro/inicio}">Regístrate
+										aquí</a></span>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</div>
 			</div>
 
 		</section>
-		
+
 		<!-- About Section -->
 		<section id="about" class="py-5">
 			<div class="container">
@@ -191,36 +195,37 @@
 
 		<!-- Contact Section -->
 		<section id="contact" class="bg-light py-5">
-		    <div class="container">
-		        <h2 class="text-center" data-i18n="contact.title"></h2>
-		        <p class="text-center" data-i18n="contact.subtitle"></p>
-		        <div class="row">
-		            <div class="col-md-6">
-		                <h4 data-i18n="contact.address"></h4>
-		                <p data-i18n="contact.address_desc"></p>
-		                <h4 data-i18n="contact.phone_title"></h4>
-		                <p data-i18n="contact.phone"></p>
-		                <h4 data-i18n="contact.email"></h4>
-		                <p>info@casaberriel.com</p>
-		            </div>
-		            <div class="col-md-6">
-		                <h4 data-i18n="contact.send_message"></h4>
-		                <form id="contactForm" th:action="@{/api/send-email}" method="POST">
-		                    <div class="form-group">
-		                        <input type="text" class="form-control" placeholder="Tu Nombre" id="name" required>
-		                    </div>
-		                    <div class="form-group">
-		                        <input type="email" class="form-control" placeholder="Tu Email" id="email" required>
-		                    </div>
-		                    <div class="form-group">
-		                        <textarea class="form-control" rows="4" placeholder="Tu Mensaje" id="message" required></textarea>
-		                    </div>
-		                    <button type="submit" class="btn btn-primary" id="contactFormBtn">Enviar</button>
-		                </form>
-		              
-		            </div>
-		        </div>
-		    </div>
+			<div class="container">
+				<h2 class="text-center" data-i18n="contact.title"></h2>
+				<p class="text-center" data-i18n="contact.subtitle"></p>
+				<div class="row">
+					<div class="col-md-6">
+						<h4 data-i18n="contact.address"></h4>
+						<p data-i18n="contact.address_desc"></p>
+						<h4 data-i18n="contact.phone_title"></h4>
+						<p data-i18n="contact.phone"></p>
+						<h4 data-i18n="contact.email"></h4>
+						<p>info@casaberriel.com</p>
+					</div>
+					<div class="col-md-6">
+						<h4 data-i18n="contact.send_message"></h4>
+						<form id="contactForm" th:action="@{/api/send-email}" method="POST">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Tu Nombre" id="name" required>
+							</div>
+							<div class="form-group">
+								<input type="email" class="form-control" placeholder="Tu Email" id="email" required>
+							</div>
+							<div class="form-group">
+								<textarea class="form-control" rows="4" placeholder="Tu Mensaje" id="message"
+									required></textarea>
+							</div>
+							<button type="submit" class="btn btn-primary" id="contactFormBtn">Enviar</button>
+						</form>
+
+					</div>
+				</div>
+			</div>
 		</section>
 
 

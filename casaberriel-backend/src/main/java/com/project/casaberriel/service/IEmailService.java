@@ -10,7 +10,7 @@ public interface IEmailService {
 
 	public void sendMail(EmailDto email) throws MessagingException;
 
-	void sendReservationConfirmation(ReservaEntity savedReserva) throws MessagingException;
+	void sendReservationConfirmation(ReservaEntity savedReserva,boolean cancelada,boolean modificada) throws MessagingException;
 
 
 

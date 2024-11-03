@@ -21,7 +21,7 @@ public interface ReservaService {
 
 	public boolean comprobarDisponibilidad(ReservaForm fecha);
 
-	ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String username) throws MessagingException;
+	ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String username,boolean cancelada,boolean modificada) throws MessagingException;
 
 
 

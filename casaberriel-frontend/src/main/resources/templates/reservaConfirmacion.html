@@ -1,58 +1,146 @@
+
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Confirmación de Reserva</title>
+    <title>Reservas- Casa Berriel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgb(128, 128, 255);
+            color: #ffffff;
+            padding: 25px 20px;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 26px;
+        }
+
+        .logo h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .content {
+            padding: 25px;
+            color: #555555;
+            line-height: 1.6;
+        }
+
+        .content p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        .highlight {
+            color: #20B2AA;
+            font-weight: bold;
+        }
+
+        .details {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-left: 4px solid #20B2AA;
+            border-radius: 5px;
+        }
+
+        .details p {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+
+        .footer {
+            background-color: #333333;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            font-size: 12px;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            margin: 0 8px;
+            display: inline-block;
+        }
+
+        .social-icons img {
+            width: 24px;
+        }
+    </style>
 </head>
-<body style="font-family: Arial, sans-serif; color: #333333; background-color: #f4f4f4; margin: 0; padding: 0;">
 
-    <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; background-color: #ffffff; border: 1px solid #dddddd; margin-top: 20px;">
-        
+<body>
+
+    <div class="container">
         <!-- Encabezado -->
-        <tr>
-            <td align="center" bgcolor="#4CAF50" style="padding: 20px; color: #ffffff; font-size: 24px; font-weight: bold;">
-                Confirmación de Reserva
-            </td>
-        </tr>
+        <div class="header">
+            <div class="logo">
+                <h2>Casa Berriel</h2>
+            </div>
+            <h1 th:if="${modificada}">Modificación de Reserva</h1>
+            <h1 th:if="${!modificada and !cancelada}">Confirmación de Reserva</h1>
+            <h1 th:if="${cancelada}">Cancelación de Reserva</h1>
+        </div>
 
-        <!-- Saludo -->
-        <tr>
-            <td style="padding: 20px;">
-                <p>Estimado/a <strong th:text="${nombreCliente}">Cliente</strong>,</p>
-                <p>Gracias por reservar con nosotros. Aquí están los detalles de su reserva:</p>
-            </td>
-        </tr>
+        <!-- Contenido -->
+        <div class="content">
+            <p>Estimado/a <span class="highlight" th:text="${nombreCliente}"></span>,</p>
+            <p th:if="${modificada}">Su reserva ha sido modificada con los siguientes detalles:</p>
+            <p th:if="${!modificada and !cancelada}">¡Gracias por confiar en Casa Berriel para su estancia! Nos complace confirmar su reserva con los siguientes detalles:</p>
+            <p th:if="${cancelada}">Su reserva ha sido cancelada:</p>
 
-        <!-- Detalles de la reserva -->
-        <tr>
-            <td style="padding: 20px;">
-                <table width="100%" style="border-collapse: collapse;">
-                    <tr>
-                        <td style="padding: 10px; border-bottom: 1px solid #dddddd;"><strong>Fecha de Entrada:</strong></td>
-                        <td style="padding: 10px; border-bottom: 1px solid #dddddd;" th:text="${fechaEntrada}"></td>
-                    </tr>
-                    <tr>
-                        <td style="padding: 10px; border-bottom: 1px solid #dddddd;"><strong>Fecha de Salida:</strong></td>
-                        <td style="padding: 10px; border-bottom: 1px solid #dddddd;" th:text="${fechaSalida}"></td>
-                    </tr>
+            <div class="details" th:if="${!cancelada}">
+                <p>Fecha de Entrada: <span class="highlight" th:text="${fechaEntrada}"></span></p>
+                <p>Fecha de Salida: <span class="highlight" th:text="${fechaSalida}"></span></p>
+                <p>Horario de Check-in: <span class="highlight">A partir de las 14:00</span></p>
+                <p>Horario de Check-out: <span class="highlight">Hasta las 11:00</span></p>
+                <p>Precio Total: <span class="highlight" th:text="${precioTotal}"></span></p>
+            </div>
 
-                   <tr>
-                        <td style="padding: 10px; border-bottom: 1px solid #dddddd;"><strong>Precio Total:</strong></td>
-                        <td style="padding: 10px; border-bottom: 1px solid #dddddd;" >100€</td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
+            <p th:if="${!cancelada}">Si tiene alguna pregunta o desea realizar algún cambio en su reserva, no dude en ponerse en contacto con nosotros. Estamos aquí para ayudarle a disfrutar de una estancia memorable.</p>
+            <p th:if="${!cancelada}">¡Le esperamos pronto en Casa Berriel!</p>
+        </div>
 
         <!-- Pie de página -->
-        <tr>
-            <td bgcolor="#4CAF50" style="padding: 10px; color: #ffffff; text-align: center;">
-                <p style="margin: 0; font-size: 12px;">&copy; 2024 Casa Berriel. Todos los derechos reservados.</p>
-                <p style="margin: 0; font-size: 12px;">Este correo es generado automáticamente, por favor, no responder.</p>
-            </td>
-        </tr>
-
-    </table>
+        <div class="footer">
+            <p>&copy; 2024 Casa Berriel. Todos los derechos reservados.</p>
+        </div>
+    </div>
 
 </body>
+
 </html>

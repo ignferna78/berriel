@@ -14,11 +14,13 @@ public class ReservaDto implements java.io.Serializable{
 	private String direccion;
 	private Date fechaEntrada;
 	private Date fechaSalida;
+    private double precioPorDia;
+
 
 	public ReservaDto() {
 	}
 
-	public ReservaDto(String nombre,String apellidos, String direccion, Date fechaEntrada, Date fechaSalida) {
+	public ReservaDto(String nombre,String apellidos, String direccion, Date fechaEntrada, Date fechaSalida,double precioPorDia) {
 		this.nombre = nombre;
 		this.fechaEntrada = fechaEntrada;
 		this.fechaSalida = fechaSalida;
@@ -72,5 +74,13 @@ public class ReservaDto implements java.io.Serializable{
 
 	public void setFechaSalida(Date fechaSalida) {
 		this.fechaSalida = fechaSalida;
+	}
+
+	public double getPrecioPorDia() {
+		return precioPorDia;
+	}
+
+	public void setPrecioPorDia(double precioPorDia) {
+		this.precioPorDia = precioPorDia;
 	}
 }
