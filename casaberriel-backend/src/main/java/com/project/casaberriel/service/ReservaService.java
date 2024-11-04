@@ -6,26 +6,20 @@ import javax.mail.MessagingException;
 
 import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.model.reservas.ReservaForm;
-import com.project.casaberriel.model.usuarios.Usuario;
-
 
 public interface ReservaService {
 
 	List<ReservaEntity> listarReservas();
 
-	
-
 	public ReservaEntity obtenerReservaPorId(Long id);
 
-	public void eliminarReserva(Long id);
+	public ReservaEntity eliminarReserva(Long id, String email, boolean cancelada, boolean modificada);
 
 	public boolean comprobarDisponibilidad(ReservaForm fecha);
 
-	ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String username,boolean cancelada,boolean modificada) throws MessagingException;
-
-
+	ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String username, boolean cancelada,
+			boolean modificada) throws MessagingException;
 
 	List<ReservaEntity> obtenerReservaPorEmail(String email);
-
 
 }

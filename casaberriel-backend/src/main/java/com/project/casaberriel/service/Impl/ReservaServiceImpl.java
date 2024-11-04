@@ -78,9 +78,19 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	@Override
-	public void eliminarReserva(Long id) {
-		reservaRepository.deleteById(id);
-
+	public ReservaEntity eliminarReserva(Long id, String email, boolean cancelada, boolean modificada) {
+	    // Primero obtenemos la reserva antes de eliminarla
+	    ReservaEntity reserva = reservaRepository.findById(id)
+	        .orElseThrow(() -> new IllegalArgumentException("Reserva no encontrada para el id: " + id));
+	    // Ahora eliminamos la reserva
+	    reservaRepository.deleteById(id);
+	    try {
+			emailService.sendReservationConfirmation(reserva,true,modificada);
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+	    // Retornamos la reserva eliminada
+	    return reserva;
 	}
 
 	/**

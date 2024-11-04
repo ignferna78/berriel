@@ -176,9 +176,9 @@ document.addEventListener("DOMContentLoaded", function() {
 function handleReservar() {
     // Obtén el valor de isUserLoggedIn desde el input oculto
     const isUserLoggedIn = document.getElementById('isUserLoggedIn').value === 'true';
-console.log(isUserLoggedIn);
+//console.log(isUserLoggedIn);
     if (isUserLoggedIn) {
-		console.log("dentr if " + isUserLoggedIn);
+		//console.log("dentr if " + isUserLoggedIn);
         // Redirige al formulario de reservas si el usuario está logueado
         const fechaEntrada = document.getElementById('fechaEntrada').value;
         const fechaSalida = document.getElementById('fechaSalida').value;

@@ -19,6 +19,9 @@ public class Usuario {
 	@Column(name ="apellidos")
 	private String apellidos;
 	
+	@Column(name ="direccion")
+	private String direccion;
+
 	@Column(name ="password")
 	private String password;
 	
@@ -37,20 +40,22 @@ public class Usuario {
 		super();
 	}
 	
-	public Usuario(String nombre, String apellidos, String password, String email, Collection<Rol> roles) {
+	public Usuario(String nombre, String apellidos, String direccion, String password, String email, Collection<Rol> roles) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
+		this.direccion = direccion;
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
 	}
 	
-	public Usuario(Long id, String nombre, String apellidos, String password,String email,  Collection<Rol> roles) {
+	public Usuario(Long id, String nombre, String apellidos, String direccion, String password,String email,  Collection<Rol> roles) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
+		this.direccion = direccion;
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
@@ -80,6 +85,14 @@ public class Usuario {
 		this.apellidos = apellidos;
 	}
 
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	
 	public String getEmail() {
 		return email;
 	}

@@ -39,9 +39,9 @@
 							<td th:text="${reserva.apellidos}"></td>
 							<td th:text="${reserva.email}"></td>
 							<td th:text="${reserva.direccion}"></td>
-							<td th:text="${T(com.project.casaberriel.utils.Utils).formatFecha(reserva.fechaEntrada)}">
+							<td th:text="${#dates.format(reserva.fechaEntrada, 'dd/MM/yyyy')}">
 							</td>
-							<td th:text="${T(com.project.casaberriel.utils.Utils).formatFecha(reserva.fechaSalida)}">
+							<td th:text="${#dates.format(reserva.fechaSalida, 'dd/MM/yyyy')}">
 							</td>
 							<td th:text="${reserva.precioTotal}"></td>
 							<td>

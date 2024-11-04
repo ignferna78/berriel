@@ -43,6 +43,8 @@ public class HomeController {
 
 	private ReservaService reservaService;
 
+	private IEmailService emailService;
+
 	private static final String REDIRECT_LISTA_RESERVAS = "redirect:/reservas/lista";
 
 	@GetMapping("/index")
@@ -142,16 +144,12 @@ public class HomeController {
 		}
 	}
 
-	@GetMapping("/eliminar/{id}")
-	public String eliminarReserva(@PathVariable Long id, Model model) {
-		reservaService.eliminarReserva(id);
-		model.addAttribute("message", "Reserva eliminada con éxito.");
-		return "redirect:/admin/lista";
-	}
 
 	@GetMapping("/delete/{id}")
-	public String deleteReserva(@PathVariable Long id, Model model) {
-		reservaService.eliminarReserva(id);
+	public String deleteReserva(@PathVariable Long id, Model model,String email, boolean cancelada, boolean modificada)
+			throws MessagingException {
+		reservaService.eliminarReserva(id,email, cancelada, modificada);
+		
 		model.addAttribute("message", "Reserva eliminada con éxito.");
 		return "redirect:/reservas/miReserva";
 	}

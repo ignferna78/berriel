@@ -5,6 +5,7 @@ public class UsuarioRegistroDto {
 	private Long id;
 	private String nombre;
 	private String apellidos;
+	private String direccion;
 	private String email;
 	private String password;
 
@@ -73,6 +74,14 @@ public class UsuarioRegistroDto {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 }

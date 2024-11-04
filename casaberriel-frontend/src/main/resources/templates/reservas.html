@@ -66,18 +66,22 @@
 							</div>
 						</div>
 
-						<div class="row">
-							<!-- Fecha de Entrada -->
-							<div class="col-md-6 mb-3">
-								<label for="fechaEntrada" class="form-label">Fecha de Entrada</label>
-								<input type="text" class="form-control datepicker" id="fechaEntrada" name="fechaEntrada"
-									th:value="${fechaEntrada}" readonly>
+						<div class="row justify-content-center">
+							<div class="col-md-4">
+								<label>Selecciona fecha de Entrada: </label>
+								<div class="input-group date datepicker">
+									<input class="form-control" type="text" id="fechaEntrada" name="fechaEntrada"
+										readonly />
+									<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+								</div>
 							</div>
-							<!-- Fecha de Salida -->
-							<div class="col-md-6 mb-3">
-								<label for="fechaSalida" class="form-label">Fecha de Salida</label>
-								<input type="text" class="form-control datepicker" id="fechaSalida" name="fechaSalida"
-									th:value="${fechaSalida}" readonly>
+							<div class="col-md-4">
+								<label>Selecciona fecha de salida: </label>
+								<div class="input-group date datepicker">
+									<input class="form-control" type="text" id="fechaSalida" name="fechaSalida"
+										readonly />
+									<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+								</div>
 							</div>
 						</div>
 						<div class="row justify-content-center">

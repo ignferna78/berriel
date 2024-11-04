@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +22,7 @@ import com.project.casaberriel.dto.UsuarioRegistroDto;
 import com.project.casaberriel.model.usuarios.Rol;
 import com.project.casaberriel.model.usuarios.Usuario;
 import com.project.casaberriel.repositorios.UsuarioRepositorio;
+import com.project.casaberriel.service.IEmailService;
 import com.project.casaberriel.service.UsuarioService;
 
 @Service
@@ -27,6 +30,9 @@ public class UsuarioServiceImpl implements UserDetailsService,UsuarioService {
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepository;
+	
+	@Autowired
+	private IEmailService emailService;
 
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -67,6 +73,22 @@ public class UsuarioServiceImpl implements UserDetailsService,UsuarioService {
 				return usuarioRepository.findUserByEmail(email)
 						.orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con id: " + email));
 			}
+
+			@Override
+			public Usuario findUserById(Long id) {
+				return usuarioRepository.findById(id).orElse(null);
+			}
+
+			@Override
+			public void updateUser(Usuario usuario) {
+				   usuarioRepository.save(usuario);
+				
+			}
+
+			@Override
+			public void deleteUserById(Long id) {
+				usuarioRepository.deleteById(id);				
+			}
 		
 		};
 	}
@@ -93,6 +115,17 @@ public class UsuarioServiceImpl implements UserDetailsService,UsuarioService {
 		return null;
 	}
 
+
+	@Override
+    public Usuario findUserById(Long id) {
+        return usuarioRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void updateUser(Usuario usuario) {
+        usuarioRepository.save(usuario);
+    }
+
 	@Override
 	public Usuario guardar(UsuarioRegistroDto registroDto) {
 		// TODO Auto-generated method stub
@@ -103,6 +136,11 @@ public class UsuarioServiceImpl implements UserDetailsService,UsuarioService {
 	public Usuario findUserByEmail(String email) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void deleteUserById(Long id) {
+		usuarioRepository.deleteById(id);	
 	}
 
 

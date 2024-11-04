@@ -23,5 +23,8 @@ public interface UsuarioService {
 
 	Usuario findUserByEmail(String email); 
 		
-	
+	Usuario findUserById(Long id);
+    void updateUser(Usuario usuario);
+
+	void deleteUserById(Long id);
 }

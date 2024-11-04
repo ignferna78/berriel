@@ -9,7 +9,7 @@
 
 <body>
 	<th:block th:include="componentes/_nav.html"></th:block>
-	
+
 	<div class="container">
 		<h1 class="mb-4">Formulario de registro</h1>
 		<div class="card">
@@ -19,14 +19,20 @@
 						<label for="nombre">Nombre</label> <input type="text" name="nombre" class="form-control"
 							id="nombre" placeholder="Ingresa tu nombre">
 					</div>
-					<div class="form-group">
-						<label for="email">Email</label> <input type="text" name="email" class="form-control" id="email"
-							placeholder="Ingresa tu email">
-					</div>
+
 					<div class="form-group">
 						<label for="apellidos">apellidos</label> <input type="text" name="apellidos"
 							class="form-control" id="apellidos" placeholder="Ingresa tu apellidos">
 					</div>
+					<div class="form-group">
+						<label for="direccion">direccion</label> <input type="text" name="direccion"
+							class="form-control" id="direccion" placeholder="Ingresa tu direccion">
+					</div>
+					<div class="form-group">
+						<label for="email">Email</label> <input type="text" name="email" class="form-control" id="email"
+							placeholder="Ingresa tu email">
+					</div>
+
 					<div class="form-group">
 						<label for="password">Contraseña</label> <input type="password" name="password"
 							class="form-control" id="password" placeholder="Ingresa tu contraseña">
@@ -48,42 +54,42 @@
 	</div>
 	<input type="hidden" name="redirectUrl" th:value="${redirectUrl}">
 	<!-- Modal de Login -->
-		<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true"
-			th:classappend="${error} ? 'show' : ''">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<form th:action="@{/autenticacionUsusario}" method="POST">
-							<div id="error" class="alert alert-danger" style="display: none;"></div>
+	<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true"
+		th:classappend="${error} ? 'show' : ''">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="loginModalLabel">Iniciar Sesión</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form th:action="@{/autenticacionUsusario}" method="POST">
+						<div id="error" class="alert alert-danger" style="display: none;"></div>
 
-							<div class="form-group">
-								<label for="email">Email</label>
-								<input type="text" id="email" name="username" class="form-control"
-									placeholder="Ingresa tu email">
-							</div>
-							<div class="form-group">
-								<label for="password">Contraseña</label>
-								<input type="password" id="password" name="password" class="form-control"
-									placeholder="Ingresa tu contraseña">
-							</div>
-							<button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
-							<span>Si no estás registrado, <a th:href="@{/registro/inicio}">Regístrate aquí</a></span>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					</div>
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="text" id="email" name="username" class="form-control"
+								placeholder="Ingresa tu email">
+						</div>
+						<div class="form-group">
+							<label for="password">Contraseña</label>
+							<input type="password" id="password" name="password" class="form-control"
+								placeholder="Ingresa tu contraseña">
+						</div>
+						<button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+						<span>Si no estás registrado, <a th:href="@{/registro/inicio}">Regístrate aquí</a></span>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<th:block th:include="componentes/_scripts.html"></th:block>
+	<th:block th:include="componentes/_scripts.html"></th:block>
 </body>
 
 <th:block th:include="componentes/footer.html"></th:block>
