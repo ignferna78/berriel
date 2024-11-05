@@ -42,7 +42,7 @@
 					<div class="card-body">
 						<!-- Nombre y apellidos -->
 						<div class="form-group mb-3">
-							<label for="nombre" class="form-label">Nombre y Apellidos</label>
+							<label for="nombre" class="form-label">Nombre y Apellidos </label>
 							<div class="input-group">
 								<input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre"
 									required>
@@ -71,7 +71,7 @@
 								<label>Selecciona fecha de Entrada: </label>
 								<div class="input-group date datepicker">
 									<input class="form-control" type="text" id="fechaEntrada" name="fechaEntrada"
-										readonly />
+										th:value="${param.fechaEntrada}" readonly />
 									<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 								</div>
 							</div>
@@ -79,15 +79,31 @@
 								<label>Selecciona fecha de salida: </label>
 								<div class="input-group date datepicker">
 									<input class="form-control" type="text" id="fechaSalida" name="fechaSalida"
-										readonly />
+										th:value="${param.fechaSalida}" readonly />
 									<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+								</div>
+							</div>
+							<div class="row">
+								<!-- Número de Personas -->
+								<div class="col-md-6 mb-3">
+									<label for="numPersonas" class="form-label">Número de Personas</label>
+									<input type="number" class="form-control" id="numPersonas" name="numPersonas"
+										min="1" max="5" required>
+								</div>
+							</div>
+							<div class="row">
+								<!-- Observaciones -->
+								<div class="col-md-12 mb-3">
+									<label for="observaciones" class="form-label">Observaciones</label>
+									<textarea id="observaciones" name="observaciones" class="form-control"
+										rows="4"></textarea>
 								</div>
 							</div>
 						</div>
 						<div class="row justify-content-center">
 							<!-- Botón Volver -->
 							<div class="col-auto">
-								<a href="/reservas/index" class="btn btn-primary">Volver</a>
+								<a href="/reservas/miReserva" class="btn btn-primary">Volver</a>
 							</div>
 							<!-- Botón Enviar -->
 							<div class="col-auto">

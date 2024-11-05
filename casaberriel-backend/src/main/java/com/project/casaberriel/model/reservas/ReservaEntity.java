@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,37 +22,53 @@ import com.project.casaberriel.model.usuarios.Usuario;
 @Table(name = "reservas")
 public class ReservaEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(nullable = false)
-    private String nombre;
+	@Column(nullable = false)
+	private String nombre;
 
-    @Column(nullable = false)
-    private String apellidos;
+	@Column(nullable = false)
+	private String apellidos;
 
-    @Column(nullable = false)
-    private String email;
+	@Column(nullable = false)
+	private String email;
 
-    @Column(nullable = false)
-    private String direccion;
+	@Column(nullable = false)
+	private String direccion;
 
-    @Column(name = "fecha_entrada", nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaEntrada;
+	@Column(name = "fecha_entrada", nullable = false)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date fechaEntrada;
 
-    @Column(name = "fecha_salida", nullable = false)
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaSalida;
-    
-    @Column(nullable = false)
-    private double precioPorDia = 80.0;
-    
-    @Column(nullable = false)
-    private double precioTotal;
+	@Column(name = "fecha_salida", nullable = false)
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date fechaSalida;
 
-    public double getPrecioTotal() {
+	@Column(nullable = false)
+	private String observaciones;
+
+	@Column(nullable = false)
+	private double precioPorDia = 80.0;
+
+	@Column(nullable = false)
+	private double precioTotal;
+	
+	@Max(5)
+    @Min(1)
+	@Column(nullable = false)
+	private Integer numPersonas;
+
+	public Integer getNumPersonas() {
+		return numPersonas;
+	}
+
+	public void setNumPersonas(Integer numPersonas) {
+		this.numPersonas = numPersonas;
+	}
+
+	public double getPrecioTotal() {
 		return precioTotal;
 	}
 
@@ -59,9 +77,17 @@ public class ReservaEntity {
 	}
 
 	// Relación Many-to-One con Usuario
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario_id")
+	private Usuario usuario;
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}
 
 	public Usuario getUsuario() {
 		return usuario;

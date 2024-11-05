@@ -1,8 +1,11 @@
 package com.project.casaberriel.model.usuarios;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.*;
+
+import com.project.casaberriel.model.reservas.ReservaEntity;
 
 @Entity
 @Table(name = "usuarios",uniqueConstraints = { @UniqueConstraint(columnNames = "email") })
@@ -35,6 +38,10 @@ public class Usuario {
 	joinColumns = @JoinColumn(name = "usuarios_id",referencedColumnName = "id"),
 	inverseJoinColumns = @JoinColumn(name = "rol_id",referencedColumnName = "id"))
 	private Collection<Rol>roles;
+	
+	// Relación One-to-Many con ReservaEntity
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ReservaEntity> reservas;
 	
 	public Usuario() {
 		super();

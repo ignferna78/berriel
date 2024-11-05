@@ -68,8 +68,12 @@ public class EmailServiceImpl implements IEmailService {
 
 			// Configuración del contexto para la plantilla de reserva
 			Context context = new Context();
-			context.setVariable("nombreCliente", reserva.getNombre());
-			context.setVariable("modificada", modificada);
+			context.setVariable("idReserva", reserva.getId());
+			context.setVariable("nombre", reserva.getNombre());
+			context.setVariable("apellidos", reserva.getApellidos());
+			context.setVariable("observaciones", reserva.getObservaciones());
+			context.setVariable("numPersonas", reserva.getNumPersonas());
+		    context.setVariable("modificada", modificada);
 			context.setVariable("cancelada", cancelada);
 
 			// Convertir Date a LocalDate

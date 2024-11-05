@@ -26,32 +26,33 @@ function limpiarCriterios() {
 	});
 }
 
-$('#comprobar-disponibilidad-formBtn').on('click', function(event) {
-	event.preventDefault();
+function comprobarDisponibilidad() {
+	const fechaEntrada = document.getElementById("fechaEntrada").value;
+	const fechaSalida = document.getElementById("fechaSalida").value;
 
-	var fechaEntrada = $('#fechaEntrada').val();
-	var fechaSalida = $('#fechaSalida').val();
+	// Realiza la solicitud AJAX para comprobar disponibilidad
+	fetch(`/reservas/comprobar-disponibilidad?fechaEntrada=${fechaEntrada}&fechaSalida=${fechaSalida}`, {
+		method: 'GET'
+	})
+		.then(response => response.json())
+		.then(data => {
+			const disponibilidadDiv = document.getElementById("resultados-disponibilidad");
 
-	//console.log('Fecha de entrada enviada:', fechaEntrada);
-	//console.log('Fecha de salida enviada:', fechaSalida);
+			if (data.disponible) {
+				disponibilidadDiv.innerHTML = `
+                <div class="alert alert-success" role="alert">
+                    La casa está disponible para las fechas seleccionadas.
+                </div>`;
+			} else {
+				disponibilidadDiv.innerHTML = `
+                <div class="alert alert-warning" role="alert">
+                    La casa no está disponible para las fechas seleccionadas. Por favor, elija otras fechas.
+                </div>`;
+			}
+		})
+		.catch(error => console.error("Error comprobando disponibilidad:", error));
+}
 
-	var formData = {
-		fechaEntrada: fechaEntrada,
-		fechaSalida: fechaSalida
-	};
-
-	$.ajax({
-		url: $('#comprobar-disponibilidad-form').attr('action'),
-		type: 'GET',
-		data: formData,
-		success: function(response) {
-			$('#resultados-disponibilidad').html($(response).find('#resultados-disponibilidad').html());
-		},
-		error: function(error) {
-			console.log("Error en la comprobación de disponibilidad: ", error);
-		}
-	});
-});
 
 
 // Mostrar el botón cuando el usuario hace scroll hacia abajo 20px
@@ -95,48 +96,48 @@ $(function() {
 		todayHighlight: true,
 		format: 'dd/mm/yyyy',
 	}).datepicker('update', new Date());
-	
+
 	$('#fechaEntrada').datepicker({
-	          startDate: 'today', // No permite seleccionar fechas pasadas
-	          autoclose: true,
-	          todayHighlight: true,
-	          format: 'dd/mm/yyyy'
-	      }).on('changeDate', function (e) {
-	          // Obtener la fecha de entrada y establecerla como fecha mínima en el datepicker de salida
-	          let fechaEntrada = $('#fechaEntrada').datepicker('getDate');
-	          $('#fechaSalida').datepicker('setStartDate', fechaEntrada);
-	          $('#fechaSalida').datepicker('setDate', null); // Limpiar la fecha de salida al cambiar la fecha de entrada
-	      });
+		startDate: 'today', // No permite seleccionar fechas pasadas
+		autoclose: true,
+		todayHighlight: true,
+		format: 'dd/mm/yyyy'
+	}).on('changeDate', function(e) {
+		// Obtener la fecha de entrada y establecerla como fecha mínima en el datepicker de salida
+		let fechaEntrada = $('#fechaEntrada').datepicker('getDate');
+		$('#fechaSalida').datepicker('setStartDate', fechaEntrada);
+		$('#fechaSalida').datepicker('setDate', null); // Limpiar la fecha de salida al cambiar la fecha de entrada
+	});
 
-	      // Configurar el datepicker para la fecha de salida
-	      $('#fechaSalida').datepicker({
-	          startDate: 'today', // No permite seleccionar fechas pasadas
-	          autoclose: true,
-	          todayHighlight: true,
-	          format: 'dd/mm/yyyy'
-	      });
+	// Configurar el datepicker para la fecha de salida
+	$('#fechaSalida').datepicker({
+		startDate: 'today', // No permite seleccionar fechas pasadas
+		autoclose: true,
+		todayHighlight: true,
+		format: 'dd/mm/yyyy'
+	});
 
-	      // Validación antes de enviar el formulario
-	      $('#comprobar-disponibilidad-form').on('submit', function (e) {
-	          let fechaEntrada = $('#fechaEntrada').datepicker('getDate');
-	          let fechaSalida = $('#fechaSalida').datepicker('getDate');
+	// Validación antes de enviar el formulario
+	$('#comprobar-disponibilidad-form').on('submit', function(e) {
+		let fechaEntrada = $('#fechaEntrada').datepicker('getDate');
+		let fechaSalida = $('#fechaSalida').datepicker('getDate');
 
-	          // Comprobar si la fecha de salida es anterior a la fecha de entrada
-	          if (fechaSalida && fechaEntrada && fechaSalida <= fechaEntrada) {
-	              e.preventDefault(); // Evitar que se envíe el formulario
-	              alert('La fecha de salida debe ser posterior a la fecha de entrada.');
-	              return false;
-	          }
+		// Comprobar si la fecha de salida es anterior a la fecha de entrada
+		if (fechaSalida && fechaEntrada && fechaSalida <= fechaEntrada) {
+			e.preventDefault(); // Evitar que se envíe el formulario
+			alert('La fecha de salida debe ser posterior a la fecha de entrada.');
+			return false;
+		}
 
-	          // Comprobar que ambas fechas han sido seleccionadas
-	          if (!fechaEntrada || !fechaSalida) {
-	              e.preventDefault();
-	              alert('Por favor, selecciona ambas fechas.');
-	              return false;
-	          }
-	      });
-	
-	
+		// Comprobar que ambas fechas han sido seleccionadas
+		if (!fechaEntrada || !fechaSalida) {
+			e.preventDefault();
+			alert('Por favor, selecciona ambas fechas.');
+			return false;
+		}
+	});
+
+
 });
 
 
@@ -174,87 +175,100 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 function handleReservar() {
-    // Obtén el valor de isUserLoggedIn desde el input oculto
-    const isUserLoggedIn = document.getElementById('isUserLoggedIn').value === 'true';
-//console.log(isUserLoggedIn);
-    if (isUserLoggedIn) {
+	// Obtén el valor de isUserLoggedIn desde el input oculto
+	const isUserLoggedIn = document.getElementById('isUserLoggedIn').value === 'true';
+	//console.log(isUserLoggedIn);
+	if (isUserLoggedIn) {
 		//console.log("dentr if " + isUserLoggedIn);
-        // Redirige al formulario de reservas si el usuario está logueado
-        const fechaEntrada = document.getElementById('fechaEntrada').value;
-        const fechaSalida = document.getElementById('fechaSalida').value;
-        window.location.href = `/reservas/formReserva?fechaEntrada=${encodeURIComponent(fechaEntrada)}&fechaSalida=${encodeURIComponent(fechaSalida)}`;
+		// Redirige al formulario de reservas si el usuario está logueado
+		const fechaEntrada = document.getElementById('fechaEntrada').value;
+		const fechaSalida = document.getElementById('fechaSalida').value;
+		window.location.href = `/reservas/guardar?fechaEntrada=${fechaEntrada}&fechaSalida=${fechaSalida}`;
 		console.log('Fecha de entrada enviada:', fechaEntrada);
 		console.log('Fecha de salida enviada:', fechaSalida);
-    } else {
-        // Muestra el modal de login si el usuario no está logueado
-        $('#modalLogin').modal('show');
-    }
+	} else {
+		// Muestra el modal de login si el usuario no está logueado
+		$('#modalLogin').modal('show');
+	}
 }
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-    // Seleccionar el formulario y el botón de envío
-    const contactForm = document.getElementById("contactForm");
-    const contactFormBtn = document.getElementById("contactFormBtn");
+document.addEventListener("DOMContentLoaded", function() {
+	// Seleccionar el formulario y el botón de envío
+	const contactForm = document.getElementById("contactForm");
+	const contactFormBtn = document.getElementById("contactFormBtn");
 
-    // Agregar un evento de escucha para el envío del formulario
-    contactForm.addEventListener("submit", function (event) {
-        event.preventDefault(); // Evitar el envío predeterminado del formulario
+	// Agregar un evento de escucha para el envío del formulario
+	contactForm.addEventListener("submit", function(event) {
+		event.preventDefault(); // Evitar el envío predeterminado del formulario
 
-        // Obtener valores de los campos del formulario
-        const name = document.getElementById("name").value;
-        const email = document.getElementById("email").value;
-        const message = document.getElementById("message").value;
+		// Obtener valores de los campos del formulario
+		const name = document.getElementById("name").value;
+		const email = document.getElementById("email").value;
+		const message = document.getElementById("message").value;
 
-        // Validar que los campos no estén vacíos
-        if (!name || !email || !message) {
-            alert("Por favor, complete todos los campos.");
-            return;
-        }
+		// Validar que los campos no estén vacíos
+		if (!name || !email || !message) {
+			alert("Por favor, complete todos los campos.");
+			return;
+		}
 
-        // Deshabilitar el botón de enviar para evitar múltiples envíos
-        contactFormBtn.disabled = true;
-        contactFormBtn.textContent = "Enviando...";
+		// Deshabilitar el botón de enviar para evitar múltiples envíos
+		contactFormBtn.disabled = true;
+		contactFormBtn.textContent = "Enviando...";
 
-        // Crear un objeto con los datos del formulario
-        const data = {
-            name: name,
-            email: email,
-            message: message
-        };
-console.log(data);
-        // Realizar la solicitud AJAX
+		// Crear un objeto con los datos del formulario
+		const data = {
+			name: name,
+			email: email,
+			message: message
+		};
+		console.log(data);
+		// Realizar la solicitud AJAX
 		fetch("/api/send-email", {
-		    method: "POST",
-		    headers: {
-		        "Content-Type": "application/json"
-		    },
-		    body: JSON.stringify(data)
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(data)
 		})
-		.then(response => {
-		    if (!response.ok) {
-		        return response.text().then(text => {
-		            throw new Error(`Error en el envío del mensaje: ${text}`);
-		        });
-		    }
-		    return response.json();
-		})
-		.then(result => {
-		    alert("Mensaje enviado con éxito.");
-		    contactForm.reset();
-		})
-		.catch(error => {
-		    alert("Hubo un error al enviar el mensaje. Inténtelo de nuevo.");
-		    console.error("Error:", error);
-		})
-		.finally(() => {
-		    contactFormBtn.disabled = false;
-		    contactFormBtn.textContent = "Enviar";
-		});
+			.then(response => {
+				if (!response.ok) {
+					return response.text().then(text => {
+						throw new Error(`Error en el envío del mensaje: ${text}`);
+					});
+				}
+				return response.json();
+			})
+			.then(result => {
+				alert("Mensaje enviado con éxito.");
+				contactForm.reset();
+			})
+			.catch(error => {
+				alert("Hubo un error al enviar el mensaje. Inténtelo de nuevo.");
+				console.error("Error:", error);
+			})
+			.finally(() => {
+				contactFormBtn.disabled = false;
+				contactFormBtn.textContent = "Enviar";
+			});
 
-    });
+	});
 });
+
+window.onload = function() {
+  var messageDiv = document.getElementById('message');
+  if (messageDiv) {
+   setTimeout(function() {
+    messageDiv.classList.add('hidden');
+    setTimeout(function() {
+     messageDiv.style.display = 'none';
+    }, 1000); // Match the transition duration
+   }, 5000);
+  }
+ };
+
 
 
 

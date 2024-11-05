@@ -17,7 +17,7 @@
 	</div>
 </header>
 
-<body><span th:text="${username}"></span>
+<body>
 	<main>
 		<section id="fechas" class="py-8">
 			<div class="container">
@@ -41,12 +41,16 @@
 						</div>
 					</div>
 					<div class="text-center mt-4">
-						<button type="submit" id="comprobar-disponibilidad-formBtn" class="btn btn-success">
+						<button type="button" id="comprobar-disponibilidad-form-reservas-btn" class="btn btn-success" onclick="comprobarDisponibilidad()">
 							Comprobar Disponibilidad
 						</button>
 					</div>
 				</form>
 			</div>
+			<div class="container mt-3" id="resultados-disponibilidad">
+				<!-- Aquí se mostrarán los resultados de disponibilidad -->
+			</div>
+			
 			<div class="container">
 				<div id="resultados-disponibilidad">
 					<!-- Aquí se mostrarán los resultados de disponibilidad -->
@@ -60,7 +64,6 @@
 							</div>
 						</div>
 					</div>
-					<span th:text="${username}"></span>
 					<div th:if="${disponible}">
 						<div class="card">
 							<input type="hidden" id="isUserLoggedIn" th:value="${isUserLoggedIn}">

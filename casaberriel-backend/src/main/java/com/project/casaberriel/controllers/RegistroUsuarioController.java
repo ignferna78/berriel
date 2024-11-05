@@ -133,7 +133,7 @@ public class RegistroUsuarioController {
 	@GetMapping("/eliminar-usuario/{id}")
 	public String eliminarUsuario(@PathVariable("id") Long id, Model model, HttpServletRequest request, HttpServletResponse response, boolean cancelada) {
 	    try {
-	    	Usuario user = usuarioService.findUserById(id);
+	        Usuario user = usuarioService.findUserById(id);
 	        usuarioService.deleteUserById(id);
 	        model.addAttribute("message", "Usuario eliminado con éxito.");
 	        emailService.sendUsuarioConfirmation(user, true, false);
@@ -143,12 +143,15 @@ public class RegistroUsuarioController {
 	        // Clear the security context
 	        SecurityContextHolder.clearContext();
 	        return "redirect:/reservas/index";
+	    } catch (DataIntegrityViolationException e) {
+	        e.printStackTrace();
+	        model.addAttribute("error", "No se puede eliminar el usuario debido a una violación de integridad de datos.");
+	        return "detalle_usuario";
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        model.addAttribute("error", "Ocurrió un error al eliminar el usuario.");
 	        return "detalle_usuario";
 	    }
-	   
 	}
 
 }

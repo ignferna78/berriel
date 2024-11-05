@@ -24,12 +24,18 @@
 					</div>
 					<div class="form-group">
 						<label for="email">Email</label>
-						<input type="email" id="email" class="form-control" th:field="*{email}" required>
+						<input type="email" id="email" class="form-control" th:field="*{email}" required readonly>
 					</div>
 					<div class="form-group">
 						<label for="direccion">Dirección</label>
 						<input type="text" id="direccion" class="form-control" th:field="*{direccion}" required>
 					</div>
+					<div class="form-group">
+						<label for="numPersonas" class="form-label">Número de Personas</label>
+						<input type="number" class="form-control" id="numPersonas" name="numPersonas" min="1" max="5"
+						 th:field="*{numPersonas}"	required>
+					</div>
+
 					<div class="form-group">
 						<label for="fechaEntrada">Fecha de Entrada</label>
 						<input type="text" id="fechaEntrada" class="form-control" th:field="*{fechaEntrada}" required>
@@ -39,28 +45,37 @@
 						<input type="text" id="fechaSalida" class="form-control" th:field="*{fechaSalida}" required>
 					</div>
 					<div class="form-group">
+						<label for="observaciones">Observaciones</label>
+						<textarea id="observaciones" class="form-control" cols="30" rows="4"
+							th:field="*{observaciones}"></textarea>
+					</div>
+					<div class="form-group">
 						<label for="precioTotal">Total</label>
-						<input type="number" id="precioTotal" class="form-control" th:field="*{precioTotal}" required>
+						<input type="number" id="precioTotal" class="form-control" th:field="*{precioTotal}" required
+							readonly>
 					</div>
 					<input type="hidden" name="modificada" value="true">
 					<div class="text-center mt-4">
-						<button type="submit" class="btn btn-primary">Guardar Cambios</button>
-						<a href="/admin/lista" class="btn btn-secondary">Cancelar</a>
-					</div>
+						<button type="submit" class="btn btn-success">Guardar Cambios</button>
+						<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" href="/admin/lista"
+							class="btn btn-danger">Cancelar</a>
+
+						<!-- Botón para el rol USER -->
+						<a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" href="/reservas/miReserva"
+							class="btn btn-danger">Cancelar</a>
+					</div><br>
 					<div th:if="${message}" class="alert alert-success" role="alert">
 						<span th:text="${message}"></span>
 					</div>
 
 					<div class="text-center mt-4">
 						<!-- Botón para el rol ADMIN -->
-						<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" 
-						   href="/admin/lista" 
-						   class="btn btn-primary mt-4">Volver</a>
+						<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" href="/admin/lista"
+							class="btn btn-primary mt-4">Volver</a>
 
 						<!-- Botón para el rol USER -->
-						<a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" 
-						   href="/reservas/miReserva" 
-						   class="btn btn-primary mt-4">Volver</a>
+						<a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" href="/reservas/miReserva"
+							class="btn btn-primary mt-4">Volver</a>
 					</div>
 
 				</form>

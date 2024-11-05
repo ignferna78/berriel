@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.model.reservas.ReservaForm;
@@ -59,6 +60,7 @@ public class HomeController {
 	@GetMapping("/formReserva")
 	public String mostrarFormularioReserva(@RequestParam(required = false) String fechaEntrada,
 			@RequestParam(required = false) String fechaSalida, Model model) {
+				model.addAttribute( reservaService.listarReservas());
 		model.addAttribute("fechaEntrada", fechaEntrada);
 		model.addAttribute("fechaSalida", fechaSalida);
 		return "reservas";
@@ -134,6 +136,8 @@ public class HomeController {
 			reservaExistente.setFechaEntrada(reservaActualizada.getFechaEntrada());
 			reservaExistente.setFechaSalida(reservaActualizada.getFechaSalida());
 			reservaExistente.setPrecioTotal(reservaActualizada.getPrecioTotal());
+			reservaExistente.setNumPersonas(reservaActualizada.getNumPersonas());
+			reservaExistente.setObservaciones(reservaActualizada.getObservaciones());
 			reservaService.guardarReserva(reservaExistente, fecha, email, cancelada, modificada);
 			model.addAttribute("message", "Reserva actualizada con éxito.");
 			model.addAttribute("modificada", modificada);
@@ -146,11 +150,11 @@ public class HomeController {
 
 
 	@GetMapping("/delete/{id}")
-	public String deleteReserva(@PathVariable Long id, Model model,String email, boolean cancelada, boolean modificada)
+	public String deleteReserva(@PathVariable Long id, Model model,String email, boolean cancelada, boolean modificada, RedirectAttributes redirectAttributes)
 			throws MessagingException {
 		reservaService.eliminarReserva(id,email, cancelada, modificada);
 		
-		model.addAttribute("message", "Reserva eliminada con éxito.");
+		 redirectAttributes.addFlashAttribute("message", "Reserva eliminada con éxito.");
 		return "redirect:/reservas/miReserva";
 	}
 
