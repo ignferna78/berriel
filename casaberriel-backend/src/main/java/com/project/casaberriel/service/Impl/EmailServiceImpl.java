@@ -36,7 +36,7 @@ public class EmailServiceImpl implements IEmailService {
 			MimeMessage message = javaMailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-			helper.setTo(email.getEmail());
+			helper.setTo("ifvillar9@gmail.com");
 			helper.setSubject("Nuevo mensaje de contacto de: " + email.getName());
 			Context context = new Context();
 			context.setVariable("message", email.getMessage());

@@ -13,7 +13,7 @@
 	<!-- Contenido Principal -->
 	<div class="container mt-5">
 		<div class="card" id="card_edit_rva">
-			<div class="card-header">Mis Datos</div>
+			<div class="card-header">Datos personales</div>
 			<div class="card-body">
 
 				<!-- Formulario de edición de usuario -->
@@ -44,32 +44,36 @@
 						<input type="email" id="email" name="email" class="form-control" th:field="*{email}" required>
 					</div>
 					<input type="hidden" name="modificada" value="true">
-					<input type="hidden" name="cancelada" value="true">		
-								<!-- Botón de actualizar y eliminar-->
+					<input type="hidden" name="cancelada" value="true">
+					<!-- Botón de actualizar y eliminar-->
 					<div class="text-center">
-					    <button type="submit" class="btn btn-success">Actualizar</button>
-					    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">Eliminar cuenta</button>
+						<button type="submit" class="btn btn-success">Actualizar</button>
+						<button type="button" class="btn btn-danger" data-toggle="modal"
+							data-target="#deleteModal">Eliminar cuenta</button>
 					</div>
 					<!-- Modal de confirmación de eliminación -->
-					<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-					    <div class="modal-dialog" role="document">
-					        <div class="modal-content">
-					            <div class="modal-header">
-					                <h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
-					                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					                    <span aria-hidden="true">&times;</span>
-					                </button>
-					            </div>
-					            <div class="modal-body">
-					                ¿Estás seguro de que deseas eliminar este usuario?
-					            </div>
-					            <div class="modal-footer">
-									
-					                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-					                <a th:href="@{/registro/eliminar-usuario/{id}(id=${usuario.id})}" class="btn btn-danger">Eliminar</a>
-					            </div>
-					        </div>
-					    </div>
+					<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+						aria-labelledby="deleteModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									¿Estás seguro de que deseas eliminar este usuario?
+								</div>
+								<div class="modal-footer">
+
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Cancelar</button>
+									<a th:href="@{/registro/eliminar-usuario/{id}(id=${usuario.id})}"
+										class="btn btn-danger">Eliminar</a>
+								</div>
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>
@@ -81,7 +85,13 @@
 
 		<!-- Botón Volver -->
 		<div class="text-center mt-4">
-			<a href="/reservas/index" class="btn btn-secondary">Volver</a>
+			<!-- Botón para el rol ADMIN -->
+			<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" href="/admin/lista"
+				class="btn btn-primary mt-4">Volver</a>
+
+			<!-- Botón para el rol USER -->
+			<a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" href="/reservas/index"
+				class="btn btn-primary mt-4">Volver</a>
 		</div>
 	</div>
 	</div>
