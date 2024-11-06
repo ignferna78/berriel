@@ -27,5 +27,6 @@ public interface ReservaRepositorio extends JpaRepository<ReservaEntity, Long> {
 	@Query(value = "SELECT * FROM reservas r WHERE "
 			+ "(r.fecha_entrada <= :fechaSalida AND r.fecha_salida >= :fechaEntrada)", nativeQuery = true)
 	List<ReservaEntity> findReservasSuperpuestas(@Param("fechaEntrada") Date desde, @Param("fechaSalida") Date hasta);
+	List<ReservaEntity> findByUsuarioId(Long userId);
 
 }

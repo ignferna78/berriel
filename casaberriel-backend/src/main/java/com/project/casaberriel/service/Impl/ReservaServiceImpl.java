@@ -71,6 +71,10 @@ public class ReservaServiceImpl implements ReservaService {
 	public ReservaEntity obtenerReservaPorId(Long id) {
 		return reservaRepository.findById(id).orElse(null);
 	}
+	@Override
+	public List<ReservaEntity> obtenerReservaPorIdUsuario(Long userId) {
+	    return reservaRepository.findByUsuarioId(userId); // Suponiendo que existe este método en el repositorio
+	}
 
 	@Override
 	public List<ReservaEntity> obtenerReservaPorEmail(String email) {

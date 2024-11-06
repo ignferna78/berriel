@@ -26,32 +26,32 @@ function limpiarCriterios() {
 	});
 }
 
-function comprobarDisponibilidad() {
-	const fechaEntrada = document.getElementById("fechaEntrada").value;
-	const fechaSalida = document.getElementById("fechaSalida").value;
+$('#comprobar-disponibilidad-formBtn').on('click', function (event) {
+		     event.preventDefault();
 
-	// Realiza la solicitud AJAX para comprobar disponibilidad
-	fetch(`/reservas/comprobar-disponibilidad?fechaEntrada=${fechaEntrada}&fechaSalida=${fechaSalida}`, {
-		method: 'GET'
-	})
-		.then(response => response.json())
-		.then(data => {
-			const disponibilidadDiv = document.getElementById("resultados-disponibilidad");
+		     var fechaEntrada = $('#fechaEntrada').val();
+		     var fechaSalida = $('#fechaSalida').val();
 
-			if (data.disponible) {
-				disponibilidadDiv.innerHTML = `
-                <div class="alert alert-success" role="alert">
-                    La casa está disponible para las fechas seleccionadas.
-                </div>`;
-			} else {
-				disponibilidadDiv.innerHTML = `
-                <div class="alert alert-warning" role="alert">
-                    La casa no está disponible para las fechas seleccionadas. Por favor, elija otras fechas.
-                </div>`;
-			}
-		})
-		.catch(error => console.error("Error comprobando disponibilidad:", error));
-}
+		     console.log('Fecha de entrada enviada:', fechaEntrada);
+		     console.log('Fecha de salida enviada:', fechaSalida);
+
+		     var formData = {
+		         fechaEntrada: fechaEntrada,
+		         fechaSalida: fechaSalida
+		     };
+
+		     $.ajax({
+		         url: $('#comprobar-disponibilidad-form').attr('action'),
+		         type: 'GET',
+		         data: formData,
+		         success: function (response) {
+		             $('#resultados-disponibilidad').html($(response).find('#resultados-disponibilidad').html());
+		         },
+		         error: function (error) {
+		             console.log("Error en la comprobación de disponibilidad: ", error);
+		         }
+		     });
+		 });
 
 
 
@@ -104,9 +104,9 @@ $(function() {
 		format: 'dd/mm/yyyy'
 	}).on('changeDate', function(e) {
 		// Obtener la fecha de entrada y establecerla como fecha mínima en el datepicker de salida
-		let fechaEntrada = $('#fechaEntrada').datepicker('getDate');
+		let fechaEntrada = new Date(e.date.valueOf());
 		$('#fechaSalida').datepicker('setStartDate', fechaEntrada);
-		$('#fechaSalida').datepicker('setDate', null); // Limpiar la fecha de salida al cambiar la fecha de entrada
+		$('#fechaSalida').datepicker('update', fechaEntrada); // Limpiar la fecha de salida al cambiar la fecha de entrada
 	});
 
 	// Configurar el datepicker para la fecha de salida
@@ -183,7 +183,7 @@ function handleReservar() {
 		// Redirige al formulario de reservas si el usuario está logueado
 		const fechaEntrada = document.getElementById('fechaEntrada').value;
 		const fechaSalida = document.getElementById('fechaSalida').value;
-		window.location.href = `/reservas/guardar?fechaEntrada=${fechaEntrada}&fechaSalida=${fechaSalida}`;
+		window.location.href = `/reservas/formReserva?fechaEntrada=${fechaEntrada}&fechaSalida=${fechaSalida}`;
 		console.log('Fecha de entrada enviada:', fechaEntrada);
 		console.log('Fecha de salida enviada:', fechaSalida);
 	} else {

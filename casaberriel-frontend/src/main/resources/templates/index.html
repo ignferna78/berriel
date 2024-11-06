@@ -19,7 +19,7 @@
 
 <body>
 	<main>
-		<section id="fechas" class="py-8">
+
 			<div class="container">
 				<h2 class="text-center mb-4">Comprobar Disponibilidad</h2>
 				<form id="comprobar-disponibilidad-form" th:action="@{/reservas/comprobar-disponibilidad}">
@@ -41,16 +41,12 @@
 						</div>
 					</div>
 					<div class="text-center mt-4">
-						<button type="button" id="comprobar-disponibilidad-form-reservas-btn" class="btn btn-success" onclick="comprobarDisponibilidad()">
+						<button type="submit" id="comprobar-disponibilidad-formBtn" class="btn btn-success">
 							Comprobar Disponibilidad
 						</button>
 					</div>
 				</form>
 			</div>
-			<div class="container mt-3" id="resultados-disponibilidad">
-				<!-- Aquí se mostrarán los resultados de disponibilidad -->
-			</div>
-			
 			<div class="container">
 				<div id="resultados-disponibilidad">
 					<!-- Aquí se mostrarán los resultados de disponibilidad -->
@@ -114,8 +110,6 @@
 					</div>
 				</div>
 			</div>
-
-		</section>
 
 		<!-- About Section -->
 		<section id="about" class="py-5">

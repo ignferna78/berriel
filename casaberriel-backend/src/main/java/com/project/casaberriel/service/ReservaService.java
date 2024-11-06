@@ -22,4 +22,6 @@ public interface ReservaService {
 
 	List<ReservaEntity> obtenerReservaPorEmail(String email);
 
+	List<ReservaEntity> obtenerReservaPorIdUsuario(Long userId);
+
 }

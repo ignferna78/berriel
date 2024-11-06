@@ -31,6 +31,7 @@ import com.project.casaberriel.model.reservas.ReservaForm;
 import com.project.casaberriel.model.usuarios.Usuario;
 import com.project.casaberriel.service.IEmailService;
 import com.project.casaberriel.service.ReservaService;
+import com.project.casaberriel.service.UsuarioService;
 
 @Controller
 @RequestMapping("/reservas")
@@ -45,6 +46,9 @@ public class HomeController {
 	private ReservaService reservaService;
 
 	private IEmailService emailService;
+	
+	@Autowired
+	private UsuarioService usuarioService;
 
 	private static final String REDIRECT_LISTA_RESERVAS = "redirect:/reservas/lista";
 
@@ -100,8 +104,11 @@ public class HomeController {
 	public String miReserva(Model model) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
-		// Obtener la reserva por email
-		List<ReservaEntity> reserva = reservaService.obtenerReservaPorEmail(email);
+		 Usuario usuario = usuarioService.findUserByEmail(email); // Obtener el usuario usando el email
+		 Long userId = usuario.getId(); // Suponiendo que Usuario tiene un campo ID
+
+		    // Obtener la reserva por ID del usuario
+		    List<ReservaEntity> reserva = reservaService.obtenerReservaPorIdUsuario(userId);
 
 		// Pasar la reserva al modelo
 		model.addAttribute("reserva", reserva);
