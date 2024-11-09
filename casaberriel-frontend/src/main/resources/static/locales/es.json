@@ -1,56 +1,113 @@
 {
-  "navbar": {
-    "home": "Inicio",
-    "booking": "Reservas",
-    "about": "Sobre Nosotros",
-    "services": "Servicios",
-    "gallery": "Galería",
-    "contact": "Contacto",
-    "login": "Iniciar Sesión"
-  },
-  "banner": {
-    "title": "Bienvenidos a CASA BERRIEL",
-    "subtitle": "Una experiencia única en un entorno natural incomparable.",
-    "button": "Descubre Más"
-  },
-  "about": {
-    "title": "Sobre Nosotros",
-    "content": "CASA BERRIEL es una casa que ofrece una estancia tranquila y confortable en el corazón de la isla. Ideal para desconectar y disfrutar de la belleza de nuestro entorno."
-  },
-  "services": {
-    "title": "Nuestros Servicios",
-    "service1": "Alojamientos Completos",
-    "service1_desc": "Apartamentos amplios y cómodas para un descanso perfecto.",
-    "service2": "Entorno Natural",
-    "service2_desc": "Disfruta de la playa, rutas de senderismo a través de los volcanes, vistas y actividades al aire libre.",
-    "service3": "Cocina Regional",
-    "service3_desc": "Saborea la gastronomía local con productos frescos y de calidad."
-  },
-  "gallery": {
-    "title": "Galería"
-  },
-  "contact": {
-    "title": "Contacto",
-    "subtitle": "Estamos a tu disposición para cualquier consulta o reserva.",
-    "address": "Dirección:",
-    "address_desc": "Lugar de abajo, 5, Tías , Lanzarote",
-    "phone_title": "Teléfono:",
-      "phone": "+34 606 986 345:",
-    "email": "Email:",
-    "send_message": "Envíanos un mensaje:",
-    "name_placeholder": "Tu Nombre",
-    "email_placeholder": "Tu Email",
-    "message_placeholder": "Tu Mensaje",
-    "send_button": "Enviar",
-    "booking_form": "Formulario de reserva"
-  },
-  "login": {
-    "title": "Iniciar Sesión",
-    "email_placeholder": "Ingresa tu email",
-    "password_placeholder": "Ingresa tu contraseña",
-    "submit_button": "Iniciar Sesión"
-  },
-  "footer": {
-    "text": "&copy; 2024 CASA BERRIEL. Todos los derechos reservados."
-  }
+	"navbar": {
+		"home": "Inicio",
+		"booking": "Reservar",
+		"mybookings": "Mis Reservas",
+		"about": "Sobre Nosotros",
+		"services": "Servicios",
+		"gallery": "Galería",
+		"contact": "Contacto",
+		"login": "Iniciar Sesión",
+		"profile": "Perfil",
+		"logout": "Cerrar Sesión"
+	},
+	"banner": {
+		"title": "Bienvenidos a CASA BERRIEL",
+		"subtitle": "Una experiencia única en un entorno natural incomparable.",
+		"button": "Descubre Más"
+	},
+	"form": {
+	    "title_booking": "las fechas seleccionadas están disponibles, completa el formulario para hacer la reserva.",
+		"id":"Referencia",
+		"total_price": "Precio Total",
+		"price": "Precio/noche: ",
+		"stay": "Estancia mínima: ",
+		"nights": "2 noches",
+		"accions": "Acciones",
+		"check_available": "Ver disponibilidad",
+		"arrival": "Fecha de entrada: ",
+		"departure": "Fecha de salida: ",
+		"check_in": "Despues de las 12:00pm ",
+		"check_out": "Antes de las 11:00am",
+		"available": "Disponible",
+		"not_available": "No disponble",
+		"no_rooms": "La casa está completa en las fechas seleccionadas, por favor selecciona otras fechas.",
+		"houseAvailable": "La casa está disponible en las fechas seleccionadas, por favor completa el formulario para hacer la reserva.",
+		"makebooking": "Hacer Reserva",
+		"head_login": "Para reservar inicia sesión o registrate",
+		"password": "Contraseña",
+		"register": "Si no tienes cuenta, regístrate",
+		"data": "Datos personales",
+		"name": "Nombre: ",
+		"surname": "Apellidos: ",
+		"address": "Dirección: ",
+		"no_bookings": "No tienes reservas realizadas",
+		"modify_dates": "Modificar fechas",
+		"name_surname": "Nombre y Apellidos",
+		"number": "Número de personas",
+		"observations": "Observaciones",
+		"confirm_booking": "Confirmar Reserva",
+		"edit_booking": "Editar Reserva",
+		"save": "Guardar cambios"
+		
+	},
+	"about": {
+		"title": "Sobre Nosotros",
+		"content": "CASA BERRIEL un encantador refugio ubicado en el corazón de un entorno natural único, donde la tradición y la comodidad se encuentran para ofrecerte una experiencia inigualable. Nuestra casa rural, con arquitectura típica de la región, ha sido cuidadosamente restaurada para preservar su esencia histórica, combinando el encanto rústico con todas las comodidades modernas. En Casa Berriel, disfrutarás de amplios espacios llenos de luz, acogedoras habitaciones y una atmósfera cálida que te hará sentir como en casa. Ya sea que busques una escapada relajante, actividades al aire libre o momentos para reconectar con la naturaleza, nuestro entorno es ideal para disfrutar del paisaje, las montañas y la tranquilidad que ofrece este lugar mágico..Nos apasiona brindarte una estancia memorable, con atención personalizada y detalles que marcan la diferencia. Ven y descubre la belleza de este rincón especial, donde cada amanecer y atardecer se convierten en postales inolvidables. ¡Casa Berriel te espera con los brazos abiertos!"
+	},
+	"services": {
+		"title": "Nuestros Servicios",
+		"service1": "Alojamientos Completos",
+		"service1_desc": "Apartamentos amplios y cómodas para un descanso perfecto.",
+		"service2": "Entorno Natural",
+		"service2_desc": "Disfruta de la playa, rutas de senderismo a través de los volcanes, vistas y actividades al aire libre.",
+		"service3": "Cocina Regional",
+		"service3_desc": "Saborea la gastronomía local con productos frescos y de calidad."
+	},
+	"gallery": {
+		"title": "Galería"
+	},
+	"contact": {
+		"title": "Contacto",
+		"subtitle": "Estamos a tu disposición para cualquier consulta o duda que tengas. No dudes en ponerte en contacto con nosotros.",
+		"address": "Dirección:",
+		"address_desc": "Lugar de abajo, 5, Tías , Lanzarote",
+		"phone_title": "Teléfono:",
+		"phone": "+34 606 986 345:",
+		"email": "Email:",
+		"send_message": "Envíanos un mensaje:",
+		"name_placeholder": "Tu Nombre",
+		"email_placeholder": "Tu Email",
+		"message_placeholder": "Tu Mensaje",
+		"send_button": "Enviar",
+		"booking_form": "Formulario de reserva",
+		"response": "Gracias por tu mensaje, te responderemos lo antes posible."
+	},
+	"login": {
+		"title": "Iniciar Sesión",
+		"email_placeholder": "Ingresa tu email",
+		"password_placeholder": "Ingresa tu contraseña",
+		"submit_button": "Iniciar Sesión",
+		"register": "Registrate aquí"
+	},
+	"footer": {
+		"text": "&copy; 2024 CASA BERRIEL. Todos los derechos reservados."
+	},
+	"common": {
+		"error": "Error",
+		"ok": "Aceptar",
+		"cancel": "Cancelar",
+		"success": "Éxito",
+		"close": "Cerrar",
+		"close_session": "Cerrar Sesión",
+		"close_confirm": "¿Estás seguro de que quieres cerrar la sesión?",
+		"close_title":"Confirmacion de cierre de sesión",
+		"update": "Actualizar",
+		"delete_account": "Eliminar Cuenta",
+		"delete_title":"Confirmación de eliminación de cuenta",
+		"delete_confirm": "¿Estás seguro de que deseas eliminar tu cuenta?",
+		"delete": "Eliminar",
+		"back": "Volver"
+		
+	}
 }

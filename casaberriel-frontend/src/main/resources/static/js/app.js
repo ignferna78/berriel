@@ -3,6 +3,19 @@
 newFunction();
 
 
+function actualizarTraducciones() {
+	// Asegúrate de que i18next o tu biblioteca de traducción se ejecute aquí
+	i18next.init({
+		// Configuración de i18next
+	}, function(err, t) {
+		// Actualizar los textos con la función de traducción
+		document.querySelectorAll('[data-i18n]').forEach(function(el) {
+			el.innerHTML = i18next.t(el.getAttribute('data-i18n'));
+		});
+	});
+}
+
+
 function newFunction() {
 	$('#deleteModal').on('show.bs.modal', function(event) {
 		let button = $(event.relatedTarget); // Botón que activó el modal
@@ -26,32 +39,6 @@ function limpiarCriterios() {
 	});
 }
 
-$('#comprobar-disponibilidad-formBtn').on('click', function (event) {
-		     event.preventDefault();
-
-		     var fechaEntrada = $('#fechaEntrada').val();
-		     var fechaSalida = $('#fechaSalida').val();
-
-		     console.log('Fecha de entrada enviada:', fechaEntrada);
-		     console.log('Fecha de salida enviada:', fechaSalida);
-
-		     var formData = {
-		         fechaEntrada: fechaEntrada,
-		         fechaSalida: fechaSalida
-		     };
-
-		     $.ajax({
-		         url: $('#comprobar-disponibilidad-form').attr('action'),
-		         type: 'GET',
-		         data: formData,
-		         success: function (response) {
-		             $('#resultados-disponibilidad').html($(response).find('#resultados-disponibilidad').html());
-		         },
-		         error: function (error) {
-		             console.log("Error en la comprobación de disponibilidad: ", error);
-		         }
-		     });
-		 });
 
 
 
@@ -183,6 +170,7 @@ function handleReservar() {
 		// Redirige al formulario de reservas si el usuario está logueado
 		const fechaEntrada = document.getElementById('fechaEntrada').value;
 		const fechaSalida = document.getElementById('fechaSalida').value;
+
 		window.location.href = `/reservas/formReserva?fechaEntrada=${fechaEntrada}&fechaSalida=${fechaSalida}`;
 		console.log('Fecha de entrada enviada:', fechaEntrada);
 		console.log('Fecha de salida enviada:', fechaSalida);
@@ -206,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		// Obtener valores de los campos del formulario
 		const name = document.getElementById("name").value;
 		const email = document.getElementById("email").value;
-		const message = document.getElementById("message").value;
+		const message = document.getElementById("messages").value;
 
 		// Validar que los campos no estén vacíos
 		if (!name || !email || !message) {
@@ -242,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				return response.json();
 			})
 			.then(result => {
-				alert("Mensaje enviado con éxito.");
+				document.querySelector('.alert-success').style.display = 'block';
 				contactForm.reset();
 			})
 			.catch(error => {
@@ -258,16 +246,18 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 window.onload = function() {
-  var messageDiv = document.getElementById('message');
-  if (messageDiv) {
-   setTimeout(function() {
-    messageDiv.classList.add('hidden');
-    setTimeout(function() {
-     messageDiv.style.display = 'none';
-    }, 1000); // Match the transition duration
-   }, 5000);
-  }
- };
+	var messageDiv = document.getElementById('message');
+	if (messageDiv) {
+		setTimeout(function() {
+			messageDiv.classList.add('hidden');
+			setTimeout(function() {
+				messageDiv.style.display = 'none';
+			}, 1000); // Match the transition duration
+		}, 5000);
+	}
+};
+
+
 
 
 

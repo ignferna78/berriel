@@ -39,7 +39,7 @@ public class EmailServiceImpl implements IEmailService {
 			helper.setTo("ifvillar9@gmail.com");
 			helper.setSubject("Nuevo mensaje de contacto de: " + email.getName());
 			Context context = new Context();
-			context.setVariable("message", email.getMessage());
+			context.setVariable("messages", email.getMessage());
 			context.setVariable("name", email.getName());
 			context.setVariable("email", email.getEmail());
 			String contentHtml = templateEngine.process("email", context);

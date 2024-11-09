@@ -13,7 +13,7 @@
 	<!-- Contenido Principal -->
 	<div class="container mt-5">
 		<div class="card" id="card_edit_rva">
-			<div class="card-header">Datos personales</div>
+			<div class="card-header" data-i18n="form.data"></div>
 			<div class="card-body">
 
 				<!-- Formulario de edición de usuario -->
@@ -21,19 +21,19 @@
 					th:object="${usuario}">
 					<!-- Nombre -->
 					<div class="mb-3">
-						<label for="nombre" class="form-label"><strong>Nombre:</strong></label>
+						<label for="nombre" class="form-label"><strong data-i18n="form.data"></strong></label>
 						<input type="text" id="nombre" name="nombre" class="form-control" th:field="*{nombre}" required>
 					</div>
 
 					<!-- Apellidos -->
 					<div class="mb-3">
-						<label for="apellidos" class="form-label"><strong>Apellidos:</strong></label>
+						<label for="apellidos" class="form-label"><strong data-i18n="form.surname"></strong></label>
 						<input type="text" id="apellidos" name="apellidos" class="form-control" th:field="*{apellidos}"
 							required>
 					</div>
 					<!-- Direccion -->
 					<div class="mb-3">
-						<label for="direccion" class="form-label"><strong>Direccion:</strong></label>
+						<label for="direccion" class="form-label"><strong data-i18n="form.address"></strong></label>
 						<input type="text" id="direccion" name="direccion" class="form-control" th:field="*{direccion}"
 							required>
 					</div>
@@ -47,9 +47,9 @@
 					<input type="hidden" name="cancelada" value="true">
 					<!-- Botón de actualizar y eliminar-->
 					<div class="text-center">
-						<button type="submit" class="btn btn-success">Actualizar</button>
+						<button type="submit" class="btn btn-success" data-i18n="common.update"></button>
 						<button type="button" class="btn btn-danger" data-toggle="modal"
-							data-target="#deleteModal">Eliminar cuenta</button>
+							data-target="#deleteModal" data-i18n="common.delete_account"></button>
 					</div>
 					<!-- Modal de confirmación de eliminación -->
 					<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
@@ -57,20 +57,17 @@
 						<div class="modal-dialog" role="document">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="deleteModalLabel">Confirmar Eliminación</h5>
+									<h5 class="modal-title" id="deleteModalLabel" data-i18n="common.delete_title"></h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
-								<div class="modal-body">
-									¿Estás seguro de que deseas eliminar este usuario?
-								</div>
+								<div class="modal-body" data-i18n="common.delete_confirm"></div>
 								<div class="modal-footer">
-
 									<button type="button" class="btn btn-secondary"
-										data-dismiss="modal">Cancelar</button>
+										data-dismiss="modal" data-i18n="common.cancel"></button>
 									<a th:href="@{/registro/eliminar-usuario/{id}(id=${usuario.id})}"
-										class="btn btn-danger">Eliminar</a>
+										class="btn btn-danger" data-i18n="common.delete_account"></a>
 								</div>
 							</div>
 						</div>
@@ -87,11 +84,11 @@
 		<div class="text-center mt-4">
 			<!-- Botón para el rol ADMIN -->
 			<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" href="/admin/lista"
-				class="btn btn-primary mt-4">Volver</a>
+				class="btn btn-primary mt-4" data-i18n="common.back"></a>
 
 			<!-- Botón para el rol USER -->
 			<a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" href="/reservas/index"
-				class="btn btn-primary mt-4">Volver</a>
+				class="btn btn-primary mt-4" data-i18n="common.back"></a>
 		</div>
 	</div>
 	</div>

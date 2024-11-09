@@ -22,7 +22,7 @@ public class EmailController {
     @PostMapping(value= "/send-email", consumes = "application/json", produces = "application/json")
     public ResponseEntity<String> sendMessage(@RequestBody EmailDto email) throws MessagingException {
         emailService.sendMail(email);
-        return new ResponseEntity<>("{\"message\":\"Correo enviado exitosamente\"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"messages\":\"Correo enviado exitosamente\"}", HttpStatus.OK);
     }
 }
 
