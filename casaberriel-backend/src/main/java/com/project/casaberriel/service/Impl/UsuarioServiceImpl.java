@@ -3,6 +3,7 @@ package com.project.casaberriel.service.Impl;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.mail.MessagingException;
@@ -89,6 +90,39 @@ public class UsuarioServiceImpl implements UserDetailsService,UsuarioService {
 			public void deleteUserById(Long id) {
 				usuarioRepository.deleteById(id);				
 			}
+
+			@Override
+			public void savePasswordResetToken(Usuario usuario, String token) {
+				  usuario.setPasswordResetToken(token);
+			        usuario.setTokenExpirationTime(System.currentTimeMillis() + (24 * 60 * 60 * 1000)); // Expira en 24 horas
+			        usuarioRepository.save(usuario);
+				
+			}
+			   public Usuario findByPasswordResetToken(String token) {
+				   Optional<Usuario> usuario = usuarioRepository.findByPasswordResetToken(token);
+				    if (usuario.isPresent()) {
+				        Usuario user = usuario.get();
+				        System.out.println("Token encontrado: " + token);
+				        System.out.println("Tiempo de expiración del token: " + user.getTokenExpirationTime());
+				        if (user.getTokenExpirationTime() > System.currentTimeMillis()) {
+				            return user;
+				        } else {
+				            System.out.println("Token expirado.");
+				        }
+				    } else {
+				        System.out.println("Token no encontrado.");
+				    }
+			        return null; // Token inválido o expirado
+			    }
+
+			@Override
+			public void updatePassword(Usuario usuario, String nuevaPassword) {
+		        usuario.setPassword(passwordEncoder.encode(nuevaPassword));
+		        usuario.setPasswordResetToken(null); // Limpiar el token
+		        usuario.setTokenExpirationTime(null); // Limpiar el tiempo de expiración
+		        usuarioRepository.save(usuario);
+				
+			}
 		
 		};
 	}
@@ -144,7 +178,32 @@ public class UsuarioServiceImpl implements UserDetailsService,UsuarioService {
 	}
 
 
+    // Guardar el token de recuperación de contraseña
+	    @Override
+    public void savePasswordResetToken(Usuario usuario, String token) {
+        usuario.setPasswordResetToken(token);
+        usuario.setTokenExpirationTime(System.currentTimeMillis() + (24 * 60 * 60 * 1000)); // Expira en 24 horas
+        usuarioRepository.save(usuario);
+    }
 
+    // Buscar un usuario por el token de recuperación de contraseña
+    @Override
+    public Usuario findByPasswordResetToken(String token) {
+        Optional<Usuario> usuario = usuarioRepository.findByPasswordResetToken(token);
+        if (usuario.isPresent() && usuario.get().getTokenExpirationTime() > System.currentTimeMillis()) {
+            return usuario.get();
+        }
+        return null; // Token inválido o expirado
+    }
+
+    // Actualizar la contraseña de un usuario
+    @Override
+    public void updatePassword(Usuario usuario, String nuevaPassword) {
+        usuario.setPassword(passwordEncoder.encode(nuevaPassword));
+        usuario.setPasswordResetToken(null); // Limpiar el token
+        usuario.setTokenExpirationTime(null); // Limpiar el tiempo de expiración
+        usuarioRepository.save(usuario);
+    }
 	
 
 }

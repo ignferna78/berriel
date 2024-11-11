@@ -282,4 +282,8 @@ public class HomeController {
 		return "reservas";
 	}
 
+	   @GetMapping("/recuperarPassword")
+		public String recuperarPassword() {
+			return "recuperarPassword";
+		}
 }

@@ -19,6 +19,7 @@
 	"form": {
 	    "title_booking": "las fechas seleccionadas están disponibles, completa el formulario para hacer la reserva.",
 		"id":"Referencia",
+		"userId": "ID de usuario",
 		"total_price": "Precio Total",
 		"price": "Precio/noche: ",
 		"stay": "Estancia mínima: ",
@@ -57,12 +58,12 @@
 	},
 	"services": {
 		"title": "Nuestros Servicios",
-		"service1": "Alojamientos Completos",
-		"service1_desc": "Apartamentos amplios y cómodas para un descanso perfecto.",
+		"service1": "Apartamento Completo",
+		"service1_desc": "Ofrecemos un apartamento diseñados para el descanso y la tranquilidad, equipado con todo lo necesario para sentirte como en casa. Cada unidad cuenta con amplias habitaciones, camas confortables, zonas de estar iluminadas y terrraza con vistas panorámicas al mar.aire acondicionado, disponemos de Wi-Fi de alta velocidad, televisores de pantalla plana y una cocina completamente equipada para preparar tus propias comidas",
 		"service2": "Entorno Natural",
-		"service2_desc": "Disfruta de la playa, rutas de senderismo a través de los volcanes, vistas y actividades al aire libre.",
+		"service2_desc": "Sumérgete en la belleza natural que rodea nuestra ubicación: extensas playas de arena dorada ideales para relajarte o practicar deportes acuáticos como el surf y el paddleboarding, rutas de senderismo y ciclismo para explorar la naturaleza y descubrir la flora y fauna autóctonas, y pueblos pintorescos con encanto local, donde podrás disfrutar de la gastronomía y la cultura de la región. Explora rutas de senderismo que te llevarán a paisajes volcánicos impresionantes y miradores con vistas espectaculares al océano y las montañas.",
 		"service3": "Cocina Regional",
-		"service3_desc": "Saborea la gastronomía local con productos frescos y de calidad."
+		"service3_desc": "Te ayudamos a descubrir los sabores auténticos de la región con nuestras recomendaciones de restaurantes y mercados locales, donde podrás disfrutar de productos frescos y platos típicos preparados por los mejores chefs locales.Ofrecemos información detallada sobre las especialidades de la zona, como mariscos frescos, tapas tradicionales y deliciosos postres, así como una lista de lugares que ofrecen opciones para vegetarianos, veganos y personas con necesidades dietéticas especiales."
 	},
 	"gallery": {
 		"title": "Galería"
@@ -88,7 +89,8 @@
 		"email_placeholder": "Ingresa tu email",
 		"password_placeholder": "Ingresa tu contraseña",
 		"submit_button": "Iniciar Sesión",
-		"register": "Registrate aquí"
+		"register": "Registrate aquí",
+		"forgot_password": "¿Olvidaste tu contraseña?"
 	},
 	"footer": {
 		"text": "&copy; 2024 CASA BERRIEL. Todos los derechos reservados."
@@ -107,7 +109,11 @@
 		"delete_title":"Confirmación de eliminación de cuenta",
 		"delete_confirm": "¿Estás seguro de que deseas eliminar tu cuenta?",
 		"delete": "Eliminar",
-		"back": "Volver"
+		"back": "Volver",
+		"location": "Nuestra localización",
+		"panel": "Panel de administración",
+		"exit": "Salir"
+	
 		
 	}
 }

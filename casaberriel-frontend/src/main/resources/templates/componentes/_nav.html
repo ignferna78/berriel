@@ -11,11 +11,11 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
 		<!-- "CASA BERRIEL" a la izquierda -->
-		
+
 
 		<a class="navbar-brand inicio" href="/reservas/index">
-		    <img src="/images/icon.jpg" alt="Casa Berriel Icon" style="height: 30px; margin-right: 10px;">
-		    Casa Berriel - Lanzarote
+			<img src="/images/icon.jpg" alt="Casa Berriel Icon" style="height: 30px; margin-right: 10px;">
+			Casa Berriel - Lanzarote
 		</a>
 
 		<!-- Botón de despliegue para dispositivos móviles -->
@@ -69,12 +69,12 @@
 				</li>
 
 				<!-- Selector de idioma -->
-				
+
 				<li class="nav-item">
-				    <select id="languageSelector" class="form-control">
-				        <option value="es" > <img src="/images/spain.png" alt="Spanish" class="flag-icon"> Español</option>
-				        <option value="en" data-icon="../images/uk.png">English</option>
-				    </select>
+					<select id="languageSelector" class="form-control">
+						<option value="es"> Español</option>
+						<option value="en">English</option>
+					</select>
 				</li>
 			</ul>
 
@@ -104,13 +104,19 @@
 								<input type="password" id="password" name="password" class="form-control"
 									placeholder="Ingresa tu contraseña">
 							</div>
-							<button type="submit" class="btn btn-primary btn-block" data-i18n="login.title"></button>
+
 							<span>Si no estás registrado, <a th:href="@{/registro/inicio}"
 									data-i18n="login.register"></a></span>
+							<div class="text-center mt-4">
+								<a href="/reservas/recuperarPassword" class="btn btn-primary"
+									data-i18n="login.forgot_password"></a>
+							</div>
+							<button type="submit" class="btn btn-success btn-block" data-i18n="login.title"></button>
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal"
+						
+						<button type="button" class="btn btn-danger" data-dismiss="modal"
 							data-i18n="navbar.logout"></button>
 					</div>
 				</div>

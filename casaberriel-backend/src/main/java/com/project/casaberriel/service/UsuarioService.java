@@ -27,4 +27,10 @@ public interface UsuarioService {
     void updateUser(Usuario usuario);
 
 	void deleteUserById(Long id);
+
+	void savePasswordResetToken(Usuario usuario, String token);
+
+	Usuario findByPasswordResetToken(String token);
+
+	void updatePassword(Usuario usuario, String nuevaPassword);
 }

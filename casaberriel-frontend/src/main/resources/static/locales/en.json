@@ -19,6 +19,7 @@
 	"form": {
 		"title_booking": "The selected dates are available. Fill in the form to make the reservation.",
 	    "id": "Booking reference",
+	    "userId": "UserID",
 	    "total_price": "Total Price",
 	    "price": "Price per night: ",
 		"stay": "Minimum stay: ",
@@ -57,11 +58,11 @@
 	"services": {
 		"title": "Our Services",
 		"service1": "Complete Accommodations",
-		"service1_desc": "Spacious and comfortable apartments for perfect rest.",
+		"service1_desc": "We offer an apartment designed for rest and tranquility, equipped with everything you need to feel at home. Each unit has spacious rooms, comfortable beds, illuminated living areas and a terrace with panoramic views of the sea. Air conditioning, we have high-speed Wi-Fi, flat screen televisions and a fully equipped kitchen to prepare your own meals",
 		"service2": "Natural Environment",
-		"service2_desc": "Enjoy the beach through the volcanos, hiking trails, views, and outdoor activities.",
+		"service2_desc": "Immerse yourself in the natural beauty that surrounds our location: long golden sand beaches ideal for relaxing or practicing water sports such as surfing and paddleboarding, hiking and cycling trails to explore nature and discover the native flora and fauna, and picturesque villages with local charm, where you can enjoy the gastronomy and culture of the region. Explore hiking trails that take you to stunning volcanic landscapes and viewpoints with spectacular views of the ocean and mountains.",
 		"service3": "Regional Cuisine",
-		"service3_desc": "Savor local cuisine with fresh and quality products."
+		"service3_desc": "We help you discover the authentic flavors of the region with our recommendations of local restaurants and markets, where you can enjoy fresh products and typical dishes prepared by the best local chefs. We offer detailed information about the area's specialties, such as fresh seafood, tapas traditional and delicious desserts, as well as a list of places that offer options for vegetarians, vegans and people with special dietary needs."
 	},
 	"gallery": {
 		"title": "Gallery"
@@ -87,7 +88,8 @@
 		"email_placeholder": "Email",
 		"password_placeholder": "Password",
 		"submit_button": "Iniciar Sesión",
-		"register": "Register here"
+		"register": "Register here",
+		"forgot_password": "Forgot your password?"
 	},
 	"footer": {
 		"text": "&copy; 2024 CASA BERRIEL. All rights reserved."
@@ -106,7 +108,10 @@
 		"delete_title":"Confirmation delete account",
 		"delete_confirm": "Are you sure you want to delete your account?",
 		"delete": "Delete",
-		"back": "Back"
+		"back": "Back",
+		"location": "Our location",
+		"panel": "Administration panel",
+		"exit": "Exit"
 		
 	}
 }

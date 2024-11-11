@@ -12,7 +12,12 @@
 <!-- Banner -->
 <header class="banner">
 	<div class="container text-center">
-		
+		<div th:if="${mensaje}" class="alert alert-success" role="alert" id="mensaje">
+			<span th:text="${mensaje}"></span>
+		</div>
+		<div th:if="${error}" class="alert alert-danger" role="alert" id="error">
+			<span th:text="${error}"></span>
+		</div>
 	</div>
 </header>
 <style>
@@ -269,7 +274,7 @@
 
 
 		<div class="container mt-5" id="ubicacion">
-			<h3 class="text-center">Nuestra Ubicación</h3>
+			<h3 class="text-center" data-i18n="common.location"></h3>
 			<div id="map" style="height: 300px; width: 100%;">
 				<iframe
 					src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3491.0582279848313!2d-13.643495123730197!3d28.955997369316968!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xc46242be1e3037f%3A0x826571f1f27a3aa1!2sCam.%20Lugar%20de%20Abajo%2C%205%2C%2035572%20T%C3%ADas%2C%20Las%20Palmas!5e0!3m2!1ses!2ses!4v1726559353589!5m2!1ses!2ses"

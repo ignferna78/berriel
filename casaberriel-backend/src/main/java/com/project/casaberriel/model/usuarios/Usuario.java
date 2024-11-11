@@ -31,8 +31,28 @@ public class Usuario {
 	@Column(name ="email")
 	private String email;
 	
+	   // Campos para la recuperación de contraseña
+    private String passwordResetToken;
+    private Long tokenExpirationTime;
 	
 	
+	
+	public String getPasswordResetToken() {
+		return passwordResetToken;
+	}
+
+	public void setPasswordResetToken(String passwordResetToken) {
+		this.passwordResetToken = passwordResetToken;
+	}
+
+	public Long getTokenExpirationTime() {
+		return tokenExpirationTime;
+	}
+
+	public void setTokenExpirationTime(Long tokenExpirationTime) {
+		this.tokenExpirationTime = tokenExpirationTime;
+	}
+
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(name = "usuarios_roles",
 	joinColumns = @JoinColumn(name = "usuarios_id",referencedColumnName = "id"),

@@ -15,6 +15,8 @@ public interface IEmailService {
 	public void sendUsuarioConfirmation(Usuario usuario, boolean cancelada, boolean modificada)
 			throws MessagingException;
 
+	public void sendEmail(String email, String string, String string2);
+
 
 
 }

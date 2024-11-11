@@ -53,6 +53,7 @@ protected void configure(HttpSecurity http) throws Exception {
             .antMatchers("/css/**", "/js/**", "/images/**", "/lib/**", "/locales/**").permitAll()
             .antMatchers("/reservas/**").permitAll()
             .antMatchers("/registro/**").permitAll()
+            .antMatchers("/recuperar-password", "/restablecer-password/**").permitAll() // Permitir acceso sin autenticación
             .anyRequest().authenticated()
             .and()
             .formLogin()
