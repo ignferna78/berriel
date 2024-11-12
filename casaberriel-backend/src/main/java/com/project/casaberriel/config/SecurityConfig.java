@@ -7,8 +7,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.core.userdetails.User;
-//import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,34 +40,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 
-@Override
-protected void configure(HttpSecurity http) throws Exception {
-    http.csrf().disable()
-    		.authorizeRequests()
-            .antMatchers("/api/send-email","/error").permitAll() // Permitir acceso sin autenticación
-            .antMatchers("/reservas/admin/**").hasRole("ADMIN")
-            .antMatchers("/admin/**").hasRole("ADMIN")
-            .antMatchers("/user/**").hasRole("USER")
-            .antMatchers("/css/**", "/js/**", "/images/**", "/lib/**", "/locales/**").permitAll()
-            .antMatchers("/reservas/**").permitAll()
-            .antMatchers("/registro/**").permitAll()
-            .antMatchers("/recuperar-password", "/restablecer-password/**").permitAll() // Permitir acceso sin autenticación
-            .anyRequest().authenticated()
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable()
+            .authorizeRequests()
+                .antMatchers("/api/send-email", "/error").permitAll() // Permitir acceso sin autenticación
+                .antMatchers("/recuperar-password", "/restablecer-password/**").permitAll()
+                .antMatchers("/reservas/**").permitAll()
+                .antMatchers("/registro/**").permitAll()
+                .antMatchers("/css/**", "/js/**", "/images/**", "/lib/**", "/locales/**").permitAll()
+                .antMatchers("/reservas/admin/**").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasRole("USER")
+                .anyRequest().authenticated()
             .and()
             .formLogin()
-            .loginPage("/reservas/index")
-            .loginProcessingUrl("/autenticacionUsusario")
-            .failureUrl("/reservas/index?error=true")
-            
-            .permitAll()
+                .loginPage("/reservas/index")
+                .loginProcessingUrl("/autenticacionUsusario")
+                .failureUrl("/reservas/index?error=true")
+                .permitAll()
             .and()
             .logout()
-            .logoutSuccessUrl("/reservas/index")
-            .invalidateHttpSession(true)
-            .clearAuthentication(true)
-            .permitAll();
+                .logoutSuccessUrl("/reservas/index")
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .permitAll();
+    }
 }
-
-	
-
-}
+    
