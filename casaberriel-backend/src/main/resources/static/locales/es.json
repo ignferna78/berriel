@@ -37,7 +37,8 @@
 		"makebooking": "Hacer Reserva",
 		"head_login": "Para reservar inicia sesión o registrate",
 		"password": "Contraseña",
-		"register": "Si no tienes cuenta, regístrate",
+		"register": "Si no tienes cuenta, regístrate ",
+		"here": "aquí",
 		"data": "Datos personales",
 		"name": "Nombre: ",
 		"surname": "Apellidos: ",
@@ -49,7 +50,8 @@
 		"observations": "Observaciones",
 		"confirm_booking": "Confirmar Reserva",
 		"edit_booking": "Editar Reserva",
-		"save": "Guardar cambios"
+		"save": "Guardar cambios",
+		"register_form": "Formulario de Registro"
 		
 	},
 	"about": {
@@ -112,8 +114,9 @@
 		"back": "Volver",
 		"location": "Nuestra localización",
 		"panel": "Panel de administración",
-		"exit": "Salir"
-	
+		"exit": "Salir",
+		"registration": "Regístrate",
+		"welcome": "Bienvenido a Casa Berriel, se ha registrado con éxito !"
 		
 	}
 }

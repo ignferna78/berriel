@@ -37,7 +37,8 @@
 		"makebooking": "Make Booking",
 		"head_login": "Login to make a booking",
 		"password": "Password",
-		"register": "If you don't have account, just register!",
+		"register": "If you don't have account, just register ",
+		"here": "here",
 		"data": "Personal Data",
 		"name": "Name: ",
 		"surname": "Surname: ",
@@ -49,7 +50,8 @@
 		"observations": "Observations: ",
 		"confirm_booking": "Confirm Booking",
 		"edit_booking": "Edit Booking",
-		"save": "Save changes"
+		"save": "Save changes",
+		"register_form": "Registration form"
 	},
 	"about": {
 		"title": "About Us",
@@ -111,7 +113,9 @@
 		"back": "Back",
 		"location": "Our location",
 		"panel": "Administration panel",
-		"exit": "Exit"
+		"exit": "Exit",
+		"registration": "Registration",
+		"welcome": "Welcome to Casa Berriel, you have successfully registered. You can now make your reservation."
 		
 	}
 }

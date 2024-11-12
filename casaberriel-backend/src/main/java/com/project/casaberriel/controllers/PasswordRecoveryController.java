@@ -3,6 +3,7 @@ package com.project.casaberriel.controllers;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,16 @@ import com.project.casaberriel.service.UsuarioService;
 
 @Controller
 public class PasswordRecoveryController {
+	
+	    @Value("${app.url.local}")
+	    private String localUrl;
+
+	    @Value("${app.url.heroku}")
+	    private String productionUrl;
+
+	    @Value("${spring.profiles.active}")
+	    private String activeProfile;
+	    
 
     @Autowired
     private UsuarioService usuarioService;
@@ -36,7 +47,8 @@ public class PasswordRecoveryController {
 
       
      // Construir el enlace de restablecimiento de contraseña
-        String resetLink = "http://localhost:8333/restablecer-password?token=" + token;
+        String baseUrl = activeProfile.equals("heroku") ? productionUrl : localUrl;
+        String resetLink = baseUrl + "/restablecer-password?token=" + token;
 
         // Enviar el correo electrónico
         emailService.sendEmail(email, "Recuperación de Contraseña", 
