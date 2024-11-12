@@ -13,8 +13,7 @@
 	<artifactId>casaberriel-backend</artifactId>
 
 	<properties>
-		<java.version>1.8</java.version>        
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>11</java.version>        
 	</properties>
 
 
