@@ -56,7 +56,7 @@ public class ReservaEntity {
 	@Column(nullable = false)
 	private double precioTotal;
 	
-	@Max(4)
+	@Max()
     @Min(1)
 	@Column(nullable = false)
 	private Integer numPersonas;
