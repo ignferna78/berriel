@@ -1,0 +1,661 @@
+@charset "UTF-8";
+/* Custom styles for Casa Berriel */
+
+/* Banner Styles */
+.banner {
+	background: url('../images/lago_verde.jpg') no-repeat center center/cover;
+	height: 60vh;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+
+
+.banner h1 {
+	font-family: "Roboto", serif;
+	font-weight: 400;
+	font-size: 5rem;
+}
+
+
+.banner p {
+	font-size: 1.2rem;
+}
+
+.banner .btn {
+	font-size: 1.2rem;
+}
+
+#navbarNav{
+	font-family: "Roboto", serif;
+	font-weight: 300;
+	font-size:1.1rem;
+	
+}
+section {
+
+	font-family: "Roboto", serif;
+	font-weight: 300;
+
+}
+
+#about h2 {
+	font-family: "Roboto", serif;
+	font-weight: 400;
+	font-size: 2rem;
+}
+#services h2,h4 {
+	font-family: "Roboto", serif;
+	font-weight: 300;
+	font-size: 2rem;
+	
+}
+#services h4 {
+	font-family: "Roboto", serif;
+	font-weight: 300;
+	font-size: 1.5rem;
+	
+}
+#gallery h2{
+	font-family: "Roboto", serif;
+	font-weight: 300;
+	font-size: 2rem;
+	
+}
+
+#contact h2{
+	font-family: "Roboto", serif;
+	font-weight: 300;
+	font-size: 2rem;
+	
+}
+#contact h4 {
+	font-family: "Roboto", serif;
+	font-weight: 300;
+	font-size: 1.5rem;
+	
+}
+
+
+
+#services i {
+	color: #007bff;
+	margin-bottom: 15px;
+}
+
+
+footer {
+	background: #343a40;
+	color: #fff;
+	text-align: center;
+	padding: 1em 0;
+	position: relative;
+	bottom: 0;
+	width: 100%;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+
+}
+
+.container {
+	flex: 1;
+}
+
+#gallery .carousel-item img {
+	height: 700px;
+	/* Altura fija para las imágenes */
+	object-fit: cover;
+	/* Ajusta la imagen para que cubra el contenedor */
+	width: 100%;
+	/* El ancho siempre ocupará el 100% del contenedor */
+	border-radius: 5px;
+}
+
+html,
+body {
+	overflow-x: hidden;
+}
+
+
+#btnSubir {
+	display: none;
+	/* Inicialmente oculto */
+	position: fixed;
+	/* Posición fija */
+	bottom: 20px;
+	/* 20px desde la parte inferior */
+	right: 30px;
+	/* 30px desde el lado derecho */
+	z-index: 99;
+	/* Asegura que esté por encima de otros elementos */
+	font-size: 30px;
+	border: none;
+	outline: none;
+	background-color: #408080;
+	/* Color de fondo */
+	color: white;
+	/* Color del texto */
+	cursor: pointer;
+	padding: 15px;
+	border-radius: 10px;
+}
+
+#btnSubir:hover {
+	background-color: #8000ff;
+	/* Color cuando se pasa el ratón por encima */
+}
+
+#datepick {
+	width: auto;
+	margin-left: 40%;
+	margin-top: 2%;
+}
+
+h2.text-center {
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+#comprobar-disponibilidad-form {
+	padding: 20px;
+	background-color: #7af39230;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#form h2 {
+	font-family: "Roboto", serif;
+	font-weight: 300;
+	font-size: 2rem;
+}
+
+.row {
+	margin-bottom: 15px;
+}
+
+.input-group {
+	margin-bottom: 10px;
+}
+
+#comprobar-disponibilidad-formBtn {
+	padding: 10px 20px;
+	font-size: 1.2rem;
+}
+
+.btn-primary {
+	background-color: #007bff;
+	border-color: #007bff;
+}
+
+.btn-primary:hover {
+	background-color: #0056b3;
+	border-color: #0056b3;
+}
+
+.datepicker {
+	min-width: 400px;
+	/* Ajustar el tamaño del contenedor */
+	font-size: 1rem;
+	/* Aumenta el tamaño de la fuente del calendario */
+}
+
+
+.datepicker-days table {
+	width: 100%;
+	height: auto;
+	font-size: 1rem;
+	/* Aumenta el tamaño de los números de los días */
+}
+
+.datepicker .day,
+.datepicker .month,
+.datepicker .year {
+	padding: 4px;
+	width: 40px;
+	height: 40px;
+}
+
+.datepicker table tr td,
+.datepicker table tr th {
+	width: 40px;
+	height: 40px;
+	text-align: center;
+}
+
+/* Ajustar el tamaño del header del calendario */
+.datepicker .datepicker-switch,
+.datepicker .prev,
+.datepicker .next {
+	font-size: 1.5rem;
+	/* Aumenta el tamaño de los botones de navegación */
+	padding: 10px;
+}
+
+/* Cambiar el tamaño de los botones del selector de mes y año si es necesario */
+.datepicker-months .month,
+.datepicker-years .year {
+	font-size: 1.5rem;
+	/* Aumentar el tamaño de los meses/años */
+	padding: auto;
+}
+
+.logout-button {
+	color: inherit;
+	/* Mantiene el color original */
+}
+
+.logout-button:hover {
+	color: red;
+	/* Cambia el color a rojo al pasar el ratón */
+}
+
+
+.card {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #dee2e6;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+#card_edit_rva {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #dee2e6;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width: 700px;
+	height: auto;
+	align-content: center;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	justify-content: center;
+}
+
+/* Estilo general para la tarjeta */
+		.card {
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			transition: transform 0.2s;
+		}
+
+		.card:hover {
+			transform: translateY(-5px);
+		}
+
+		.card-header {
+			background-color:#67d49f78;
+			font-weight: bold;
+			text-align: center;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			padding: 10px;
+		}
+
+		.card-body {
+			padding: 20px;
+		}
+
+		.card-body p {
+			margin: 5px 0;
+
+		}
+.table th,
+.table td {
+	vertical-align: middle;
+}
+
+.custom-select {
+	background: url('../images/spain.png');
+	background-repeat: no-repeat;
+	background-position: right center;
+	background-size: 20px;
+	padding-right: 30px;
+}
+
+.custom-select option {
+	background-repeat: no-repeat;
+	background-position: left center;
+	padding-left: 30px;
+}
+
+.custom-select option[value="es"] {
+	background: url('../images/spain.png');
+}
+
+.custom-select option[value="en"] {
+	background: url('../images/uk.png');
+}
+
+/*********************************************************************************/
+@import url(https://fonts.googleapis.com/css?family=Lato:900,300);
+@import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: "Lato", sans-serif;
+
+	background-color: #92e0e9;
+}
+
+
+
+#flight-datepicker {
+	margin-top: 36px;
+}
+
+#flight-datepicker {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+#flight-datepicker .form-item {
+	position: relative;
+	margin: 12px 0 60px;
+}
+
+@media screen and (min-width: 400px) {
+	#flight-datepicker .form-item {
+		margin: 12px 24px 0 0;
+	}
+}
+
+#flight-datepicker label {
+	display: block;
+	margin-bottom: 8px;
+	color: white;
+}
+
+#flight-datepicker input {
+	display: block;
+	margin-bottom: 8px;
+	padding-bottom: 6px;
+	width: 100%;
+	font-family: "Lato", sans-serif;
+	font-size: 22px;
+	font-weight: bold;
+	text-align: left;
+	color: #0e3e43;
+	background-color: transparent;
+	border: none;
+	border-bottom: 2px solid #ffffff;
+	border-radius: 0;
+	outline: none;
+	-webkit-transition: border-color .2s ease-out;
+	transition: border-color .2s ease-out;
+}
+
+#flight-datepicker input:first-child,
+#flight-datepicker input:last-child {
+	border-radius: 0;
+}
+
+#flight-datepicker input::-webkit-input-placeholder {
+	color: #0e3e43;
+	font-size: 14px;
+	line-height: 30px;
+	-webkit-transition: color .2s .2s ease-out;
+	transition: color .2s .2s ease-out;
+}
+
+#flight-datepicker input:-moz-placeholder {
+	color: #0e3e43;
+	font-size: 14px;
+	line-height: 30px;
+	-webkit-transition: color .2s .2s ease-out;
+	transition: color .2s .2s ease-out;
+}
+
+#flight-datepicker input::-moz-placeholder {
+	color: #0e3e43;
+	font-size: 14px;
+	line-height: 30px;
+	-webkit-transition: color .2s .2s ease-out;
+	transition: color .2s .2s ease-out;
+}
+
+#flight-datepicker input:-ms-input-placeholder {
+	color: #0e3e43;
+	font-size: 14px;
+	line-height: 30px;
+	-webkit-transition: color .2s .2s ease-out;
+	transition: color .2s .2s ease-out;
+}
+
+#flight-datepicker input:focus {
+	border-bottom-color: #125259;
+}
+
+#flight-datepicker input:focus::-webkit-input-placeholder {
+	color: transparent;
+	-webkit-transition: color .2s ease-out;
+	transition: color .2s ease-out;
+}
+
+#flight-datepicker input:focus:-moz-placeholder {
+	color: transparent;
+	-webkit-transition: color .2s ease-out;
+	transition: color .2s ease-out;
+}
+
+#flight-datepicker input:focus::-moz-placeholder {
+	color: transparent;
+	-webkit-transition: color .2s ease-out;
+	transition: color .2s ease-out;
+}
+
+#flight-datepicker input:focus:-ms-input-placeholder {
+	color: transparent;
+	-webkit-transition: color .2s ease-out;
+	transition: color .2s ease-out;
+}
+
+#flight-datepicker .date-text {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	top: calc(100% + 6px);
+	font-size: 12px;
+	color: white;
+}
+
+@media screen and (min-width: 400px) {
+	#flight-datepicker .date-text {
+		top: 100%;
+	}
+}
+
+.datepicker.dropdown-menu {
+	padding: 0;
+	background-clip: border-box;
+	border: none;
+	border-radius: 0;
+	-webkit-animation: popup .2s ease-out forwards;
+	animation: popup .2s ease-out forwards;
+}
+
+.datepicker.dropdown-menu table {
+	background-color: #1b7983;
+}
+
+.datepicker.dropdown-menu table thead {
+	background-color: #1b7983;
+}
+
+.datepicker.dropdown-menu table thead tr {
+	border-top: 0;
+}
+
+.datepicker.dropdown-menu table tbody {
+	background-color: white;
+}
+
+.datepicker.dropdown-menu table tr {
+	border-top: 1px solid #ededed;
+}
+
+.datepicker.dropdown-menu table tr td,
+.datepicker.dropdown-menu table tr th {
+	width: auto;
+	height: 24px;
+	padding: 8px;
+	font-size: 16px;
+	border-radius: 0;
+	-webkit-transition: background-color .6s ease-out;
+	transition: background-color .6s ease-out;
+}
+
+.datepicker.dropdown-menu table tr td,
+.datepicker.dropdown-menu table tr th {
+	padding: 12px;
+
+}
+
+.datepicker.dropdown-menu table tr td:hover,
+.datepicker.dropdown-menu table tr td.active:hover,
+.datepicker.dropdown-menu table tr td:active:hover,
+.datepicker.dropdown-menu table tr th:hover,
+.datepicker.dropdown-menu table tr th.active:hover,
+.datepicker.dropdown-menu table tr th:active:hover {
+	border-color: #ededed;
+	border-radius: 0;
+	-webkit-transition: background-color .2s ease-out;
+	transition: background-color .2s ease-out;
+}
+
+.datepicker.dropdown-menu table tr td.focused,
+.datepicker.dropdown-menu table tr td.selected,
+.datepicker.dropdown-menu table tr th.focused,
+.datepicker.dropdown-menu table tr th.selected {
+	background-color: #24A0AD;
+	border-color: #ededed;
+	border-radius: 0;
+}
+
+.datepicker.dropdown-menu table tr td.active,
+.datepicker.dropdown-menu table tr td.active:focus,
+.datepicker.dropdown-menu table tr td.active.active:hover,
+.datepicker.dropdown-menu table tr td:active:focus,
+.datepicker.dropdown-menu table tr td.highlighted,
+.datepicker.dropdown-menu table tr th.active,
+.datepicker.dropdown-menu table tr th.active:focus,
+.datepicker.dropdown-menu table tr th.active.active:hover,
+.datepicker.dropdown-menu table tr th:active:focus,
+.datepicker.dropdown-menu table tr th.highlighted {
+	background-color: #1b7983;
+	border-color: #ededed;
+}
+
+.datepicker.dropdown-menu table tr th.datepicker-switch {
+	font-size: 12px;
+	font-weight: bold;
+	line-height: 2;
+	text-transform: uppercase;
+	letter-spacing: .05em;
+	color: #ffffff;
+	background-color: inherit;
+	border-radius: 0;
+}
+
+.datepicker.dropdown-menu table tr th.prev,
+.datepicker.dropdown-menu table tr th.next {
+	color: #ffffff;
+	background-color: #17656e;
+	border-radius: 0;
+}
+
+.datepicker.dropdown-menu table tr th.dow {
+	padding: 2px 12px;
+	font-size: 12px;
+	line-height: 2;
+	color: #ffffff;
+	background-color: #19717a;
+	border-top: 1px solid #196d76;
+	border-radius: 0;
+}
+
+.datepicker.dropdown-menu table tr td.day {
+	width: 24px;
+	border-right: 1px solid #ededed;
+}
+
+.datepicker.dropdown-menu table tr td.day:last-child {
+	border-right-width: 0;
+}
+
+.datepicker.dropdown-menu table tr td.range {
+	background-color: #eeeeee;
+}
+
+.datepicker.dropdown-menu .new,
+.datepicker.dropdown-menu .old,
+.datepicker.dropdown-menu .disabled,
+.datepicker.dropdown-menu .disabled:hover {
+	color: #ccc;
+}
+
+[class*="fontawesome-"]:before {
+	font-family: 'FontAwesome', sans-serif;
+}
+
+.fontawesome-calendar {
+	position: absolute;
+	top: 26px;
+	right: 0;
+	font-size: 24px;
+	z-index: -99;
+}
+
+@-webkit-keyframes popup {
+	from {
+		opacity: 0;
+		-webkit-transform: translateY(12px);
+		transform: translateY(12px);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+}
+
+@keyframes popup {
+	from {
+		opacity: 0;
+		-webkit-transform: translateY(12px);
+		transform: translateY(12px);
+	}
+
+	to {
+		opacity: 1;
+		-webkit-transform: translateY(0);
+		transform: translateY(0);
+	}
+}
+
+#comprobar-disponibilidad-formReservas .form-control {
+	font-size: 1.5rem;
+	padding: 10px;
+	height: auto;
+}
+
+#comprobar-disponibilidad-formReservas .input-group-addon {
+	font-size: 1.5rem;
+	padding: 10px;
+}

@@ -1,5 +1,7 @@
 package com.project.casaberriel.repositorios;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,5 +11,8 @@ import com.project.casaberriel.model.usuarios.Usuario;
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Long>{
 
 	Usuario findByEmail(String email);
+	 Optional<Usuario> findUserByEmail(String email);
+	 Optional<Usuario> findByPasswordResetToken(String token);
+	
 	
 }

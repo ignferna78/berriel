@@ -1,0 +1,121 @@
+{
+	"navbar": {
+		"home": "Home",
+		"booking": "Booking",
+		"mybookings": "My Bookings",
+		"about": "About Us",
+		"services": "Services",
+		"gallery": "Gallery",
+		"contact": "Contact",
+		"login": "Login",
+		"profile": "Profile",
+		"logout": "Logout"
+	},
+	"banner": {
+		"title": "Welcome to CASA BERRIEL",
+		"subtitle": "A unique experience in an unparalleled natural setting.",
+		"button": "Discover More"
+	},
+	"form": {
+		"title_booking": "The selected dates are available. Fill in the form to make the reservation!.",
+	    "id": "Booking reference",
+	    "userId": "UserID",
+	    "total_price": "Total Price",
+	    "price": "Price per night: ",
+		"stay": "Minimum stay: ",
+		"nights": "2 nights",
+	    "accions": "Accions",
+		"check_available": "Check Availability",
+		"arrival": "Arrival date: ",
+		"departure": "Departure date: ",
+		"check_in": "after 12:00pm",
+		"check_out": "before 11:00am",
+		"available": "Available",
+		"not_available": "Not Available",
+		"no_rooms": "The house is full for the selected dates. Please try another date.",
+		"houseAvailable": "The house is available for the selected dates. Please press make booking to fill in the form and book it.",
+		"makebooking": "Make Booking",
+		"head_login": "Login to make a booking",
+		"password": "Password",
+		"register": "If you don't have account, just register ",
+		"here": "here",
+		"data": "Personal Data",
+		"name": "Name: ",
+		"surname": "Surname: ",
+		"address": "Address: ",
+		"no_bookings": "You don't have any bookings yet.",
+		"modify_dates": "Modify dates",
+		"name_surname": "Name and Surname",
+		"number": "Number of guests: ",
+		"observations": "Observations: ",
+		"confirm_booking": "Confirm Booking",
+		"edit_booking": "Edit Booking",
+		"save": "Save changes",
+		"register_form": "Registration form"
+	},
+	"about": {
+		"title": "About Us",
+		"content": "CASA BERRIEL, a charming refuge located in the heart of a unique natural environment, where tradition and comfort meet to offer you an unparalleled experience. Our rural house, with typical architecture of the region, has been carefully restored to preserve its historical essence, combining rustic charm with all the comforts. At Casa Berriel, you will enjoy large spaces full of light, cozy rooms and a warm atmosphere that will make you feel at home. Whether you are looking for a relaxing getaway, outdoor activities or moments to reconnect with nature, our environment is ideal to enjoy the landscape, mountains and tranquility that this magical place offers. We are passionate about providing you with a memorable stay, with attention . Personalized and details that make the difference. Come and discover the beauty of this special corner, where each sunrise and sunset become unforgettable postcards. Casa Berriel awaits you with open arms!"
+	},
+	"services": {
+		"title": "Our Services",
+		"service1": "Complete Accommodations",
+		"service1_desc": "We offer an apartment designed for rest and tranquility, equipped with everything you need to feel at home. Each unit has spacious rooms, comfortable beds, illuminated living areas and a terrace with panoramic views of the sea. Air conditioning, we have high-speed Wi-Fi, flat screen televisions and a fully equipped kitchen to prepare your own meals",
+		"service2": "Natural Environment",
+		"service2_desc": "Immerse yourself in the natural beauty that surrounds our location: long golden sand beaches ideal for relaxing or practicing water sports such as surfing and paddleboarding, hiking and cycling trails to explore nature and discover the native flora and fauna, and picturesque villages with local charm, where you can enjoy the gastronomy and culture of the region. Explore hiking trails that take you to stunning volcanic landscapes and viewpoints with spectacular views of the ocean and mountains.",
+		"service3": "Regional Cuisine",
+		"service3_desc": "We help you discover the authentic flavors of the region with our recommendations of local restaurants and markets, where you can enjoy fresh products and typical dishes prepared by the best local chefs. We offer detailed information about the area's specialties, such as fresh seafood, tapas traditional and delicious desserts, as well as a list of places that offer options for vegetarians, vegans and people with special dietary needs."
+	},
+	"gallery": {
+		"title": "Gallery"
+	},
+	"contact": {
+		"title": "Contact",
+		"subtitle": "We are here to help you. Contact us for more information",
+		"address": "Address:",
+		"address_desc": "Lugar de abajo, 5, Tías , Lanzarote",
+		"phone_title": "phone:",
+		"phone": "+34 606 986 345:",
+		"email": "Email:",
+		"send_message": "Send us a message:",
+		"name_placeholder": "Your Name",
+		"email_placeholder": "Your Email",
+		"message_placeholder": "Your Message",
+		"send_button": "Send",
+		"booking_form": "Booking form",
+		"response": "Thank you for contacting us. We will respond as soon as possible."
+	},
+	"login": {
+		"title": "Login",
+		"email_placeholder": "Email",
+		"password_placeholder": "Password",
+		"submit_button": "Iniciar Sesión",
+		"register": "Register here",
+		"forgot_password": "Forgot your password?"
+	},
+	"footer": {
+		"text": "&copy; 2024 CASA BERRIEL. All rights reserved."
+	},
+	"common": {
+		"error": "Error",
+		"ok": "Confirm",
+		"cancel": "Cancel",
+		"success": "Succes",
+		"close": "Close",
+		"close_session": "Close Session",
+		"close_confirm": "Are you sure you want to close the session?",
+		"close_title":"Confirmation close session",
+		"update": "Update",
+		"delete_account": "Delete Account",
+		"delete_title":"Confirmation delete account",
+		"delete_confirm": "Are you sure you want to delete your account?",
+		"delete": "Delete",
+		"back": "Back",
+		"location": "Our location",
+		"panel": "Administration panel",
+		"exit": "Exit",
+		"registration": "Registration",
+		"welcome": "Welcome to Casa Berriel, you have successfully registered. You can now make your reservation."
+		
+	}
+}

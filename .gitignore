@@ -5,6 +5,8 @@ target/
 .classpath
 .project
 .settings/
+/.settings/
+
 
 # Directorio bin temporal para clases compiladas
 bin/
@@ -56,3 +58,5 @@ nbproject/
 /hibernate.reveng.xml
 /orm.xml
 /persistence.xml
+/pom.properties
+

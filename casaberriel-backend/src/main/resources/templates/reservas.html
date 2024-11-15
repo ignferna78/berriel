@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Reservas</title>
+	<style>
+		html,
+		body {
+			height: 100%;
+			margin: 0;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.content {
+			flex: 1;
+		}
+
+		
+	</style>
+</head>
+
+<body>
+	<th:block th:include="componentes/_nav.html"></th:block>
+	<div class="content">
+		<br>
+		<div class="container">
+			<div class="row">
+
+
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-header">
+							Fechas seleccionadas
+						</div>
+						<div class="card-body" id="fechas-display">
+							<p data-i18n="form.title_booking"></p>
+							<p><strong data-i18n="form.arrival"></strong> <span th:text="${fechaEntrada}"></span></p>
+							<p><strong data-i18n="form.departure"></strong> <span th:text="${fechaSalida}"></span></p>
+							<p><strong>CheckIn: </strong><span data-i18n="form.check_in"></span></p>
+							<p><strong>CheckOut: </strong><span data-i18n="form.check_out"></span></p>
+							<p><strong data-i18n="form.price"></strong><span>80€</span></p>
+							<p><strong data-i18n="form.stay"></strong><span data-i18n="form.nights"></span></p>
+							<div class="text-center mt-4">
+								<a href="/reservas/index#form" class="btn btn-danger" data-i18n="form.modify_dates"></a>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<form th:action="@{/reservas/guardar}" method="post" id="formReserva" th:object="${reservaForm}">
+
+						<div class="card mt-3">
+							<div class="card-header">
+								<span class="fw-bold text-warning">▪</span>
+								<span class="fw-bold" data-i18n="contact.booking_form"></span>
+								<button title="Limpiar formulario" id="iniciolink" class="btn btn-link p-0"
+									onclick="limpiarCriterios();">
+									<span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+											fill="currentColor" class="bi bi-eraser-fill" viewBox="2 0 12 22">
+											<path
+												d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z">
+												></path>
+										</svg></span>
+								</button>
+							</div>
+							<div class="card-body">
+								<!-- Nombre y apellidos -->
+								<div class="form-group mb-3">
+								<b>	<label for="nombre" class="form-label" data-i18n="form.name_surname"> </label></b>
+									<div class="input-group">
+										<input type="text" id="nombre" name="nombre" class="form-control"
+											placeholder="Nombre" required>
+										<input type="text" id="apellidos" name="apellidos" class="form-control"
+											placeholder="Apellidos" required>
+									</div>
+								</div>
+
+								<div class="row">
+									<!-- Email -->
+									<div class="col-md-6 mb-3">
+										<b>	<label for="email" class="form-label">Email</label> </b>
+										<input type="email" class="form-control" id="email" name="email"
+											placeholder="example@correo.com" required>
+									</div>
+									<!-- Dirección -->
+									<div class="col-md-6 mb-3">
+										<b>	<label for="direccion" class="form-label" data-i18n="form.address"></label> </b>
+										<input type="text" class="form-control" id="direccion" name="direccion"
+											placeholder="Tu dirección" required>
+									</div>
+								</div>
+
+
+								<input type="hidden" id="fechaEntrada" name="fechaEntrada" th:value="${fechaEntrada}">
+								<input type="hidden" id="fechaSalida" name="fechaSalida" th:value="${fechaSalida}">
+								<div class="row">
+									<!-- Número de Personas -->
+									<div class="col-md-3 mb-3">
+										<b>	<label for="numPersonas" class="form-label" data-i18n="form.number"></label> </b>
+										<input type="number" class="form-control" id="numPersonas" name="numPersonas"
+											min="1" max="5" required>
+									</div>
+								</div>
+								<div class="row">
+									<!-- Observaciones -->
+									<div class="col-md-12 mb-3">
+										<b>	<label for="observaciones" class="form-label"
+											data-i18n="form.observations"></label> </b>
+										<textarea id="observaciones" name="observaciones" class="form-control"
+											rows="4"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="row justify-content-center">
+								<!-- Botón Volver -->
+								<div class="col-auto">
+									<a href="/reservas/miReserva" class="btn btn-primary" data-i18n="common.back"></a>
+								</div>
+								<!-- Botón Enviar -->
+								<div class="col-auto">
+									<button type="submit" class="btn btn-success"
+										data-i18n="form.confirm_booking"></button>
+								</div>
+							</div>
+							<!-- Mensaje de éxito -->
+							<div th:if="${message}" class="alert alert-success" role="alert">
+								<span th:text="${message}"></span>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			$('#comprobar-disponibilidad-formBtnReservas').on('click', function (event) {
+				event.preventDefault();
+
+				var fechaEntrada = $('#fechaEntrada').val();
+				var fechaSalida = $('#fechaSalida').val();
+
+				console.log('Fecha de entrada modif enviada:', fechaEntrada);
+				console.log('Fecha de salida modif enviada:', fechaSalida);
+
+				var formData = {
+					fechaEntrada: fechaEntrada,
+					fechaSalida: fechaSalida,
+				};
+
+				$.ajax({
+					url: $('#comprobar-disponibilidad-formReservas').attr('action'),
+					type: 'GET',
+					data: formData,
+					success: function (response) {
+						$('#resultados-disponibilidad').html($(response).find('#resultados-disponibilidad').html());
+						$('#fechaEntrada').val(fechaEntrada);
+						$('#fechaSalida').val(fechaSalida);
+					},
+					error: function (error) {
+						console.log("Error en la comprobación de disponibilidad: ", error);
+					}
+				});
+			});
+		});
+		function habilitarEdicion() {
+			const fechasDisplay = document.getElementById('fechas-display');
+			const comprobarDisponibilidadContainer = document.getElementById('comprobar-disponibilidad-container');
+
+			if (fechasDisplay && comprobarDisponibilidadContainer) {
+
+				comprobarDisponibilidadContainer.style.display = 'block';
+			} else {
+				console.error('Elementos no encontrados: fechas-display o comprobar-disponibilidad-container');
+			}
+		}
+		function nuevaFecha() {
+			const fechaEntrada = document.getElementById('fechaEntrada').value;
+			const fechaSalida = document.getElementById('fechaSalida').value;
+			const isUserLoggedIn = document.getElementById('isUserLoggedIn').value === 'true';
+
+			if (isUserLoggedIn) {
+				window.location.href = `/reservas/formReserva?fechaEntrada=${fechaEntrada}&fechaSalida=${fechaSalida}`;
+				console.log('Fecha de entrada enviada:', fechaEntrada);
+				console.log('Fecha de salida enviada:', fechaSalida);
+			} else {
+				$('#modalLogin').modal('show');
+			}
+		}
+
+	</script>
+
+	<th:block th:include="componentes/_scripts.html"></th:block>
+	<footer th:include="componentes/footer.html"></footer>
+</body>
+
+</html>

@@ -3,8 +3,9 @@ package com.project.casaberriel.dto;
 public class UsuarioRegistroDto {
 
 	private Long id;
-	private String username;
+	private String nombre;
 	private String apellidos;
+	private String direccion;
 	private String email;
 	private String password;
 
@@ -13,19 +14,21 @@ public class UsuarioRegistroDto {
 		this.email = email;
 	}
 
-	public UsuarioRegistroDto(String nombre, String apellidos, String email, String password) {
+	public UsuarioRegistroDto(String nombre, String apellidos,String direccion, String email, String password) {
 		super();
-		this.username = nombre;
+		this.nombre = nombre;
 		this.apellidos = apellidos;
+		this.direccion = direccion;
 		this.email = email;
 		this.password = password;
 	}
 
-	public UsuarioRegistroDto(Long id, String nombre, String apellidos, String email, String password) {
+	public UsuarioRegistroDto(Long id, String nombre, String apellidos, String direccion,String email, String password) {
 		super();
 		this.id = id;
-		this.username = nombre;
+		this.nombre = nombre;
 		this.apellidos = apellidos;
+		this.direccion = direccion;
 		this.email = email;
 		this.password = password;
 	}
@@ -44,11 +47,11 @@ public class UsuarioRegistroDto {
 	}
 
 	public String getNombre() {
-		return username;
+		return nombre;
 	}
 
 	public void setNombre(String nombre) {
-		this.username = nombre;
+		this.nombre = nombre;
 	}
 
 	public String getApellidos() {
@@ -59,6 +62,7 @@ public class UsuarioRegistroDto {
 		this.apellidos = apellidos;
 	}
 
+	
 	public String getEmail() {
 		return email;
 	}
@@ -73,6 +77,14 @@ public class UsuarioRegistroDto {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
 	}
 
 }

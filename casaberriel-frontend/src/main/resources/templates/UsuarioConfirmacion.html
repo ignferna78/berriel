@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Reservas- Casa Berriel</title>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+	<style>
+		body {
+			font-family: 'Roboto', sans-serif;
+			color: #333333;
+			margin: 0;
+			padding: 0;
+			background-color: #f4f4f4;
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 30px auto;
+			background-color: #ffffff;
+			border: 1px solid #dddddd;
+			border-radius: 8px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+		}
+
+		.header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			background-color: rgb(128, 128, 255);
+			color: #ffffff;
+			padding: 25px 20px;
+			font-size: 28px;
+			font-weight: 700;
+			letter-spacing: 1px;
+		}
+
+		.header h1 {
+			margin: 0;
+			font-size: 26px;
+		}
+
+		.logo h2 {
+			margin: 0;
+			font-size: 22px;
+		}
+
+		.content {
+			padding: 25px;
+			color: #555555;
+			line-height: 1.6;
+		}
+
+		.content p {
+			font-size: 16px;
+			margin: 10px 0;
+		}
+
+		.highlight {
+			color: #20B2AA;
+			font-weight: bold;
+		}
+
+		.details {
+			margin-top: 20px;
+			padding: 15px;
+			background-color: #f9f9f9;
+			border-left: 4px solid #20B2AA;
+			border-radius: 5px;
+		}
+
+		.details p {
+			margin: 8px 0;
+			font-size: 15px;
+		}
+
+		.footer {
+			background-color: #333333;
+			color: #ffffff;
+			text-align: center;
+			padding: 20px;
+			font-size: 12px;
+		}
+
+		.footer p {
+			margin: 5px 0;
+		}
+
+		.social-icons {
+			margin-top: 10px;
+		}
+
+		.social-icons a {
+			margin: 0 8px;
+			display: inline-block;
+		}
+
+		.social-icons img {
+			width: 24px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<!-- Encabezado -->
+		<div class="header">
+			<div class="logo">
+				<h2>Casa Berriel</h2>
+			</div>
+			<h1 th:if="${modificada}">Modificación de cuenta de usuario</h1>
+			<h1 th:if="${!modificada and !cancelada}">cuenta de usuario</h1>
+			<h1 th:if="${cancelada}">Cancelación de cuenta de usuario</h1>
+		</div>
+
+		<!-- Contenido -->
+		<div class="content">
+			<p>Estimado/a <span class="highlight" th:text="${nombreCliente}"></span>,</p>
+			<p th:if="${modificada}">Su usuario ha sido modificado con los siguientes detalles:</p>
+			<p th:if="${!modificada and !cancelada}">¡Enhorabuena! Nos complace confirmar que ha creado con éxito una
+				nueva cuenta de usuario en Casa Berriel con los siguientes detalles:</p>
+			<p th:if="${cancelada}">Su cuenta de usuario ha sido cancelada:</p>
+
+			<div class="details" th:if="${!cancelada}">
+				<p>Nombre: <span class="highlight" th:text="${nombreCliente}"></span></p>
+				<p>Apellidos: <span class="highlight" th:text="${apellidos}"></span></p>
+				<p>Dirección: <span class="highlight" th:text="${direccion}"></span></p>
+				<p>Email: <span class="highlight" th:text="${email}"></span></p>
+				
+
+			</div>
+
+			<p th:if="${!cancelada}">Si tiene alguna pregunta, no dude en ponerse en contacto con nosotros. Estamos aquí
+				para ayudarle.</p>
+			<p th:if="${!cancelada}">¡Le esperamos pronto en Casa Berriel!</p>
+		</div>
+
+		<!-- Pie de página -->
+		<div class="footer">
+			<p>&copy; 2024 Casa Berriel. Todos los derechos reservados.</p>
+		</div>
+	</div>
+
+</body>
+
+</html>

@@ -1,179 +1,259 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-<meta charset="UTF-8">
-<title>Reservas</title>
-<!-- Head Start -->
-<th:block th:include="componentes/_head.html"></th:block>
-<!-- Head End -->
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+<head>
+	<meta charset="UTF-8">
+	<title>Reservas</title>
+	<style>
+		html,
+		body {
+			height: 100%;
+			margin: 0;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.content {
+			flex: 1;
+		}
+	</style>
 </head>
+
 <body>
 	<th:block th:include="componentes/_nav.html"></th:block>
-	<br>
-
-	<form th:action="@{/reservas/guardar}" method="post" id="formReserva" th:object="${reservaForm}">
-	    <div class="container">
-	        <div class="card mt-3">
-	            <div class="card-header">
-	                <span class="fw-bold text-warning">▪</span>
-	                <span class="fw-bold" data-i18n="contact.booking_form"></span>
-	                <button title="Limpiar criterios de búsqueda" id="iniciolink" class="btn btn-link p-0" onclick="limpiarCriterios();">
-	                    <span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-eraser-fill" viewBox="2 0 12 22">
-	                        <path d="..."></path>
-	                    </svg></span>
-	                </button>
-	            </div>
-	            <div class="card-body">
-	                <!-- Nombre y apellidos -->
-	                <div class="form-group mb-3">
-	                    <label for="nombre" class="form-label">Nombre y Apellidos</label>
-	                    <div class="input-group">
-	                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre" required>
-	                        <input type="text" id="apellidos" name="apellidos" class="form-control" placeholder="Apellidos" required>
-	                    </div>
-	                </div>
-	                
-	                <div class="row">
-	                    <!-- Email -->
-	                    <div class="col-md-6 mb-3">
-	                        <label for="email" class="form-label">Email</label>
-	                        <input type="email" class="form-control" id="email" name="email" placeholder="example@correo.com" required>
-	                    </div>
-	                    <!-- Dirección -->
-	                    <div class="col-md-6 mb-3">
-	                        <label for="direccion" class="form-label">Dirección</label>
-	                        <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Tu dirección" required>
-	                    </div>
-	                </div>
-
-	                <div class="row">
-	                    <!-- Fecha de Entrada -->
-	                    <div class="col-md-6 mb-3">
-	                        <label for="fechaEntrada" class="form-label">Fecha de Entrada</label>
-	                        <input type="text" class="form-control datepicker" id="fechaEntrada" name="fechaEntrada" value="${reservaForm.fechaEntrada}" readonly>
-	                    </div>
-	                    <!-- Fecha de Salida -->
-	                    <div class="col-md-6 mb-3">
-	                        <label for="fechaSalida" class="form-label">Fecha de Salida</label>
-	                        <input type="text" class="form-control datepicker" id="fechaSalida" name="fechaSalida" value="${reservaForm.fechaSalida}" readonly>
-	                    </div>
-	                </div>
-
-	                <div class="row mt-4 pt-4">
-	                    <div class="col text-center">
-	                        <button type="submit" class="btn btn-primary">Enviar</button>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	</form>
+	<div class="content">
+		<br>
+		<div class="container">
+			<div class="row">
 
 
-
-
-
-	<div class="container">
-		<h1 class="my-4">Lista de Reservas</h1>
-		<a href="/index.html">Inicio</a>
-		<table class="table table-striped table-hover">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">ID</th>
-					<th scope="col">Nombre</th>
-					<th scope="col">Apellidos</th>
-						<th scope="col">Email</th>
-					<th scope="col">Direccion</th>
-					<th scope="col">Fecha de Entrada</th>
-					<th scope="col">Fecha de Salida</th>
-					
-
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="reserva : ${reservas}">
-					<td th:text="${reserva.id}"></td>
-					<td th:text="${reserva.nombre}"></td>
-					<td th:text="${reserva.apellidos}"></td>
-					<td th:text="${reserva.email}"></td>
-					<td th:text="${reserva.direccion}"></td>
-					<td th:text="${reserva.fechaEntrada}"></td>
-					<td th:text="${reserva.fechaSalida}"></td>
-					
-
-					<td><a class="btn btn-outline-success" title="Editar Reserva"
-						th:href="@{'/reservas/editar/' + ${reserva.id}}"> <svg
-								xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-								fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                        <path
-									d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
-                         </svg></a> <a
-						class="btn btn-outline-danger deleteReservaBtn"
-						title="Eliminar Reserva"
-						th:href="@{'/reservas/eliminar/' + ${reserva.id}}"
-						data-toggle="modal"
-						th:attr="data-target='#deleteModal' + ${reserva.id}"
-						data-target="#deleteModal" data-id="${reserva.id}"> <svg
-								xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-								fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                                                    <path
-									d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-                                                </svg></a> <a title="Ver Reserva"
-						class="btn btn-outline-info"
-						th:href="@{'/reservas/detalle/' + ${reserva.id}}"><svg
-								xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-								fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
-  <path
-									d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
-  <path
-									d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
-</svg></a></td>
-				</tr>
-			</tbody>
-			<!-- Modal HTML -->
-			<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
-				aria-labelledby="deleteModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="deleteModalLabel">Confirmar
-								Eliminación</h5>
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-header">
+							Fechas seleccionadas
 						</div>
-						<div class="modal-body">¿Estás seguro de que deseas eliminar
-							esta reserva?</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary"
-								data-dismiss="modal">Cancelar</button>
-							<a id="confirmDeleteButton" href="#" class="btn btn-danger">Eliminar</a>
+						<div class="card-body" id="fechas-display">
+							<p data-i18n="form.title_booking"></p>
+							<p><strong data-i18n="form.arrival"></strong> <span th:text="${fechaEntrada}"></span></p>
+							<p><strong data-i18n="form.departure"></strong> <span th:text="${fechaSalida}"></span></p>
+							<p><strong>CheckIn: </strong><span data-i18n="form.check_in"></span></p>
+							<p><strong>CheckOut: </strong><span data-i18n="form.check_out"></span></p>
+							<p><strong data-i18n="form.price"></strong><span>80€</span></p>
+                            <p><strong data-i18n="form.stay"></strong><span data-i18n="form.nights"></span></p>
+							<a href="/reservas/index#form" class="btn btn-primary" data-i18n="form.modify_dates"></a>
+							
+						
+							
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<form th:action="@{/reservas/guardar}" method="post" id="formReserva" th:object="${reservaForm}">
+
+						<div class="card mt-3">
+							<div class="card-header">
+								<span class="fw-bold text-warning">▪</span>
+								<span class="fw-bold" data-i18n="contact.booking_form"></span>
+								<button title="Limpiar formulario" id="iniciolink" class="btn btn-link p-0"
+									onclick="limpiarCriterios();">
+									<span><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+											fill="currentColor" class="bi bi-eraser-fill" viewBox="2 0 12 22">
+											<path
+												d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828zm2.121.707a1 1 0 0 0-1.414 0L4.16 7.547l5.293 5.293 4.633-4.633a1 1 0 0 0 0-1.414zM8.746 13.547 3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293z">
+												></path>
+										</svg></span>
+								</button>
+							</div>
+							<div class="card-body">
+								<!-- Nombre y apellidos -->
+								<div class="form-group mb-3">
+									<label for="nombre" class="form-label" data-i18n="form.name_surname"> </label>
+									<div class="input-group">
+										<input type="text" id="nombre" name="nombre" class="form-control"
+											placeholder="Nombre" required>
+										<input type="text" id="apellidos" name="apellidos" class="form-control"
+											placeholder="Apellidos" required>
+									</div>
+								</div>
+
+								<div class="row">
+									<!-- Email -->
+									<div class="col-md-6 mb-3">
+										<label for="email" class="form-label">Email</label>
+										<input type="email" class="form-control" id="email" name="email"
+											placeholder="example@correo.com" required>
+									</div>
+									<!-- Dirección -->
+									<div class="col-md-6 mb-3">
+										<label for="direccion" class="form-label" data-i18n="form.address"></label>
+										<input type="text" class="form-control" id="direccion" name="direccion"
+											placeholder="Tu dirección" required>
+									</div>
+								</div>
+
+
+								<input type="hidden" id="fechaEntrada" name="fechaEntrada" th:value="${fechaEntrada}">
+								<input type="hidden" id="fechaSalida" name="fechaSalida" th:value="${fechaSalida}">
+								<div class="row">
+									<!-- Número de Personas -->
+									<div class="col-md-6 mb-3">
+										<label for="numPersonas" class="form-label" data-i18n="form.number"></label>
+										<input type="number" class="form-control" id="numPersonas" name="numPersonas"
+											min="1" max="5" required>
+									</div>
+								</div>
+								<div class="row">
+									<!-- Observaciones -->
+									<div class="col-md-12 mb-3">
+										<label for="observaciones" class="form-label" data-i18n="form.observations"></label>
+										<textarea id="observaciones" name="observaciones" class="form-control"
+											rows="4"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="row justify-content-center">
+								<!-- Botón Volver -->
+								<div class="col-auto">
+									<a href="/reservas/miReserva" class="btn btn-primary" data-i18n="common.back"></a>
+								</div>
+								<!-- Botón Enviar -->
+								<div class="col-auto">
+									<button type="submit" class="btn btn-success" data-i18n="form.confirm_booking"></button>
+								</div>
+							</div>
+							<!-- Mensaje de éxito -->
+							<div th:if="${message}" class="alert alert-success" role="alert">
+								<span th:text="${message}"></span>
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+			<div class="container" id="comprobar-disponibilidad-container" style="display: none;">
+				<h2 class="text-center mb-4">Comprobar Disponibilidad</h2>
+				<form id="comprobar-disponibilidad-formReservas" th:action="@{/reservas/comprobar-nuevadisponibilidad}">
+					<div class="row justify-content-center">
+						<div class="col-md-4">
+							<label>Selecciona fecha de Entrada: </label>
+							<div class="input-group date datepicker">
+								<input class="form-control" type="text" id="fechaEntrada" name="fechaEntrada"
+									readonly />
+								<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<label>Selecciona fecha de salida: </label>
+							<div class="input-group date datepicker">
+								<input class="form-control" type="text" id="fechaSalida" name="fechaSalida" readonly />
+								<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+							</div>
+						</div>
+					</div>
+					<div class="text-center mt-4">
+						<button type="submit" id="comprobar-disponibilidad-formBtnReservas" class="btn btn-success">
+							Comprobar Disponibilidad
+						</button>
+					</div>
+				</form>
+			</div>
+			<div class="container">
+				<div id="resultados-disponibilidad">
+					<!-- Aquí se mostrarán los resultados de disponibilidad -->
+					<div th:if="${disponible != null and !disponible}">
+						<div class="card">
+							<div class="alert alert-warning" role="alert">
+								<h4 class="alert-heading">No Disponible</h4>
+								<p>La casa no está disponible para las fechas seleccionadas</p>
+								<hr>
+								<p class="mb-0">Por favor, seleccione otras fechas</p>
+							</div>
+						</div>
+					</div>
+					<div th:if="${disponible}">
+						<div class="card">
+							<input type="hidden" id="isUserLoggedIn" th:value="${isUserLoggedIn}">
+							<div class="alert alert-success" role="alert">
+								<h4 class="alert-heading">Disponible</h4>
+								<span>La casa está disponible para las fechas seleccionadas,<strong> Precio:
+										80€/noche</strong> </span>
+								<hr>
+								<button class="btn btn-primary mt-3" id="botonReservar"
+									onclick="nuevaFecha()">Reservar</button>
+
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</table>
-
-
+		</div>
 	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			$('#comprobar-disponibilidad-formBtnReservas').on('click', function (event) {
+				event.preventDefault();
+
+				var fechaEntrada = $('#fechaEntrada').val();
+				var fechaSalida = $('#fechaSalida').val();
+
+				console.log('Fecha de entrada modif enviada:', fechaEntrada);
+				console.log('Fecha de salida modif enviada:', fechaSalida);
+
+				var formData = {
+					fechaEntrada: fechaEntrada,
+					fechaSalida: fechaSalida,
+				};
+
+				$.ajax({
+					url: $('#comprobar-disponibilidad-formReservas').attr('action'),
+					type: 'GET',
+					data: formData,
+					success: function (response) {
+						$('#resultados-disponibilidad').html($(response).find('#resultados-disponibilidad').html());
+						$('#fechaEntrada').val(fechaEntrada);
+						$('#fechaSalida').val(fechaSalida);
+					},
+					error: function (error) {
+						console.log("Error en la comprobación de disponibilidad: ", error);
+					}
+				});
+			});
+		});
+		function habilitarEdicion() {
+				const fechasDisplay = document.getElementById('fechas-display');
+				const comprobarDisponibilidadContainer = document.getElementById('comprobar-disponibilidad-container');
+
+				if (fechasDisplay && comprobarDisponibilidadContainer) {
+
+					comprobarDisponibilidadContainer.style.display = 'block';
+				} else {
+					console.error('Elementos no encontrados: fechas-display o comprobar-disponibilidad-container');
+				}
+			}
+		function nuevaFecha() {
+				const fechaEntrada = document.getElementById('fechaEntrada').value;
+				const fechaSalida = document.getElementById('fechaSalida').value;
+				const isUserLoggedIn = document.getElementById('isUserLoggedIn').value === 'true';
+
+				if (isUserLoggedIn) {
+					window.location.href = `/reservas/formReserva?fechaEntrada=${fechaEntrada}&fechaSalida=${fechaSalida}`;
+					console.log('Fecha de entrada enviada:', fechaEntrada);
+					console.log('Fecha de salida enviada:', fechaSalida);
+				} else {
+					$('#modalLogin').modal('show');
+				}
+			}
+
+
+
+
+
+
+
+	</script>
 
 	<th:block th:include="componentes/_scripts.html"></th:block>
-<th:block th:include="componentes/footer.html"></th:block>
+	<footer th:include="componentes/footer.html"></footer>
 </body>
-
-<script>
-
-	$('.deleteReservaBtn').on('click', function(event) {
-				event.preventDefault();
-				var confirmDeletion = confirm('¿Está seguro de que quiere eliminar esta reserva?');
-				if (confirmDeletion) {
-					window.location.href = $(this).attr('href');
-				}
-			});
-  
-</script>
 
 </html>

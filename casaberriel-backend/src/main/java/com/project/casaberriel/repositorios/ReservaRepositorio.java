@@ -15,18 +15,22 @@ public interface ReservaRepositorio extends JpaRepository<ReservaEntity, Long> {
 	// Métodos personalizados si es necesario
 
 	List<ReservaEntity> findAll();
-
-	 /**
-     * Encuentra las reservas que se superponen con un rango de fechas.
-     * 
-     * @param desde La fecha de inicio del rango.
-     * @param hasta    La fecha de fin del rango.
-     * @return Una lista de reservas que se superponen con el rango dado.
-     */
-    @Query(value="SELECT * FROM reservas r WHERE " +
-           "(r.fecha_entrada <= :fechaSalida AND r.fecha_salida >= :fechaEntrada)", nativeQuery=true)
-    List<ReservaEntity> findReservasSuperpuestas(@Param("fechaEntrada")Date desde, @Param("fechaSalida")Date hasta);
-
-
+	List<ReservaEntity> findByEmail(String email);
+	List<ReservaEntity> findByUsuarioId(Long userId);
+	/**
+	 * Encuentra las reservas que se superponen con un rango de fechas.
+	 * 
+	 * @param desde La fecha de inicio del rango.
+	 * @param hasta La fecha de fin del rango.
+	 * @return Una lista de reservas que se superponen con el rango dado.
+	 */
+	@Query(value = "SELECT * FROM reservas r WHERE "
+			+ "(r.fecha_entrada <= :fechaSalida AND r.fecha_salida >= :fechaEntrada)", nativeQuery = true)
+	List<ReservaEntity> findReservasSuperpuestas(@Param("fechaEntrada") Date desde, @Param("fechaSalida") Date hasta);
+	
+	
+	@Query(value = "SELECT * FROM reservas r WHERE "
+			+ "(r.fecha_entrada <= :fechaSalida AND r.fecha_salida >= :fechaEntrada AND r.id != :reservaId)", nativeQuery = true)
+	List<ReservaEntity> findReservasSuperpuestasEdit(@Param("fechaEntrada") Date desde, @Param("fechaSalida") Date hasta,@Param("reservaId") Long reservaId);
 
 }

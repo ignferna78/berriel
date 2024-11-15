@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - Página no Encontrada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reseteo de estilos */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        /* Encabezado de navegación */
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            color: #20B2AA;
+        }
+        /* Estilo principal de la página de error */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        h1 {
+            font-size: 48px;
+            color: #ff4c4c;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .error-details {
+            font-size: 16px;
+            color: #888;
+        }
+        /* Botones */
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            margin: 10px;
+            color: #fff;
+            background-color: #20B2AA;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #18a39a;
+        }
+        /* Pie de página */
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+	
+    <!-- Barra de navegación -->
+    <div class="navbar">
+		<h2><a class="navbar-brand" href="/reservas/index">CASA BERRIEL</a></h2>
+    </div>
+
+    <!-- Contenido principal de error -->
+    <div class="container">
+        <h1>Error 405</h1>
+        <p>Algo salió mal. El método de solicitud no es compatible con este endpoint.</p>
+        <p class="error-details">Por favor, verifique la URL o contacte al soporte si el problema persiste.</p>
+        
+        <a href="/reservas/index" class="btn">Volver al Inicio</a>
+        <a href="/reservas/index/#contact" class="btn">Contactar Soporte</a>
+    </div>
+
+    <!-- Pie de página -->
+    <div class="footer">
+        &copy; 2024 Casa Berriel. Todos los derechos reservados.
+    </div>
+
+</body>
+</html>
