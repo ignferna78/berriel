@@ -16,7 +16,7 @@ public interface ReservaRepositorio extends JpaRepository<ReservaEntity, Long> {
 
 	List<ReservaEntity> findAll();
 	List<ReservaEntity> findByEmail(String email);
-
+	List<ReservaEntity> findByUsuarioId(Long userId);
 	/**
 	 * Encuentra las reservas que se superponen con un rango de fechas.
 	 * 
@@ -27,6 +27,10 @@ public interface ReservaRepositorio extends JpaRepository<ReservaEntity, Long> {
 	@Query(value = "SELECT * FROM reservas r WHERE "
 			+ "(r.fecha_entrada <= :fechaSalida AND r.fecha_salida >= :fechaEntrada)", nativeQuery = true)
 	List<ReservaEntity> findReservasSuperpuestas(@Param("fechaEntrada") Date desde, @Param("fechaSalida") Date hasta);
-	List<ReservaEntity> findByUsuarioId(Long userId);
+	
+	
+	@Query(value = "SELECT * FROM reservas r WHERE "
+			+ "(r.fecha_entrada <= :fechaSalida AND r.fecha_salida >= :fechaEntrada AND r.id != :reservaId)", nativeQuery = true)
+	List<ReservaEntity> findReservasSuperpuestasEdit(@Param("fechaEntrada") Date desde, @Param("fechaSalida") Date hasta,@Param("reservaId") Long reservaId);
 
 }

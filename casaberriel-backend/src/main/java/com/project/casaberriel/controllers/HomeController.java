@@ -5,14 +5,17 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -221,49 +224,45 @@ public class HomeController {
 		return "index"; // Retorna a la página principal o el formulario de reservas
 	}
 
-	@GetMapping("/comprobar-nuevadisponibilidad")
-	public String comprobarNuevaDisponibilidad(@RequestParam(required = false) String fechaEntrada,
-			@RequestParam(required = false) String fechaSalida, Model model, HttpServletRequest request) {
-
-		// Define los formateadores de fecha para entrada y salida
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
-		LocalDate entrada = null;
-		LocalDate salida = null;
-
-		try {
-			// Intenta convertir las fechas recibidas
-			if (fechaEntrada != null && !fechaEntrada.isEmpty()) {
-				entrada = LocalDate.parse(fechaEntrada, formatter);
+	@GetMapping("/comprobar-disponibilidadEdicion")
+	    public ResponseEntity<Map<String, Boolean>> comprobarDisponibilidad(
+	            @RequestParam String fechaEntrada, 
+	            @RequestParam String fechaSalida,@RequestParam(required = false) Long reservaId,  Model model) {
+		
+		  // Verificar si reservaId es nulo
+	    if (reservaId == null) {
+	        model.addAttribute("error", "El ID de la reserva no puede ser nulo");
+	        Map<String, Boolean> response = new HashMap<>();
+	        response.put("disponible", false);
+	        return ResponseEntity.badRequest().body(response);
+	    }
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
+			LocalDate entrada = null;
+			LocalDate salida = null;
+			try {
+				// Intenta convertir las fechas recibidas
+				if (fechaEntrada != null && !fechaEntrada.isEmpty()) {
+					entrada = LocalDate.parse(fechaEntrada, formatter);
+				}
+				if (fechaSalida != null && !fechaSalida.isEmpty()) {
+					salida = LocalDate.parse(fechaSalida, formatter);
+				}
+			} catch (DateTimeParseException e) {
+				model.addAttribute("error", "Formato de fecha no válido");
 			}
-			if (fechaSalida != null && !fechaSalida.isEmpty()) {
-				salida = LocalDate.parse(fechaSalida, formatter);
-			}
-		} catch (DateTimeParseException e) {
-			// Si hay un error en el formato, vuelve a la página con un mensaje de error
-			model.addAttribute("error", "Formato de fecha no válido");
-			return "index";
-		}
-
-		// Verifica disponibilidad solo si ambas fechas son válidas
-		if (entrada != null && salida != null) {
-			ReservaForm reservaForm = new ReservaForm();
+			
+		
+		  ReservaForm reservaForm = new ReservaForm();
 			reservaForm.setFechaEntrada(entrada.format(formatter));
 			reservaForm.setFechaSalida(salida.format(formatter));
-
-			boolean disponible = reservaService.comprobarDisponibilidad(reservaForm);
-			model.addAttribute("disponible", disponible);
-		} else {
-			model.addAttribute("error", "Las fechas de entrada y salida son requeridas.");
-		}
-
-		boolean isUserLoggedIn = request.getRemoteUser() != null;
-		model.addAttribute("isUserLoggedIn", isUserLoggedIn);
-		// Agrega las fechas formateadas al modelo para mostrarlas en el formulario
-		model.addAttribute("fechaEntradaFormateada", entrada != null ? entrada.format(formatter) : "");
-		model.addAttribute("fechaSalidaFormateada", salida != null ? salida.format(formatter) : "");
-
-		return "reservas"; // Retorna a la página principal o el formulario de reservas
-	}
+	        boolean disponible = reservaService.comprobarDisponibilidadEdicion(reservaForm,reservaId);// lógica para comprobar disponibilidad 
+			model.addAttribute("fechaEntradaFormateada", entrada != null ? entrada.format(formatter) : "");
+			model.addAttribute("fechaSalidaFormateada", salida != null ? salida.format(formatter) : "");
+			
+	        Map<String, Boolean> response = new HashMap<>();
+	        response.put("disponible", disponible);
+	        return ResponseEntity.ok(response);
+	    }
 	@GetMapping("/lista")
 	public String mostrarFormularioReserva(@RequestParam String fechaEntrada, @RequestParam String fechaSalida,
 			Model model, HttpSession session) {

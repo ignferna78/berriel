@@ -24,4 +24,6 @@ public interface ReservaService {
 
 	List<ReservaEntity> obtenerReservaPorIdUsuario(Long userId);
 
+	boolean comprobarDisponibilidadEdicion(ReservaForm fecha, Long reservaId);
+
 }

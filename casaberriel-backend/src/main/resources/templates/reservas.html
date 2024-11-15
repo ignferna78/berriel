@@ -133,63 +133,6 @@
 						</div>
 					</form>
 				</div>
-
-			</div>
-			<div class="container" id="comprobar-disponibilidad-container" style="display: none;">
-				<h2 class="text-center mb-4">Comprobar Disponibilidad</h2>
-				<form id="comprobar-disponibilidad-formReservas" th:action="@{/reservas/comprobar-nuevadisponibilidad}">
-					<div class="row justify-content-center">
-						<div class="col-md-4">
-							<label>Selecciona fecha de Entrada: </label>
-							<div class="input-group date datepicker">
-								<input class="form-control" type="text" id="fechaEntrada" name="fechaEntrada"
-									readonly />
-								<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<label>Selecciona fecha de salida: </label>
-							<div class="input-group date datepicker">
-								<input class="form-control" type="text" id="fechaSalida" name="fechaSalida" readonly />
-								<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-							</div>
-						</div>
-					</div>
-					<div class="text-center mt-4">
-						<button type="submit" id="comprobar-disponibilidad-formBtnReservas" class="btn btn-success">
-							Comprobar Disponibilidad
-						</button>
-					</div>
-				</form>
-			</div>
-			<div class="container">
-				<div id="resultados-disponibilidad">
-					<!-- Aquí se mostrarán los resultados de disponibilidad -->
-					<div th:if="${disponible != null and !disponible}">
-						<div class="card">
-							<div class="alert alert-warning" role="alert">
-								<h4 class="alert-heading">No Disponible</h4>
-								<p>La casa no está disponible para las fechas seleccionadas</p>
-								<hr>
-								<p class="mb-0">Por favor, seleccione otras fechas</p>
-							</div>
-						</div>
-					</div>
-					<div th:if="${disponible}">
-						<div class="card">
-							<input type="hidden" id="isUserLoggedIn" th:value="${isUserLoggedIn}">
-							<div class="alert alert-success" role="alert">
-								<h4 class="alert-heading">Disponible</h4>
-								<span>La casa está disponible para las fechas seleccionadas,<strong> Precio:
-										80€/noche</strong> </span>
-								<hr>
-								<button class="btn btn-primary mt-3" id="botonReservar"
-									onclick="nuevaFecha()">Reservar</button>
-
-							</div>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
@@ -248,12 +191,6 @@
 				$('#modalLogin').modal('show');
 			}
 		}
-
-
-
-
-
-
 
 	</script>
 

@@ -33,7 +33,7 @@
 					<div class="form-group">
 						<label for="numPersonas" class="form-label" data-i18n="form.number"></label>
 						<input type="number" class="form-control" id="numPersonas" name="numPersonas" min="1" max="5"
-						 th:field="*{numPersonas}"	required>
+							th:field="*{numPersonas}" required>
 					</div>
 
 					<div class="form-group">
@@ -55,35 +55,88 @@
 							readonly>
 					</div>
 					<input type="hidden" name="modificada" value="true">
+					<input type="hidden" name="reservaId" id="reservaId" th:value="${reserva.id}">
+					
 					<div class="text-center mt-4">
-						<button type="submit" class="btn btn-success" data-i18n="form.save"></button>
+						<button type="submit" class="btn btn-success" data-i18n="form.save"
+							id="comprobar-disponibilidad-formBtnReservas"></button>
 						<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" href="/admin/lista"
 							class="btn btn-danger" data-i18n="common.cancel"></a>
 
 						<!-- Botón para el rol USER -->
 						<a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" href="/reservas/miReserva"
-							class="btn btn-danger"  data-i18n="common.cancel"></a>
+							class="btn btn-danger" data-i18n="common.cancel"></a>
 					</div><br>
+
 					<div th:if="${message}" class="alert alert-success" role="alert">
 						<span th:text="${message}"></span>
 					</div>
-
-					<div class="text-center mt-4">
-						<!-- Botón para el rol ADMIN -->
-						<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" href="/admin/lista"
-							class="btn btn-primary mt-4"  data-i18n="common.back"></a>
-
-						<!-- Botón para el rol USER -->
-						<a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" href="/reservas/miReserva"
-							class="btn btn-primary mt-4"  data-i18n="common.back"></a>
-					</div>
-
 				</form>
 			</div>
 
+			
 		</div>
+		<div id="resultados-disponibilidad" class="alert alert-warning" style="display: none;"
+						data-i18n="form.no_rooms"></div>
 	</div>
+	<div class="text-center mt-4">
+		<!-- Botón para el rol ADMIN -->
+		<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" href="/admin/lista"
+			class="btn btn-primary mt-4" data-i18n="common.back"></a>
 
+		<!-- Botón para el rol USER -->
+		<a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" href="/reservas/miReserva"
+			class="btn btn-primary mt-4" data-i18n="common.back"></a>
+	</div><br>
+
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			$('#comprobar-disponibilidad-formBtnReservas').on('click', function (event) {
+				event.preventDefault(); // Evitar el envío del formulario inicialmente
+
+				var fechaEntrada = $('#fechaEntrada').val();
+				var fechaSalida = $('#fechaSalida').val();
+				 var reservaId = $('#reservaId').val();
+
+				console.log('Fecha de entrada modif enviada:', fechaEntrada);
+				console.log('Fecha de salida modif enviada:', fechaSalida);
+
+				var formData = {
+					fechaEntrada: fechaEntrada,
+					fechaSalida: fechaSalida,
+					reservaId: reservaId
+				};
+
+				// Realizar la comprobación de disponibilidad
+				$.ajax({
+					url: '/reservas/comprobar-disponibilidadEdicion', // Asegúrate de que esta URL es correcta
+					type: 'GET',
+					data: formData,
+					success: function (response) {
+						// Manejar la respuesta de la disponibilidad
+						if (response.disponible) {
+							// Si las fechas están disponibles, enviar el formulario
+							$('form').submit();
+						} else {
+							// Mostrar mensaje de advertencia si las fechas no están disponibles
+							$('#resultados-disponibilidad').show();
+						}
+					},
+					error: function (error) {
+						console.log("Error en la comprobación de disponibilidad: ", error);
+					}
+				});
+			});
+		});
+	</script>
+
+	<button id="btnSubir" title="Subir" onclick="subirArriba()"> <svg xmlns="http://www.w3.org/2000/svg" width="26"
+			height="26" fill="currentColor" class="bi bi-caret-up" viewBox="0 0 16 16">
+			<path
+				d="M3.204 11h9.592L8 5.519zm-.753-.659 4.796-5.48a1 1 0 0 1 1.506 0l4.796 5.48c.566.647.106 1.659-.753 1.659H3.204a1 1 0 0 1-.753-1.659" />
+		</svg>
+	</button>
 	<th:block th:include="componentes/_scripts.html"></th:block>
 	<th:block th:include="componentes/footer.html"></th:block>
 </body>

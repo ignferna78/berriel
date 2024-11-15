@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
+import org.apache.logging.log4j.LogManager;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +37,8 @@ public class ReservaServiceImpl implements ReservaService {
 	private IEmailService emailService;
 
 	private static final String FORMATO = "dd/MM/yyyy";
+
+	private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger();
 	SimpleDateFormat formatter = new SimpleDateFormat(FORMATO);
 
 	@Override
@@ -58,9 +62,12 @@ public class ReservaServiceImpl implements ReservaService {
 	    }
 	    LocalDate fechaEntrada = LocalDate.parse(fecha.getFechaEntrada(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 	    LocalDate fechaSalida = LocalDate.parse(fecha.getFechaSalida(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+	    long totalDias = Utils.calculateTotalDays(fechaEntrada, fechaSalida);
 	    double precioTotal = Utils.calculateTotalPrice(fechaEntrada, fechaSalida, reserva.getPrecioPorDia());
 	    reserva.setPrecioTotal(precioTotal);
 	    reserva.setPrecioPorDia(80.0);
+	    if(totalDias==0) {reserva.setPrecioTotal(reserva.getPrecioPorDia());}
+	    LOGGER.info("Precio total: " + reserva.getPrecioTotal());
 	    ReservaEntity savedReserva = reservaRepository.save(reserva);
 	    emailService.sendReservationConfirmation(savedReserva,cancelada,modificada);
 	    return savedReserva;
@@ -112,6 +119,21 @@ public class ReservaServiceImpl implements ReservaService {
 		// Obtener las reservas que se superpongan con el rango de fechas dado.
 		List<ReservaEntity> reservasSuperpuestas = reservaRepository.findReservasSuperpuestas(desde, hasta);
 
+		// Si no hay reservas que se superpongan, hay disponibilidad.
+		return reservasSuperpuestas.isEmpty();
+	}
+	
+	@Override
+	public boolean comprobarDisponibilidadEdicion(ReservaForm fecha,Long reservaId) {
+		Date desde = obtenerFechaFormateada(fecha.getFechaEntrada());
+		Date hasta = obtenerFechaFormateada(fecha.getFechaSalida());
+		  if (reservaId == null) {
+		        System.out.println("El ID de la reserva es nulo");
+		        return false;  
+		    }
+		// Obtener las reservas que se superpongan con el rango de fechas dado.
+		List<ReservaEntity> reservasSuperpuestas = reservaRepository.findReservasSuperpuestasEdit(desde, hasta,reservaId);
+		System.out.println("Número de reservas superpuestas: " + reservasSuperpuestas.size());
 		// Si no hay reservas que se superpongan, hay disponibilidad.
 		return reservasSuperpuestas.isEmpty();
 	}

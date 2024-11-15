@@ -122,6 +122,7 @@
 			<p th:if="${!modificada and !cancelada}">¡Enhorabuena! Nos complace confirmar que ha creado con éxito una
 				nueva cuenta de usuario en Casa Berriel con los siguientes detalles:</p>
 			<p th:if="${cancelada}">Su cuenta de usuario ha sido cancelada:</p>
+			<p th:if="${cancelada}">¡Le esperamos pronto en Casa Berriel!</p>
 
 			<div class="details" th:if="${!cancelada}">
 				<p>Nombre: <span class="highlight" th:text="${nombreCliente}"></span></p>

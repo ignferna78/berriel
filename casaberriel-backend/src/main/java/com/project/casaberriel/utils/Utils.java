@@ -38,4 +38,10 @@ public class Utils {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return date.format(formatter);
     }
+
+
+	public static long calculateTotalDays(LocalDate fechaEntrada, LocalDate fechaSalida) {
+		long dias= java.time.temporal.ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
+		return dias;
+	}
 }

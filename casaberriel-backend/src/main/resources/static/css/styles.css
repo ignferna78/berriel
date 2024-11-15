@@ -271,16 +271,13 @@ h2.text-center {
 	border: 1px solid #dee2e6;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	width: 700px;
+	height: auto;
 	align-content: center;
 	margin-left: auto;
 	margin-right: auto;
 	display: flex;
 	justify-content: center;
 }
-
-
-
-
 
 /* Estilo general para la tarjeta */
 		.card {
