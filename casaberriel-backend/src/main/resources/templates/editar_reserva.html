@@ -32,8 +32,8 @@
 					</div>
 					<div class="form-group">
 						<label for="numPersonas" class="form-label" data-i18n="form.number"></label>
-						<input type="number" class="form-control" id="numPersonas" name="numPersonas" min="1" max="5"
-							th:field="*{numPersonas}" required>
+						<input type="number" class="form-control" id="numPersonas" name="numPersonas"
+							th:field="*{numPersonas}" min="1" max="5" required>
 					</div>
 
 					<div class="form-group">
@@ -56,7 +56,7 @@
 					</div>
 					<input type="hidden" name="modificada" value="true">
 					<input type="hidden" name="reservaId" id="reservaId" th:value="${reserva.id}">
-					
+
 					<div class="text-center mt-4">
 						<button type="submit" class="btn btn-success" data-i18n="form.save"
 							id="comprobar-disponibilidad-formBtnReservas"></button>
@@ -74,10 +74,10 @@
 				</form>
 			</div>
 
-			
+
 		</div>
 		<div id="resultados-disponibilidad" class="alert alert-warning" style="display: none;"
-						data-i18n="form.no_rooms"></div>
+			data-i18n="form.no_rooms"></div>
 	</div>
 	<div class="text-center mt-4">
 		<!-- Botón para el rol ADMIN -->
@@ -94,10 +94,14 @@
 		document.addEventListener('DOMContentLoaded', function () {
 			$('#comprobar-disponibilidad-formBtnReservas').on('click', function (event) {
 				event.preventDefault(); // Evitar el envío del formulario inicialmente
-
+				var numPersonas = $('#numPersonas').val();
+				if (numPersonas < 1 || numPersonas > 5) {
+					alert('El número de personas debe estar entre 1 y 5.');
+					return;
+				}
 				var fechaEntrada = $('#fechaEntrada').val();
 				var fechaSalida = $('#fechaSalida').val();
-				 var reservaId = $('#reservaId').val();
+				var reservaId = $('#reservaId').val();
 
 				console.log('Fecha de entrada modif enviada:', fechaEntrada);
 				console.log('Fecha de salida modif enviada:', fechaSalida);
