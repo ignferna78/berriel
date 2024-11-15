@@ -14,19 +14,21 @@ public class UsuarioRegistroDto {
 		this.email = email;
 	}
 
-	public UsuarioRegistroDto(String nombre, String apellidos, String email, String password) {
+	public UsuarioRegistroDto(String nombre, String apellidos,String direccion, String email, String password) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
+		this.direccion = direccion;
 		this.email = email;
 		this.password = password;
 	}
 
-	public UsuarioRegistroDto(Long id, String nombre, String apellidos, String email, String password) {
+	public UsuarioRegistroDto(Long id, String nombre, String apellidos, String direccion,String email, String password) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
+		this.direccion = direccion;
 		this.email = email;
 		this.password = password;
 	}
@@ -60,6 +62,7 @@ public class UsuarioRegistroDto {
 		this.apellidos = apellidos;
 	}
 
+	
 	public String getEmail() {
 		return email;
 	}

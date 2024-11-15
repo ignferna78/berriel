@@ -24,7 +24,6 @@
 							<th scope="col" data-i18n="form.name"></th>
 							<th scope="col" data-i18n="form.surname"></th>
 							<th scope="col">Email</th>
-							<th scope="col" data-i18n="form.address"></th>
 							<th scope="col" data-i18n="form.arrival"></th>
 							<th scope="col" data-i18n="form.departure"></th>
 							<th scope="col" data-i18n="form.total_price"></th>
@@ -37,7 +36,6 @@
 							<td th:text="${reserva.nombre}"></td>
 							<td th:text="${reserva.apellidos}"></td>
 							<td th:text="${reserva.email}"></td>
-							<td th:text="${reserva.direccion}"></td>
 							<td th:text="${#dates.format(reserva.fechaEntrada, 'dd/MM/yyyy')}"></td>
 							<td th:text="${#dates.format(reserva.fechaSalida, 'dd/MM/yyyy')}"></td>
 							<td th:text="${reserva.precioTotal}"></td>
@@ -101,7 +99,8 @@
 							<th data-i18n="form.name"></th>
 							<th data-i18n="form.surname"></th>
 							<th>Email</th>
-							<th data-i18n="form.password"></th>
+							<th data-i18n="form.address"></th>
+							
 							<th data-i18n="form.accions"></th>
 						</tr>
 					</thead>
@@ -111,6 +110,7 @@
 							<td th:text="${usuario.nombre}"></td>
 							<td th:text="${usuario.apellidos}"></td>
 							<td th:text="${usuario.email}"></td>
+							
 							<td th:text="${usuario.password}"></td>
 							<td>
 								<a class="btn btn-outline-success" title="Editar Usuario"
@@ -121,6 +121,9 @@
 						</tr>
 					</tbody>
 				</table>
+				<div th:if="${message}" class="alert alert-success" role="alert">
+							<span th:text="${message}"></span>
+						</div>
 			</div>
 		</div>
 

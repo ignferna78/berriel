@@ -52,6 +52,7 @@ public class UsuarioServiceImpl implements UserDetailsService,UsuarioService {
 				Usuario usuario = new Usuario();
 				usuario.setNombre(registroDto.getNombre());
 				usuario.setApellidos(registroDto.getApellidos());
+				usuario.setDireccion(registroDto.getDireccion());
 				usuario.setEmail(registroDto.getEmail());
 				usuario.setPassword(registroDto.getPassword());
 				usuario.setPassword(passwordEncoder.encode(registroDto.getPassword()));

@@ -58,11 +58,13 @@ public class RegistroUsuarioController {
 	public String guardarCuentaUser(@ModelAttribute("usuario") UsuarioRegistroDto registroDto, Model model,
 			boolean cancelada, boolean modificada) throws MessagingException {
 		try {
+			Boolean exito = null;
 			Usuario usuario = usuarioService.guardar(registroDto);
 			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(usuario.getEmail(),
 					registroDto.getPassword());
 			Authentication authentication = authenticationManager().authenticate(authToken);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
+			model.addAttribute("exito", exito);
 			model.addAttribute("cancelada", cancelada);
 			model.addAttribute("modificada", modificada);
 			emailService.sendUsuarioConfirmation(usuario, cancelada, modificada);
@@ -106,8 +108,8 @@ public class RegistroUsuarioController {
 
 // Procesar la edición del usuario
 	@PostMapping("/editar-usuario/{id}")
-	public String editarUsuario(@PathVariable("id") Long id, @ModelAttribute("usuario") UsuarioRegistroDto  usuarioActualizado,
-			Model model,boolean modificada) {
+	public String editarUsuario(@PathVariable("id") Long id,
+			@ModelAttribute("usuario") UsuarioRegistroDto usuarioActualizado, Model model, boolean modificada) {
 		try {
 			Usuario usuarioExistente = usuarioService.findUserById(id);
 			if (usuarioExistente != null) {
@@ -119,8 +121,8 @@ public class RegistroUsuarioController {
 
 				usuarioService.updateUser(usuarioExistente);
 				emailService.sendUsuarioConfirmation(usuarioExistente, false, modificada);
-				
-				 model.addAttribute("message", "Usuario modificado con éxito.");
+
+				model.addAttribute("message", "Usuario modificado con éxito.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -129,29 +131,38 @@ public class RegistroUsuarioController {
 		}
 		return "detalle_usuario";
 	}
-	
+
 	@GetMapping("/eliminar-usuario/{id}")
-	public String eliminarUsuario(@PathVariable("id") Long id, Model model, HttpServletRequest request, HttpServletResponse response, boolean cancelada) {
-	    try {
-	        Usuario user = usuarioService.findUserById(id);
-	        usuarioService.deleteUserById(id);
-	        model.addAttribute("message", "Usuario eliminado con éxito.");
-	        emailService.sendUsuarioConfirmation(user, true, false);
-	        model.addAttribute("cancelada", cancelada);
-	        // Invalidate the session to log out the user
-	        request.getSession().invalidate();
-	        // Clear the security context
-	        SecurityContextHolder.clearContext();
-	        return "redirect:/reservas/index";
-	    } catch (DataIntegrityViolationException e) {
-	        e.printStackTrace();
-	        model.addAttribute("error", "No se puede eliminar el usuario debido a una violación de integridad de datos.");
-	        return "detalle_usuario";
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        model.addAttribute("error", "Ocurrió un error al eliminar el usuario.");
-	        return "detalle_usuario";
-	    }
+	public String eliminarUsuario(@PathVariable("id") Long id, Model model, HttpServletRequest request,
+			HttpServletResponse response, boolean cancelada) {
+		try {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			boolean isAdmin = authentication.getAuthorities().stream()
+					.anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
+			Usuario user = usuarioService.findUserById(id);
+			usuarioService.deleteUserById(id);
+			emailService.sendUsuarioConfirmation(user, true, false);
+			model.addAttribute("cancelada", cancelada);
+			if (isAdmin) {
+				model.addAttribute("message", "Usuario eliminado con éxito.");
+				return "redirect:/admin/lista";
+			}
+
+			// Inalidate the session to log out the user
+			request.getSession().invalidate();
+			// Clear the security context
+			SecurityContextHolder.clearContext();
+			return "redirect:/reservas/index";
+		} catch (DataIntegrityViolationException e) {
+			e.printStackTrace();
+			model.addAttribute("error",
+					"No se puede eliminar el usuario debido a una violación de integridad de datos.");
+			return "detalle_usuario";
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("error", "Ocurrió un error al eliminar el usuario.");
+			return "detalle_usuario";
+		}
 	}
 
 }
