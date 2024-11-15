@@ -16,6 +16,8 @@
 		.content {
 			flex: 1;
 		}
+
+		
 	</style>
 </head>
 
@@ -39,11 +41,12 @@
 							<p><strong>CheckIn: </strong><span data-i18n="form.check_in"></span></p>
 							<p><strong>CheckOut: </strong><span data-i18n="form.check_out"></span></p>
 							<p><strong data-i18n="form.price"></strong><span>80€</span></p>
-                            <p><strong data-i18n="form.stay"></strong><span data-i18n="form.nights"></span></p>
-							<a href="/reservas/index#form" class="btn btn-primary" data-i18n="form.modify_dates"></a>
-							
-						
-							
+							<p><strong data-i18n="form.stay"></strong><span data-i18n="form.nights"></span></p>
+							<div class="text-center mt-4">
+								<a href="/reservas/index#form" class="btn btn-danger" data-i18n="form.modify_dates"></a>
+							</div>
+
+
 						</div>
 					</div>
 				</div>
@@ -67,7 +70,7 @@
 							<div class="card-body">
 								<!-- Nombre y apellidos -->
 								<div class="form-group mb-3">
-									<label for="nombre" class="form-label" data-i18n="form.name_surname"> </label>
+								<b>	<label for="nombre" class="form-label" data-i18n="form.name_surname"> </label></b>
 									<div class="input-group">
 										<input type="text" id="nombre" name="nombre" class="form-control"
 											placeholder="Nombre" required>
@@ -79,13 +82,13 @@
 								<div class="row">
 									<!-- Email -->
 									<div class="col-md-6 mb-3">
-										<label for="email" class="form-label">Email</label>
+										<b>	<label for="email" class="form-label">Email</label> </b>
 										<input type="email" class="form-control" id="email" name="email"
 											placeholder="example@correo.com" required>
 									</div>
 									<!-- Dirección -->
 									<div class="col-md-6 mb-3">
-										<label for="direccion" class="form-label" data-i18n="form.address"></label>
+										<b>	<label for="direccion" class="form-label" data-i18n="form.address"></label> </b>
 										<input type="text" class="form-control" id="direccion" name="direccion"
 											placeholder="Tu dirección" required>
 									</div>
@@ -96,8 +99,8 @@
 								<input type="hidden" id="fechaSalida" name="fechaSalida" th:value="${fechaSalida}">
 								<div class="row">
 									<!-- Número de Personas -->
-									<div class="col-md-6 mb-3">
-										<label for="numPersonas" class="form-label" data-i18n="form.number"></label>
+									<div class="col-md-3 mb-3">
+										<b>	<label for="numPersonas" class="form-label" data-i18n="form.number"></label> </b>
 										<input type="number" class="form-control" id="numPersonas" name="numPersonas"
 											min="1" max="5" required>
 									</div>
@@ -105,7 +108,8 @@
 								<div class="row">
 									<!-- Observaciones -->
 									<div class="col-md-12 mb-3">
-										<label for="observaciones" class="form-label" data-i18n="form.observations"></label>
+										<b>	<label for="observaciones" class="form-label"
+											data-i18n="form.observations"></label> </b>
 										<textarea id="observaciones" name="observaciones" class="form-control"
 											rows="4"></textarea>
 									</div>
@@ -118,7 +122,8 @@
 								</div>
 								<!-- Botón Enviar -->
 								<div class="col-auto">
-									<button type="submit" class="btn btn-success" data-i18n="form.confirm_booking"></button>
+									<button type="submit" class="btn btn-success"
+										data-i18n="form.confirm_booking"></button>
 								</div>
 							</div>
 							<!-- Mensaje de éxito -->
@@ -220,29 +225,29 @@
 			});
 		});
 		function habilitarEdicion() {
-				const fechasDisplay = document.getElementById('fechas-display');
-				const comprobarDisponibilidadContainer = document.getElementById('comprobar-disponibilidad-container');
+			const fechasDisplay = document.getElementById('fechas-display');
+			const comprobarDisponibilidadContainer = document.getElementById('comprobar-disponibilidad-container');
 
-				if (fechasDisplay && comprobarDisponibilidadContainer) {
+			if (fechasDisplay && comprobarDisponibilidadContainer) {
 
-					comprobarDisponibilidadContainer.style.display = 'block';
-				} else {
-					console.error('Elementos no encontrados: fechas-display o comprobar-disponibilidad-container');
-				}
+				comprobarDisponibilidadContainer.style.display = 'block';
+			} else {
+				console.error('Elementos no encontrados: fechas-display o comprobar-disponibilidad-container');
 			}
+		}
 		function nuevaFecha() {
-				const fechaEntrada = document.getElementById('fechaEntrada').value;
-				const fechaSalida = document.getElementById('fechaSalida').value;
-				const isUserLoggedIn = document.getElementById('isUserLoggedIn').value === 'true';
+			const fechaEntrada = document.getElementById('fechaEntrada').value;
+			const fechaSalida = document.getElementById('fechaSalida').value;
+			const isUserLoggedIn = document.getElementById('isUserLoggedIn').value === 'true';
 
-				if (isUserLoggedIn) {
-					window.location.href = `/reservas/formReserva?fechaEntrada=${fechaEntrada}&fechaSalida=${fechaSalida}`;
-					console.log('Fecha de entrada enviada:', fechaEntrada);
-					console.log('Fecha de salida enviada:', fechaSalida);
-				} else {
-					$('#modalLogin').modal('show');
-				}
+			if (isUserLoggedIn) {
+				window.location.href = `/reservas/formReserva?fechaEntrada=${fechaEntrada}&fechaSalida=${fechaSalida}`;
+				console.log('Fecha de entrada enviada:', fechaEntrada);
+				console.log('Fecha de salida enviada:', fechaSalida);
+			} else {
+				$('#modalLogin').modal('show');
 			}
+		}
 
 
 

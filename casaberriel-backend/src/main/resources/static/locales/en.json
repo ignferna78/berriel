@@ -17,7 +17,7 @@
 		"button": "Discover More"
 	},
 	"form": {
-		"title_booking": "The selected dates are available. Fill in the form to make the reservation.",
+		"title_booking": "The selected dates are available. Fill in the form to make the reservation!.",
 	    "id": "Booking reference",
 	    "userId": "UserID",
 	    "total_price": "Total Price",

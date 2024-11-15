@@ -144,7 +144,7 @@ public class RegistroUsuarioController {
 			emailService.sendUsuarioConfirmation(user, true, false);
 			model.addAttribute("cancelada", cancelada);
 			if (isAdmin) {
-				model.addAttribute("message", "Usuario eliminado con éxito.");
+				model.addAttribute("message1", "Usuario eliminado con éxito.");
 				return "redirect:/admin/lista";
 			}
 

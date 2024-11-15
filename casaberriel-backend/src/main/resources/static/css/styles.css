@@ -280,20 +280,37 @@ h2.text-center {
 
 
 
-.card-header {
-
-	padding: 10px 15px;
-	font-size: 1.25rem;
-	font-weight: bold;
-	background-color: #e2e2e2;
 
 
-}
+/* Estilo general para la tarjeta */
+		.card {
+			border: 1px solid #ddd;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			transition: transform 0.2s;
+		}
 
-.card-body {
-	padding: 20px;
-}
+		.card:hover {
+			transform: translateY(-5px);
+		}
 
+		.card-header {
+			background-color:#67d49f78;
+			font-weight: bold;
+			text-align: center;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			padding: 10px;
+		}
+
+		.card-body {
+			padding: 20px;
+		}
+
+		.card-body p {
+			margin: 5px 0;
+
+		}
 .table th,
 .table td {
 	vertical-align: middle;

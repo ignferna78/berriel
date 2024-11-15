@@ -17,7 +17,7 @@
 		"button": "Descubre Más"
 	},
 	"form": {
-	    "title_booking": "las fechas seleccionadas están disponibles, completa el formulario para hacer la reserva.",
+	    "title_booking": "Las fechas seleccionadas están disponibles, completa el formulario para hacer la reserva!",
 		"id":"Referencia",
 		"userId": "ID de usuario",
 		"total_price": "Precio Total",
