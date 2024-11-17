@@ -33,7 +33,7 @@
 		"available": "Available",
 		"not_available": "Not Available",
 		"no_rooms": "The house is full for the selected dates. Please try another date.",
-		"houseAvailable": "The house is available for the selected dates. Please press make booking to fill in the form and book it.",
+		"houseAvailable": "The house is available for the selected dates. Please press make booking to fill in the form and book it or contact us for more information.",
 		"makebooking": "Make Booking",
 		"head_login": "Login to make a booking",
 		"password": "Password",

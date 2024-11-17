@@ -287,10 +287,7 @@ h2.text-center {
 			transition: transform 0.2s;
 		}
 
-		.card:hover {
-			transform: translateY(-5px);
-		}
-
+	
 		.card-header {
 			background-color:#67d49f78;
 			font-weight: bold;
@@ -658,4 +655,12 @@ body {
 #comprobar-disponibilidad-formReservas .input-group-addon {
 	font-size: 1.5rem;
 	padding: 10px;
+}
+
+.modal {
+    pointer-events: auto; 
+}
+
+.modal-content {
+    transition: none !important;
 }
