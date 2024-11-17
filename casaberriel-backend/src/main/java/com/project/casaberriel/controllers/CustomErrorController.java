@@ -1,19 +1,17 @@
 package com.project.casaberriel.controllers;
 
 
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class CustomErrorController implements ErrorController {
 
-    @RequestMapping("/error")
+    @GetMapping("/error")
     public String handleError(HttpServletRequest request) {
-        // You can add custom error handling logic here
-        return "error"; // Return a custom error view
+        return "error"; 
     }
 
     @Override
