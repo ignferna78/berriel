@@ -164,6 +164,8 @@ public class ReservaController {
 		    return "redirect:/reservas/miReserva";
 		}	
 
+
+
 	@GetMapping("/comprobar-disponibilidadEdicion")
 	    public ResponseEntity<Map<String, Boolean>> comprobarDisponibilidad(
 	            @RequestParam String fechaEntrada, 

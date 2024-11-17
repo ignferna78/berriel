@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.project.casaberriel.model.reservas.ReservaForm;
 import com.project.casaberriel.model.usuarios.Usuario;
 import com.project.casaberriel.service.ReservaService;
-import com.project.casaberriel.service.UsuarioService;
 
 @Controller
 @RequestMapping("/home")
@@ -32,9 +31,6 @@ public class HomeController {
 
 	@Autowired
 	private ReservaService reservaService;
-	
-	@Autowired
-	private UsuarioService usuarioService;
 
 	@GetMapping("/index")
 	public String index(Model model, Usuario user) {
