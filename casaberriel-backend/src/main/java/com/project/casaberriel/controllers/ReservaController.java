@@ -68,12 +68,9 @@ public class ReservaController {
 		// Obtén el nombre del usuario autenticado
 		String username = principal.getName();
 		try {
-
-			ReservaEntity savedReserva = reservaService.guardarReserva(reserva, fecha, username, cancelada, modificada);
-
+		 reservaService.guardarReserva(reserva, fecha, username, cancelada, modificada);
 		} catch (MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.getMessage();
 		}
 		model.addAttribute("message", "Reserva guardada con éxito.");
 		return "reservas";
@@ -161,10 +158,8 @@ public class ReservaController {
 			        return "redirect:/admin/lista";
 			    }
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		    // Redirige a la vista "miReserva" si no es admin
 		    return "redirect:/reservas/miReserva";
 		}	

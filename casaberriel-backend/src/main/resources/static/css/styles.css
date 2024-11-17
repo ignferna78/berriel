@@ -13,6 +13,11 @@
 }
 
 
+#languageSelector {
+	margin-left: 10px;
+	width: auto;
+	height: 35px;
+}
 
 .banner h1 {
 	font-family: "Roboto", serif;
@@ -29,12 +34,25 @@
 	font-size: 1.2rem;
 }
 
-#navbarNav{
+#navbarNav {
 	font-family: "Roboto", serif;
+	font-size: 1rem;
 	font-weight: 300;
-	font-size:1.1rem;
-	
+
 }
+
+.navItem {
+	font-family: "Roboto", serif;
+	font-size: 1rem;
+	font-weight: 300;
+	padding: 0 10px;
+
+}
+
+.dropdown-menu {
+	font-size: 0.9rem;
+}
+
 section {
 
 	font-family: "Roboto", serif;
@@ -47,36 +65,41 @@ section {
 	font-weight: 400;
 	font-size: 2rem;
 }
-#services h2,h4 {
+
+#services h2,
+h4 {
 	font-family: "Roboto", serif;
 	font-weight: 300;
 	font-size: 2rem;
-	
+
 }
+
 #services h4 {
 	font-family: "Roboto", serif;
 	font-weight: 300;
 	font-size: 1.5rem;
-	
-}
-#gallery h2{
-	font-family: "Roboto", serif;
-	font-weight: 300;
-	font-size: 2rem;
-	
+
 }
 
-#contact h2{
+#gallery h2 {
 	font-family: "Roboto", serif;
 	font-weight: 300;
 	font-size: 2rem;
-	
+
 }
+
+#contact h2 {
+	font-family: "Roboto", serif;
+	font-weight: 300;
+	font-size: 2rem;
+
+}
+
 #contact h4 {
 	font-family: "Roboto", serif;
 	font-weight: 300;
 	font-size: 1.5rem;
-	
+
 }
 
 
@@ -280,31 +303,32 @@ h2.text-center {
 }
 
 /* Estilo general para la tarjeta */
-		.card {
-			border: 1px solid #ddd;
-			border-radius: 10px;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-			transition: transform 0.2s;
-		}
+.card {
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s;
+}
 
-	
-		.card-header {
-			background-color:#67d49f78;
-			font-weight: bold;
-			text-align: center;
-			border-top-left-radius: 10px;
-			border-top-right-radius: 10px;
-			padding: 10px;
-		}
 
-		.card-body {
-			padding: 20px;
-		}
+.card-header {
+	background-color: #67d49f78;
+	font-weight: bold;
+	text-align: center;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	padding: 10px;
+}
 
-		.card-body p {
-			margin: 5px 0;
+.card-body {
+	padding: 20px;
+}
 
-		}
+.card-body p {
+	margin: 5px 0;
+
+}
+
 .table th,
 .table td {
 	vertical-align: middle;
@@ -658,9 +682,9 @@ body {
 }
 
 .modal {
-    pointer-events: auto; 
+	pointer-events: auto;
 }
 
 .modal-content {
-    transition: none !important;
+	transition: none !important;
 }
