@@ -17,14 +17,20 @@
 		"button": "Discover More"
 	},
 	"form": {
+		"dates_selected": "Selected dates",
 		"title_booking": "The selected dates are available. Fill in the form to make the reservation!.",
-	    "id": "Booking reference",
-	    "userId": "UserID",
-	    "total_price": "Total Price",
-	    "price": "Price per night: ",
+		"id": "Booking reference",
+		"userId": "UserID",
+		"total_price": "Total Price",
+		"price": "Price per night: ",
+		"title_booking": "The selected dates are available. Fill in the form to make the reservation!.",
+		"id": "Booking reference",
+		"userId": "UserID",
+		"total_price": "Total Price",
+		"price": "Price per night: ",
 		"stay": "Minimum stay: ",
 		"nights": "2 nights",
-	    "accions": "Accions",
+		"accions": "Accions",
 		"check_available": "Check Availability",
 		"arrival": "Arrival date: ",
 		"departure": "Departure date: ",
@@ -104,10 +110,10 @@
 		"close": "Close",
 		"close_session": "Close Session",
 		"close_confirm": "Are you sure you want to close the session?",
-		"close_title":"Confirmation close session",
+		"close_title": "Confirmation close session",
 		"update": "Update",
 		"delete_account": "Delete Account",
-		"delete_title":"Confirmation delete account",
+		"delete_title": "Confirmation delete account",
 		"delete_confirm": "Are you sure you want to delete your account?",
 		"delete": "Delete",
 		"back": "Back",
@@ -116,6 +122,5 @@
 		"exit": "Exit",
 		"registration": "Registration",
 		"welcome": "Welcome to Casa Berriel, you have successfully registered. You can now make your reservation."
-		
 	}
 }

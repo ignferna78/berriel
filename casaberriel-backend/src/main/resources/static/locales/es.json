@@ -17,6 +17,7 @@
 		"button": "Descubre Más"
 	},
 	"form": {
+		"dates_selected": "Fechas seleccionadas",
 	    "title_booking": "Las fechas seleccionadas están disponibles, completa el formulario para hacer la reserva!",
 		"id":"Referencia",
 		"userId": "ID de usuario",
