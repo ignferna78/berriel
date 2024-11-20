@@ -13,7 +13,7 @@
 		<!-- "CASA BERRIEL" a la izquierda -->
 
 
-		<a class="navbar-brand inicio" href="/reservas/index">
+		<a class="navbar-brand inicio" href="/home/index">
 			<img src="/images/icon.jpg" alt="Casa Berriel Icon" style="height: 30px; margin-right: 10px;">
 			Casa Berriel - Lanzarote
 		</a>
@@ -46,21 +46,23 @@
 				</li>
 				<!-- Opciones de menú -->
 				<li class="nav-item">
-					<a class="nav-link" href="/reservas/index/#form" data-i18n="navbar.booking"></a>
+					<a class="nav-link" href="/home/index/#form" data-i18n="navbar.booking"></a>
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="/reservas/index/#about" data-i18n="navbar.about"></a>
+					<a class="nav-link" href="/home/index/#about" data-i18n="navbar.about"></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/reservas/index/#services" data-i18n="services.title"></a>
+					<a class="nav-link" href="/home/index/#services" data-i18n="services.title"></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/reservas/index/#gallery" data-i18n="navbar.gallery"></a>
+					<a class="nav-link" href="/home/index/#gallery" data-i18n="navbar.gallery"></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/reservas/index/#contact" data-i18n="navbar.contact"></a>
+					<a class="nav-link" href="/home/index/#contact" data-i18n="navbar.contact"></a>
 				</li>
+
+			
 
 				<!-- Opción de Login si el usuario no está autenticado -->
 				<li th:if="${#httpServletRequest.remoteUser == null}" class="nav-item">
@@ -72,7 +74,7 @@
 
 				<li class="nav-item">
 					<select id="languageSelector" class="form-control">
-						<option value="es"> Español</option>
+						<option value="es">Español</option>
 						<option value="en">English</option>
 					</select>
 				</li>
@@ -129,7 +131,7 @@
 					<div class="modal-body" data-i18n="common.close_confirm"></div>
 					<div class="modal-footer">
 						<!-- Este botón debería cerrar el modal automáticamente -->
-						<button type="button" id="confirmLogoutBtn" class="btn btn-danger"
+						<button type="button" id="confirmLogoutBtn" class="btn btn-outline-danger"
 							data-i18n="common.close_session"></button>
 					</div>
 				</div>
@@ -155,4 +157,6 @@
 
 		}
 	});
+	
+
 </script>

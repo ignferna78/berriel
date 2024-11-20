@@ -100,7 +100,8 @@
 							<th data-i18n="form.surname"></th>
 							<th>Email</th>
 							<th data-i18n="form.address"></th>
-							
+							<th data-i18n="form.password"></th>
+
 							<th data-i18n="form.accions"></th>
 						</tr>
 					</thead>
@@ -110,8 +111,10 @@
 							<td th:text="${usuario.nombre}"></td>
 							<td th:text="${usuario.apellidos}"></td>
 							<td th:text="${usuario.email}"></td>
-							
+							<td th:text="${usuario.direccion}"></td>
 							<td th:text="${usuario.password}"></td>
+							
+
 							<td>
 								<a class="btn btn-outline-success" title="Editar Usuario"
 									th:href="@{'/registro/editar-usuario/' + ${usuario.id}}">
@@ -128,7 +131,7 @@
 		</div>
 
 		<div class="text-center mt-4">
-			<a href="/reservas/index" class="btn btn-primary" data-i18n="common.exit"></a>
+			<a href="/home/index" class="btn btn-primary" data-i18n="common.exit"></a>
 		</div>
 	</div>
 
