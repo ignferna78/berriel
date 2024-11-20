@@ -18,13 +18,8 @@
 	},
 	"form": {
 		"dates_selected": "Selected dates",
-		"title_booking": "The selected dates are available. Fill in the form to make the reservation!.",
 		"id": "Booking reference",
-		"userId": "UserID",
-		"total_price": "Total Price",
-		"price": "Price per night: ",
 		"title_booking": "The selected dates are available. Fill in the form to make the reservation!.",
-		"id": "Booking reference",
 		"userId": "UserID",
 		"total_price": "Total Price",
 		"price": "Price per night: ",

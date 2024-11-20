@@ -19,25 +19,25 @@
 				<form th:action="@{/registro/nuevo}" method="POST" th:object="${usuario}" id="limpiar">
 					<div class="form-group">
 						<label for="nombre" data-i18n="form.name"></label> <input type="text" name="nombre"
-							class="form-control" id="nombre">
+							class="form-control" id="nombre" required>
 					</div>
 
 					<div class="form-group">
 						<label for="apellidos" data-i18n="form.surname"></label> <input type="text" name="apellidos"
-							class="form-control" id="apellidos">
+							class="form-control" id="apellidos" required>
 					</div>
 					<div class="form-group">
 						<label for="direccion" data-i18n="form.address"></label> <input type="text" name="direccion"
-							class="form-control" id="direccion">
+							class="form-control" id="direccion" required>
 					</div>
 					<div class="form-group">
-						<label for="email">Email</label> <input type="text" name="email" class="form-control" id="email"
-							placeholder="Email">
+						<label for="email">Email</label> <input type="email" name="email" class="form-control" id="email"
+							 required>
 					</div>
 
 					<div class="form-group">
 						<label for="password" data-i18n="form.password"></label> <input type="password" name="password"
-							class="form-control" id="password">
+							class="form-control" id="password" required>
 					</div>
 					<div class="text-center mt-4">
 						<button type="submit" class="btn btn-success" data-i18n="common.registration"></button>
