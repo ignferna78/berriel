@@ -73,16 +73,6 @@ public class RegistroUsuarioController {
 		return new UsuarioRegistroDto();
 	}
 
-	@GetMapping("/existeEmail")
-	public ResponseEntity<Map<String, String>> existeEmail(@RequestParam String email) {
-		try {
-			usuarioService.findUserByEmail(email);
-			return ResponseEntity.ok(Map.of(MESSAGE, "El email existe en el sistema."));
-		} catch (UsernameNotFoundException ex) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", ex.getMessage()));
-		}
-	}
-
 	@PostMapping("/validarCredenciales")
 	public ResponseEntity<?> validarCredenciales(@RequestBody LoginRequest loginRequest) {
 		try {
