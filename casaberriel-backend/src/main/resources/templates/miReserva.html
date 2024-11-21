@@ -47,7 +47,7 @@
 							<td th:text="${#dates.format(reserva.fechaEntrada, 'dd/MM/yyyy')}">
 							</td>
 							<td th:text="${#dates.format(reserva.fechaSalida, 'dd/MM/yyyy')}">
-							<td th:text="${reserva.precioTotal}"></td>
+							<td th:text="${reserva.precioTotal} + ' €'"></td>
 
 
 

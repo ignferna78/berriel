@@ -62,7 +62,7 @@
 					<a class="nav-link" href="/home/index/#contact" data-i18n="navbar.contact"></a>
 				</li>
 
-			
+
 
 				<!-- Opción de Login si el usuario no está autenticado -->
 				<li th:if="${#httpServletRequest.remoteUser == null}" class="nav-item">
@@ -95,26 +95,26 @@
 					<div class="modal-body">
 						<form th:action="@{/autenticacionUsusario}" method="POST">
 							<div id="error" class="alert alert-danger" style="display: none;"></div>
-
+							<div id="error" th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
 							<div class="form-group">
 								<label for="email">Email</label>
 								<input type="text" id="email" name="username" class="form-control"
-									placeholder="Ingresa tu email">
+									placeholder="user@example.com">
 							</div>
 							<div class="form-group">
 								<label for="password" data-i18n="login.password_placeholder"></label>
-								<input type="password" id="password" name="password" class="form-control"
-									placeholder="Ingresa tu contraseña">
+								<input type="password" id="password" name="password" class="form-control">
 							</div>
 
-							<span data-i18n="form.register"></span><span><a th:href="@{/registro/inicio}" data-i18n="form.here"></a></span>
+							<span data-i18n="form.register"></span><span><a th:href="@{/registro/inicio}"
+									data-i18n="form.here"></a></span>
 							<div class="d-flex justify-content-between align-items-center mt-4">
 								<button type="submit" class="btn btn-success" data-i18n="login.title"></button>
 								<a href="/reservas/recuperarPassword" data-i18n="login.forgot_password"></a>
 							</div>
 						</form>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -139,24 +139,3 @@
 		</div>
 	</div>
 </nav>
-
-
-<script>
-	//Modal de Login
-
-	document.addEventListener("DOMContentLoaded", function (e) {
-		// Verifica si el parámetro 'logout' está en la URL
-		e.preventDefault()
-		const urlParams = new URLSearchParams(window.location.search);
-		if (urlParams.get('error') === 'true') {
-			$('#loginModal').modal('show'); // Muestra el modal de confirmación
-			// Agrega y muestra el mensaje de error dinámicamente
-			const errorMessageContainer = document.getElementById("error");
-			errorMessageContainer.textContent = "Usuario o contraseña inválidos";
-			errorMessageContainer.style.display = "block";
-
-		}
-	});
-	
-
-</script>

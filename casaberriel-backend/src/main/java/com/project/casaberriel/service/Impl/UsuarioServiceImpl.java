@@ -69,7 +69,7 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
     @Override
     public Usuario findUserByEmail(String email) {
         return usuarioRepository.findUserByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("El email no está registrado"));
     }
 
     @Override

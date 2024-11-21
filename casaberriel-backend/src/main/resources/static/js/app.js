@@ -176,7 +176,7 @@ function handleReservar() {
 		console.log('Fecha de salida enviada:', fechaSalida);
 	} else {
 		// Muestra el modal de login si el usuario no está logueado
-		$('#modalLogin').modal('show');
+		$('#loginModal').modal('show');
 	}
 }
 
@@ -258,6 +258,71 @@ window.onload = function() {
 };
 
 
+document.addEventListener('DOMContentLoaded', () => {
+		const loginForm = document.querySelector('#loginModal form');
+		const errorDiv = document.getElementById('error');
+
+		loginForm.addEventListener('submit', async (e) => {
+			// Ocultar mensajes de error previos
+			errorDiv.style.display = 'none';
+			errorDiv.textContent = '';
+
+			// Prevenir el envío del formulario de forma predeterminada
+			e.preventDefault();
+
+			// Obtener valores de los campos
+			const email = document.getElementById('email').value.trim();
+			const password = document.getElementById('password').value.trim();
+
+			// Validar que ambos campos no estén vacíos
+			if (!email || !password) {
+				errorDiv.textContent = 'Por favor, completa todos los campos.';
+				errorDiv.style.display = 'block';
+				return;
+			}
+
+			// Validar email con una expresión regular
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+				errorDiv.textContent = 'Por favor, ingresa un email válido.';
+				errorDiv.style.display = 'block';
+				return;
+			}
+
+			try {
+				// Verificar las credenciales
+				const response = await fetch('/registro/validarCredenciales', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ email, password })
+				});
+
+				if (response.ok) {
+					// Credenciales válidas, permite el envío del formulario
+					loginForm.submit();
+				} else if (response.status === 401) {
+					// Contraseña incorrecta
+					const errorData = await response.json();
+					errorDiv.textContent = errorData.message;
+					errorDiv.style.display = 'block';
+				} else if (response.status === 404) {
+					// Usuario no encontrado
+					const errorData = await response.json();
+					errorDiv.textContent = errorData.message;
+					errorDiv.style.display = 'block';
+				} else {
+					// Error inesperado
+					errorDiv.textContent = 'Error inesperado al verificar las credenciales.';
+					errorDiv.style.display = 'block';
+				}
+			} catch (error) {
+				// Manejar errores de red
+				errorDiv.textContent = 'Error al conectarse con el servidor.';
+				errorDiv.style.display = 'block';
+				console.error('Error en la verificación de credenciales:', error);
+			}
+		});
+	});
 
 
 
