@@ -326,8 +326,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+	document.addEventListener('DOMContentLoaded', function () {
+	    // Inicializar tooltips de Bootstrap
+	    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+	    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+	        new bootstrap.Tooltip(tooltipTriggerEl);
+	    });
+
+	    // Seleccionar el campo de contraseña y su formulario
+	    const passwordField = document.getElementById('password');
+	    const form = passwordField.closest('form'); // Encuentra el formulario asociado
+	    const errorDiv = document.getElementById('password-error'); // Div para mostrar mensajes de error
+
+	    form.addEventListener('submit', function (event) {
+	        const password = passwordField.value;
+
+	        // Limpiar mensajes previos
+	        errorDiv.style.display = 'none';
+	        errorDiv.textContent = '';
+
+	        // Validaciones
+	        const minLength = 5;
+	        const specialCharRegex = /[^a-zA-Z0-9]/; // Detecta caracteres especiales
+
+	        if (password.length < minLength) {
+	            errorDiv.textContent = 'La contraseña debe tener al menos 5 caracteres.';
+	            errorDiv.style.display = 'block';
+	            event.preventDefault(); // Evita el envío del formulario
+	            return;
+	        }
+
+	        if (specialCharRegex.test(password)) {
+	            errorDiv.textContent = 'La contraseña no debe contener caracteres especiales.';
+	            errorDiv.style.display = 'block';
+	            event.preventDefault(); // Evita el envío del formulario
+	            return;
+	        }
+	    });
+	});
 
 
+
+
+	document.getElementById("formRegistro").addEventListener("submit", function (event) {
+	    const telefono = document.getElementById("telefono").value;
+
+	    if (!/^\d{9,12}$/.test(telefono)) {
+	        event.preventDefault();
+	        alert("El número de teléfono debe tener entre 9 y 12 dígitos y solo contener números.");
+	    }
+	});
 
 
 

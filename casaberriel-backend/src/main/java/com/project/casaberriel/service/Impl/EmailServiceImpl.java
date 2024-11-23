@@ -118,6 +118,7 @@ public class EmailServiceImpl implements IEmailService {
 			context.setVariable("nombreCliente", usuario.getNombre());
 			context.setVariable("apellidos", usuario.getApellidos());
 			context.setVariable("direccion", usuario.getDireccion());
+			context.setVariable("telefono", usuario.getTelefono());
 			context.setVariable("email", usuario.getEmail());
 			context.setVariable("modificada", modificada);
 			context.setVariable("cancelada", cancelada);

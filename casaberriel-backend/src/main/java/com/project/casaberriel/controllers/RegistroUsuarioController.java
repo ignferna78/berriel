@@ -1,6 +1,5 @@
 package com.project.casaberriel.controllers;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.mail.MessagingException;
@@ -21,14 +20,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.project.casaberriel.dto.UsuarioRegistroDto;
 import com.project.casaberriel.model.usuarios.Usuario;
@@ -108,7 +105,10 @@ public class RegistroUsuarioController {
 		} catch (DataIntegrityViolationException e) {
 			model.addAttribute(ERROR, "El email ya está registrado. Por favor, usa otro email.");
 			return REGISTRO;
-		}
+		}catch (IllegalArgumentException ex) {
+	        model.addAttribute(ERROR, ex.getMessage());
+	        return REGISTRO;
+	    }
 	}
 
 	// Mostrar página de registro
@@ -152,6 +152,7 @@ public class RegistroUsuarioController {
 				usuarioExistente.setNombre(usuarioActualizado.getNombre());
 				usuarioExistente.setApellidos(usuarioActualizado.getApellidos());
 				usuarioExistente.setDireccion(usuarioActualizado.getDireccion());
+				usuarioExistente.setTelefono(usuarioActualizado.getTelefono());
 				usuarioExistente.setEmail(usuarioActualizado.getEmail());
 				// Actualiza otros campos según sea necesario
 

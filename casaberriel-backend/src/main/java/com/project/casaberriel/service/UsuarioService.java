@@ -12,8 +12,6 @@ import com.project.casaberriel.model.usuarios.Usuario;
 @Service
 public interface UsuarioService {
 
-	
-	//public Usuario guardar(UsuarioRegistroDto registroDto);
 
 	List<Usuario> listarUsuarios();
 

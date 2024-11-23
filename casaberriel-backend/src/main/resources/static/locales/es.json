@@ -52,7 +52,8 @@
 		"confirm_booking": "Confirmar Reserva",
 		"edit_booking": "Editar Reserva",
 		"save": "Guardar cambios",
-		"register_form": "Formulario de Registro"
+		"register_form": "Formulario de Registro",
+		"phone":"Telefono"
 		
 	},
 	"about": {

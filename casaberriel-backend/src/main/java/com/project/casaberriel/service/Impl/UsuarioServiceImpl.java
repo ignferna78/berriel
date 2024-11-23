@@ -36,15 +36,21 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
 
     @Override
     public Usuario guardar(UsuarioRegistroDto registroDto) {
+    	
+    	String telefono = registroDto.getTelefono();
+        validarTelefono(telefono);
+    	String password = registroDto.getPassword();
+        validarPassword(password);
         Usuario usuario = new Usuario();
         usuario.setNombre(registroDto.getNombre());
         usuario.setApellidos(registroDto.getApellidos());
         usuario.setDireccion(registroDto.getDireccion());
+        usuario.setTelefono(registroDto.getTelefono());
         usuario.setEmail(registroDto.getEmail());
         usuario.setPassword(passwordEncoder.encode(registroDto.getPassword()));
 
-        // Asignación de un rol por defecto (por ejemplo, "ROLE_USER")
-        Rol userRole = new Rol("ROLE_USER"); // Asegúrate de que el rol "USER" existe en la BD
+        // Asignación de un rol por defecto 
+        Rol userRole = new Rol("ROLE_USER"); 
         usuario.setRoles(Collections.singletonList(userRole));
 
         return usuarioRepository.save(usuario);
@@ -107,4 +113,39 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
         usuario.setTokenExpirationTime(null); // Limpiar el tiempo de expiración
         usuarioRepository.save(usuario);
     }
+    
+    private void validarPassword(String password) {
+        // Verificar que la contraseña no sea nula o vacía
+        if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("La contraseña no puede estar vacía.");
+        }
+
+        // Validar longitud mínima
+        if (password.length() < 5) {
+            throw new IllegalArgumentException("La contraseña debe tener al menos 5 caracteres.");
+        }
+
+        // Validar que no tenga caracteres especiales
+        if (!password.matches("^[a-zA-Z0-9]+$")) {
+            throw new IllegalArgumentException("La contraseña no debe contener caracteres especiales.");
+        }
+    }
+    private void validarTelefono(String telefono) {
+        // Verificar que el número no sea nulo o vacío
+        if (telefono == null || telefono.isEmpty()) {
+            throw new IllegalArgumentException("El número de teléfono no puede estar vacío.");
+        }
+
+        // Verificar que tenga entre 9 y 12 caracteres
+        if (telefono.length() < 9 || telefono.length() > 12) {
+            throw new IllegalArgumentException("El número de teléfono debe tener entre 9 y 12 dígitos.");
+        }
+
+        // Verificar que solo contenga dígitos
+        if (!telefono.matches("\\d+")) {
+            throw new IllegalArgumentException("El número de teléfono solo puede contener dígitos.");
+        }
+    }
+
+
 }

@@ -6,6 +6,7 @@ public class UsuarioRegistroDto {
 	private String nombre;
 	private String apellidos;
 	private String direccion;
+	private String telefono;
 	private String email;
 	private String password;
 
@@ -14,21 +15,23 @@ public class UsuarioRegistroDto {
 		this.email = email;
 	}
 
-	public UsuarioRegistroDto(String nombre, String apellidos,String direccion, String email, String password) {
+	public UsuarioRegistroDto(String nombre, String apellidos,String direccion,String telefono, String email, String password) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.direccion = direccion;
+		this.telefono = telefono;
 		this.email = email;
 		this.password = password;
 	}
 
-	public UsuarioRegistroDto(Long id, String nombre, String apellidos, String direccion,String email, String password) {
+	public UsuarioRegistroDto(Long id, String nombre, String apellidos, String direccion, String telefono,String email, String password) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.direccion = direccion;
+		this.telefono = telefono;
 		this.email = email;
 		this.password = password;
 	}
@@ -86,5 +89,14 @@ public class UsuarioRegistroDto {
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	
 
 }
