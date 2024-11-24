@@ -6,6 +6,11 @@
 	<!-- Head Start -->
 	<th:block th:include="componentes/_head.html"></th:block>
 	<!-- Head End -->
+	<style>
+		.input-group .btn {
+		    border-radius: 0; /* Evita que el botón tenga bordes redondeados extra */
+		}
+	</style>
 </head>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -102,9 +107,18 @@
 									placeholder="user@example.com">
 							</div>
 							<div class="form-group">
-								<label for="password" data-i18n="login.password_placeholder"></label>
-								<input type="password" id="password" name="password" class="form-control">
+							    <label for="password" data-i18n="login.password_placeholder"></label>
+							    <div class="input-group">
+							        <input type="password" id="password" name="password" class="form-control rounded-right" placeholder="Contraseña">
+							        <div class="input-group-append">
+							            <button class="btn btn-outline-secondary" type="button" id="togglePassword" >
+							                 <i class="fas fa-eye toggle-password" id="togglePassword" data-bs-toggle="tooltip" data-bs-placement="top" title="Mostrar contraseña"></i>
+							            </button>
+							        </div>
+							    </div>
 							</div>
+
+							
 
 							<span data-i18n="form.register"></span><span><a th:href="@{/registro/inicio}"
 									data-i18n="form.here"></a></span>
@@ -138,4 +152,21 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		document.getElementById('togglePassword').addEventListener('click', function () {
+		    const passwordField = document.getElementById('password');
+		    const icon = document.getElementById('togglePasswordIcon');
+		    // Alternar el tipo del campo
+		    if (passwordField.type === 'password') {
+		        passwordField.type = 'text';
+		        icon.classList.remove('fa-eye');
+		        icon.classList.add('fa-eye-slash');
+		    } else {
+		        passwordField.type = 'password';
+		        icon.classList.remove('fa-eye-slash');
+		        icon.classList.add('fa-eye');
+		    }
+		});
+
+	</script>
 </nav>
