@@ -89,11 +89,24 @@ public class PasswordRecoveryController {
 				model.addAttribute("errorPass", "Las contraseñas no coinciden.");
 				return "newPassword"; // Retornar al formulario
 			}
+
 			// Buscar el usuario por el token
 			Usuario usuario = usuarioService.findByPasswordResetToken(token);
 
+			// Verificar si el token ha expirado
+			if (usuario.getTokenExpirationTime() < System.currentTimeMillis()) {
+				model.addAttribute("errorPass", "El token ha caducado.");
+				return "newPassword"; // Retornar al formulario
+			}
+
 			// Validar la contraseña
 			usuarioService.validarPassword(nuevaPassword);
+
+			// Actualizar la contraseña y eliminar el token
+			usuarioService.updatePassword(usuario, nuevaPassword);
+			usuario.setPasswordResetToken(null);
+			usuario.setTokenExpirationTime(0L);
+			usuarioRepository.save(usuario);
 
 			model.addAttribute("mensaje", "Tu contraseña ha sido restablecida con éxito.");
 			return "index"; // Redirigir a la página de inicio de sesión
