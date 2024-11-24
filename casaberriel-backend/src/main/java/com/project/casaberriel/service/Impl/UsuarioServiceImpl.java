@@ -101,9 +101,10 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
     }
 
     @Override
-    public Usuario findByPasswordResetToken(String token) {
+    public Usuario findByPasswordResetToken(String token) throws Exception {
         Optional<Usuario> usuario = usuarioRepository.findByPasswordResetToken(token);
-        return usuario.filter(user -> user.getTokenExpirationTime() > System.currentTimeMillis()).orElse(null);
+        return usuario.filter(user -> user.getTokenExpirationTime() > System.currentTimeMillis())
+        		.orElseThrow(() -> new UsernameNotFoundException("Token de restablecimiento de contraseña inválido o caducado."));
     }
 
     @Override
@@ -113,8 +114,8 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
         usuario.setTokenExpirationTime(null); // Limpiar el tiempo de expiración
         usuarioRepository.save(usuario);
     }
-    
-    private void validarPassword(String password) {
+    @Override
+    public void validarPassword(String password) {
         // Verificar que la contraseña no sea nula o vacía
         if (password == null || password.isEmpty()) {
             throw new IllegalArgumentException("La contraseña no puede estar vacía.");
