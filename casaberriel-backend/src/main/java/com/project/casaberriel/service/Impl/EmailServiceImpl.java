@@ -56,6 +56,9 @@ public class EmailServiceImpl implements IEmailService {
 	// Nuevo método para enviar confirmación de reserva
 	public void sendReservationConfirmation(ReservaEntity reserva, boolean cancelada, boolean modificada)
 			throws MessagingException {
+		if (templateEngine == null) {
+		    throw new IllegalArgumentException("El nombre de la plantilla no puede ser nulo o vacío.");
+		}
 		if (reserva.getEmail() == null || reserva.getEmail().isEmpty()) {
 	        throw new IllegalArgumentException("El correo electrónico de la reserva es nulo o está vacío.");
 	    }

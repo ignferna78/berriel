@@ -131,7 +131,7 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
             throw new IllegalArgumentException("La contraseña no debe contener caracteres especiales.");
         }
     }
-    private void validarTelefono(String telefono) {
+    public void validarTelefono(String telefono) {
         // Verificar que el número no sea nulo o vacío
         if (telefono == null || telefono.isEmpty()) {
             throw new IllegalArgumentException("El número de teléfono no puede estar vacío.");

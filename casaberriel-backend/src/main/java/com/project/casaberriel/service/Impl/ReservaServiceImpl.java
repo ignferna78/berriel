@@ -139,7 +139,7 @@ public class ReservaServiceImpl implements ReservaService {
 	}
 
 	// Método extraído para formatear fechas
-	private Date obtenerFechaFormateada(String fecha) {
+	public Date obtenerFechaFormateada(String fecha) {
 		if (fecha != null && !fecha.isBlank()) {
 			try {
 				return Utils.obtenerDate(fecha, FORMATO);
