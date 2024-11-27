@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -15,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.project.casaberriel.config.SecurityConfig;
 import com.project.casaberriel.dto.UsuarioRegistroDto;
 import com.project.casaberriel.model.usuarios.Rol;
 import com.project.casaberriel.model.usuarios.Usuario;
@@ -29,14 +31,19 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
 
     @Autowired
     PasswordEncoder passwordEncoder; 
-
+    
+    private final SecurityConfig securityConfig;
 
     // Constructor para inyección de dependencias
-    public UsuarioServiceImpl(PasswordEncoder passwordEncoder, UsuarioRepositorio usuarioRepository) {
+    @Autowired
+    public UsuarioServiceImpl(@Lazy SecurityConfig securityConfig,PasswordEncoder passwordEncoder, UsuarioRepositorio usuarioRepository) {
         this.passwordEncoder = passwordEncoder;
         this.usuarioRepository = usuarioRepository;
-      
+        this.securityConfig = securityConfig;
+        
     }
+    
+    
     @Override
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();

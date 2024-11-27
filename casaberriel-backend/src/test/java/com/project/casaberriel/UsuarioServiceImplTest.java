@@ -30,6 +30,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.project.casaberriel.config.SecurityConfig;
 import com.project.casaberriel.dto.UsuarioRegistroDto;
 import com.project.casaberriel.model.usuarios.Rol;
 import com.project.casaberriel.model.usuarios.Usuario;
@@ -46,6 +47,8 @@ public class UsuarioServiceImplTest {
 
     @Mock
     private Usuario usuario;
+    
+    private final SecurityConfig securityConfig = new SecurityConfig();
     
     @Mock
     private BCryptPasswordEncoder passwordEncoder;  
@@ -337,7 +340,7 @@ public class UsuarioServiceImplTest {
         List<Rol> roles = Arrays.asList(rol1, rol2);
 
         // Llamar al método
-        UsuarioServiceImpl usuarioService = new UsuarioServiceImpl(passwordEncoder, usuarioRepositorio); // Asume que este método está en esta clase
+        UsuarioServiceImpl usuarioService = new UsuarioServiceImpl(securityConfig, passwordEncoder, usuarioRepositorio); // Asume que este método está en esta clase
         Collection<? extends GrantedAuthority> autoridades = usuarioService.mapearAutoridadesRoles(roles);
 
         // Validar el tamaño de la colección resultante
