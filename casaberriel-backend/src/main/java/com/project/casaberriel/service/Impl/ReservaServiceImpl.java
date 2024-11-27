@@ -1,6 +1,5 @@
 package com.project.casaberriel.service.Impl;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,11 +9,9 @@ import java.util.List;
 import javax.mail.MessagingException;
 
 import org.apache.logging.log4j.LogManager;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.project.casaberriel.dto.ReservaDto;
 import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.model.reservas.ReservaForm;
 import com.project.casaberriel.model.usuarios.Usuario;
@@ -48,8 +45,8 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Override
 	public ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String email,boolean cancelada, boolean modificada) throws MessagingException {
-	    Date desde = obtenerFechaFormateada(fecha.getFechaEntrada());
-	    Date hasta = obtenerFechaFormateada(fecha.getFechaSalida());
+	    Date desde = Utils.obtenerFechaFormateada(fecha.getFechaEntrada());
+	    Date hasta = Utils.obtenerFechaFormateada(fecha.getFechaSalida());
 	    reserva.setFechaEntrada(desde);
 	    reserva.setFechaSalida(hasta);
 	    
@@ -113,8 +110,8 @@ public class ReservaServiceImpl implements ReservaService {
 	 */
 	@Override
 	public boolean comprobarDisponibilidad(ReservaForm fecha) {
-		Date desde = obtenerFechaFormateada(fecha.getFechaEntrada());
-		Date hasta = obtenerFechaFormateada(fecha.getFechaSalida());
+		Date desde = Utils.obtenerFechaFormateada(fecha.getFechaEntrada());
+		Date hasta = Utils.obtenerFechaFormateada(fecha.getFechaSalida());
 
 		// Obtener las reservas que se superpongan con el rango de fechas dado.
 		List<ReservaEntity> reservasSuperpuestas = reservaRepository.findReservasSuperpuestas(desde, hasta);
@@ -125,8 +122,8 @@ public class ReservaServiceImpl implements ReservaService {
 	
 	@Override
 	public boolean comprobarDisponibilidadEdicion(ReservaForm fecha,Long reservaId) {
-		Date desde = obtenerFechaFormateada(fecha.getFechaEntrada());
-		Date hasta = obtenerFechaFormateada(fecha.getFechaSalida());
+		Date desde = Utils.obtenerFechaFormateada(fecha.getFechaEntrada());
+		Date hasta = Utils.obtenerFechaFormateada(fecha.getFechaSalida());
 		  if (reservaId == null) {
 		        System.out.println("El ID de la reserva es nulo");
 		        return false;  
@@ -138,16 +135,6 @@ public class ReservaServiceImpl implements ReservaService {
 		return reservasSuperpuestas.isEmpty();
 	}
 
-	// Método extraído para formatear fechas
-	public Date obtenerFechaFormateada(String fecha) {
-		if (fecha != null && !fecha.isBlank()) {
-			try {
-				return Utils.obtenerDate(fecha, FORMATO);
-			} catch (ParseException e) {
-				e.getMessage();
-			}
-		}
-		return null;
-	}
+	
 
 }

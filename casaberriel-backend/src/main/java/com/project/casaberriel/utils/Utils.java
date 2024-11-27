@@ -10,6 +10,7 @@ import java.util.Locale;
 
 public class Utils {
 
+	private static final String FORMATO = "dd/MM/yyyy";
 	  /**
      * Método para obtener una fecha en formato Date.
      *
@@ -44,4 +45,16 @@ public class Utils {
 		long dias= java.time.temporal.ChronoUnit.DAYS.between(fechaEntrada, fechaSalida);
 		return dias;
 	}
+	
+	// Método extraído para formatear fechas
+		public static Date obtenerFechaFormateada(String fecha) {
+			if (fecha != null && !fecha.isBlank()) {
+				try {
+					return Utils.obtenerDate(fecha, FORMATO);
+				} catch (ParseException e) {
+					e.getMessage();
+				}
+			}
+			return null;
+		}
 }

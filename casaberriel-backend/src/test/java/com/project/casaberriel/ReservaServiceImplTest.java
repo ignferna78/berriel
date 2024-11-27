@@ -12,17 +12,22 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.mail.MessagingException;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.thymeleaf.util.DateUtils;
 
 import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.model.reservas.ReservaForm;
@@ -151,11 +156,11 @@ class ReservaServiceImplTest {
     @Test
     public void testObtenerFechaFormateada_nullOrEmpty() {
         // Probamos con una fecha nula
-        Date resultNull = reservaService.obtenerFechaFormateada(null);
+        Date resultNull = Utils.obtenerFechaFormateada(null);
         assertNull(resultNull);
 
         // Probamos con una fecha vacía
-        Date resultEmpty = reservaService.obtenerFechaFormateada("");
+        Date resultEmpty = Utils.obtenerFechaFormateada("");
         assertNull(resultEmpty);
     }
     
@@ -218,4 +223,47 @@ class ReservaServiceImplTest {
         assertEquals(expectedReservas, actualReservas);
         verify(reservaRepository).findByEmail(email);
     }
+    
+    @Test
+    public void testComprobarDisponibilidad_SinReservasSuperpuestas() {
+        // Configurar datos de prueba
+        ReservaForm reservaForm = new ReservaForm();
+        reservaForm.setFechaEntrada("2024-12-01");
+        reservaForm.setFechaSalida("2024-12-05");
+
+        Date desde = Utils.obtenerFechaFormateada(reservaForm.getFechaEntrada());
+        Date hasta = Utils.obtenerFechaFormateada(reservaForm.getFechaEntrada());
+
+        // Configurar comportamiento del mock
+        Mockito.when(reservaRepository.findReservasSuperpuestas(desde, hasta))
+                .thenReturn(Collections.emptyList()); // No hay reservas superpuestas.
+
+        // Llamar al método
+        boolean resultado = reservaService.comprobarDisponibilidad(reservaForm);
+
+        // Verificar resultado
+        Assert.assertTrue("Debe haber disponibilidad si no hay reservas superpuestas", resultado);
+    }
+    @Test
+    public void testComprobarDisponibilidadEdit_SinReservasSuperpuestas() {
+        // Configurar datos de prueba
+        ReservaForm reservaForm = new ReservaForm();
+        reservaForm.setFechaEntrada("2024-12-01");
+        reservaForm.setFechaSalida("2024-12-05");
+        Long reservaID=1L;
+
+        Date desde = Utils.obtenerFechaFormateada(reservaForm.getFechaEntrada());
+        Date hasta = Utils.obtenerFechaFormateada(reservaForm.getFechaEntrada());
+
+        // Configurar comportamiento del mock
+        Mockito.when(reservaRepository.findReservasSuperpuestasEdit(desde, hasta,reservaID))
+                .thenReturn(Collections.emptyList()); // No hay reservas superpuestas.
+
+        // Llamar al método
+        boolean resultado = reservaService.comprobarDisponibilidadEdicion(reservaForm, reservaID);
+
+        // Verificar resultado
+        Assert.assertTrue("Debe haber disponibilidad si no hay reservas superpuestas", resultado);
+    }
+ 
 }

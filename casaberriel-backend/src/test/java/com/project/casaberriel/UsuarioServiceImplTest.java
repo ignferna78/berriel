@@ -1,6 +1,5 @@
 package com.project.casaberriel;
 
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
@@ -8,24 +7,31 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.project.casaberriel.dto.UsuarioRegistroDto;
+import com.project.casaberriel.model.usuarios.Rol;
 import com.project.casaberriel.model.usuarios.Usuario;
 import com.project.casaberriel.repositorios.UsuarioRepositorio;
 import com.project.casaberriel.service.Impl.UsuarioServiceImpl;
@@ -38,8 +44,10 @@ public class UsuarioServiceImplTest {
     @InjectMocks
     private UsuarioServiceImpl usuarioService;
 
+    @Mock
     private Usuario usuario;
     
+    @Mock
     private BCryptPasswordEncoder passwordEncoder;  
 
     @BeforeEach
@@ -264,5 +272,81 @@ public class UsuarioServiceImplTest {
         verify(usuarioRepositorio).findByPasswordResetToken("expired-token");
     }
     
+    @Test
+    public void testUpdatePassword() {
+        // Configurar datos de prueba
+        Usuario usuario = new Usuario();
+        usuario.setId(1L);
+        usuario.setPassword("oldPassword");
+        usuario.setPasswordResetToken("resetToken");
+        usuario.setTokenExpirationTime(2L);
+
+        String nuevaPassword = "newPassword";
+        String passwordCodificada = "encodedNewPassword";
+
+        // Configurar comportamiento del mock del codificador
+        Mockito.when(passwordEncoder.encode(nuevaPassword)).thenReturn(passwordCodificada);
+
+        // Llamar al método
+        usuarioService.updatePassword(usuario, nuevaPassword);
+
+        // Verificar que se codificó la nueva contraseña
+        Mockito.verify(passwordEncoder).encode(nuevaPassword);
+
+        // Verificar que se actualizó la contraseña del usuario
+        Assert.assertEquals("La contraseña debe estar codificada", passwordCodificada, usuario.getPassword());
+
+        // Verificar que el token y el tiempo de expiración se limpiaron
+        Assert.assertNull("El token debe ser nulo después de actualizar la contraseña", usuario.getPasswordResetToken());
+        Assert.assertNull("El tiempo de expiración debe ser nulo después de actualizar la contraseña", usuario.getTokenExpirationTime());
+
+        // Verificar que se guardó el usuario en el repositorio
+        Mockito.verify(usuarioRepositorio).save(usuario);
+    }
+    
+    @Test
+    public void testSavePasswordResetToken() {
+        // Configurar un usuario de prueba
+        Usuario usuario = new Usuario();
+        usuario.setId(1L);
+
+        // Simular el token
+        String token = "reset-token";
+
+        // Llamar al método bajo prueba
+        usuarioService.savePasswordResetToken(usuario, token);
+
+        // Verificar que el token se haya configurado correctamente
+        assertEquals(token, usuario.getPasswordResetToken());
+        assertNotNull(usuario.getTokenExpirationTime());
+      
+
+        // Verificar que el repositorio fue llamado para guardar el usuario
+        verify(usuarioRepositorio).save(usuario);
+    }
   
+    @Test
+    void testMapearAutoridadesRoles() {
+        // Crear roles de prueba
+        Rol rol1 = new Rol();
+        rol1.setNombre("ROLE_USER");
+        
+        Rol rol2 = new Rol();
+        rol2.setNombre("ROLE_ADMIN");
+
+        List<Rol> roles = Arrays.asList(rol1, rol2);
+
+        // Llamar al método
+        UsuarioServiceImpl usuarioService = new UsuarioServiceImpl(passwordEncoder, usuarioRepositorio); // Asume que este método está en esta clase
+        Collection<? extends GrantedAuthority> autoridades = usuarioService.mapearAutoridadesRoles(roles);
+
+        // Validar el tamaño de la colección resultante
+        assertEquals(2, autoridades.size());
+
+        // Validar los nombres de las autoridades
+        assertTrue(autoridades.contains(new SimpleGrantedAuthority("ROLE_USER")));
+        assertTrue(autoridades.contains(new SimpleGrantedAuthority("ROLE_ADMIN")));
+    }
+    
+
 }

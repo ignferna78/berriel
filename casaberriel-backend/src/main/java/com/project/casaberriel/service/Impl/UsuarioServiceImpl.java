@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.casaberriel.dto.UsuarioRegistroDto;
@@ -25,10 +25,18 @@ import com.project.casaberriel.service.UsuarioService;
 public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
 
     @Autowired
-    private UsuarioRepositorio usuarioRepository;
+    UsuarioRepositorio usuarioRepository;
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    PasswordEncoder passwordEncoder; 
 
+
+    // Constructor para inyección de dependencias
+    public UsuarioServiceImpl(PasswordEncoder passwordEncoder, UsuarioRepositorio usuarioRepository) {
+        this.passwordEncoder = passwordEncoder;
+        this.usuarioRepository = usuarioRepository;
+      
+    }
     @Override
     public List<Usuario> listarUsuarios() {
         return usuarioRepository.findAll();
@@ -66,7 +74,7 @@ public class UsuarioServiceImpl implements UserDetailsService, UsuarioService {
                 mapearAutoridadesRoles(usuario.getRoles()));
     }
 
-    private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles) {
+    public Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles) {
         return roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getNombre()))
                 .collect(Collectors.toList());

@@ -6,6 +6,7 @@ import java.time.ZoneId;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -23,7 +24,9 @@ import com.project.casaberriel.utils.Utils;
 public class EmailServiceImpl implements IEmailService {
 
 	private final JavaMailSender javaMailSender;
-	private final TemplateEngine templateEngine;
+	
+	@Autowired
+   TemplateEngine templateEngine;
 
 	public EmailServiceImpl(JavaMailSender javaMailSender, TemplateEngine templateEngine) {
 		this.javaMailSender = javaMailSender;
@@ -44,7 +47,7 @@ public class EmailServiceImpl implements IEmailService {
 			context.setVariable("name", email.getName());
 			context.setVariable("email", email.getEmail());
 			String contentHtml = templateEngine.process("email", context);
-
+			System.out.println("plantilla email: " + email);
 			helper.setText(contentHtml, true);
 			javaMailSender.send(message);
 		} catch (Exception e) {
