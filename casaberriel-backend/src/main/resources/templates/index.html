@@ -211,18 +211,22 @@
 						<h4 class="text-primary mb-3" data-i18n="contact.send_message"></h4>
 						<form id="contactForm" th:action="@{/api/send-email}" method="POST">
 							<div class="form-group mb-3">
-								<input type="text" class="form-control" placeholder="Tu Nombre" id="name" required
+								<label data-i18n="contact.name_placeholder"></label>
+								<input type="text" class="form-control" id="name" required
 									style="border: 1px solid #ddd; padding: 10px;">
 							</div>
 							<div class="form-group mb-3">
-								<input type="email" class="form-control" placeholder="Tu Email" id="email" required
+								<label data-i18n="contact.email_placeholder"></label>
+								<input type="email" class="form-control" id="email" required
 									style="border: 1px solid #ddd; padding: 10px;">
 							</div>
 							<div class="form-group mb-3">
-								<textarea class="form-control" rows="4" placeholder="Tu Mensaje" id="messages"
-									maxlength="500" required style="border: 1px solid #ddd; padding: 10px;"></textarea>
+								<label data-i18n="contact.message_placeholder"></label>
+								<textarea class="form-control" rows="4" id="messages" maxlength="500" required
+									style="border: 1px solid #ddd; padding: 10px;"></textarea>
 							</div>
-							<button type="submit" class="btn btn-primary w-100 py-2" id="contactFormBtn">Enviar</button>
+							<button type="submit" class="btn btn-primary w-100 py-2" id="contactFormBtn"
+								data-i18n="contact.send_button"></button>
 							<div class="alert alert-success mt-3" role="alert" style="display: none;"
 								data-i18n="contact.response">
 								<strong></strong>

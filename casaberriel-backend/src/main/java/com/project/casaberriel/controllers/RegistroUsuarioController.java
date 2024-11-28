@@ -44,13 +44,12 @@ public class RegistroUsuarioController {
 	private IEmailService emailService;
 
 	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-	private static final String REGISTRO="registro";
-	private static final String DETALLE_USUARIO="detalle_usuario";
-	private static final String REDIRECT_PANEL_ADMIN="redirect:/admin/lista";
-	private static final String MESSAGE="message";
-	private static final String ERROR="error";
-	private static final String HOME="redirect:/home/index";
-	
+	private static final String REGISTRO = "registro";
+	private static final String DETALLE_USUARIO = "detalle_usuario";
+	private static final String REDIRECT_PANEL_ADMIN = "redirect:/admin/lista";
+	private static final String MESSAGE = "message";
+	private static final String ERROR = "error";
+	private static final String HOME = "redirect:/home/index";
 
 	@Bean
 	private AuthenticationManager authenticationManager() {
@@ -105,10 +104,10 @@ public class RegistroUsuarioController {
 		} catch (DataIntegrityViolationException e) {
 			model.addAttribute(ERROR, "El email ya está registrado. Por favor, usa otro email.");
 			return REGISTRO;
-		}catch (IllegalArgumentException ex) {
-	        model.addAttribute(ERROR, ex.getMessage());
-	        return REGISTRO;
-	    }
+		} catch (IllegalArgumentException ex) {
+			model.addAttribute(ERROR, ex.getMessage());
+			return REGISTRO;
+		}
 	}
 
 	// Mostrar página de registro
@@ -128,7 +127,6 @@ public class RegistroUsuarioController {
 		try {
 			usuario = usuarioService.findUserByEmail(email);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 		model.addAttribute("usuario", usuario);
 		return DETALLE_USUARIO;
@@ -142,31 +140,39 @@ public class RegistroUsuarioController {
 		return DETALLE_USUARIO;
 	}
 
-// Procesar la edición del usuario
 	@PostMapping("/editar-usuario/{id}")
 	public String editarUsuario(@PathVariable("id") Long id,
 			@ModelAttribute("usuario") UsuarioRegistroDto usuarioActualizado, Model model, boolean modificada) {
 		try {
 			Usuario usuarioExistente = usuarioService.findUserById(id);
-			if (usuarioExistente != null) {
-				usuarioExistente.setNombre(usuarioActualizado.getNombre());
-				usuarioExistente.setApellidos(usuarioActualizado.getApellidos());
-				usuarioExistente.setDireccion(usuarioActualizado.getDireccion());
-				usuarioExistente.setTelefono(usuarioActualizado.getTelefono());
-				usuarioExistente.setEmail(usuarioActualizado.getEmail());
-				// Actualiza otros campos según sea necesario
-
-				usuarioService.updateUser(usuarioExistente);
-				emailService.sendUsuarioConfirmation(usuarioExistente, false, modificada);
-
-				model.addAttribute(MESSAGE, "Usuario modificado con éxito.");
+			if (usuarioExistente == null) {
+				model.addAttribute(ERROR, "El usuario no existe.");
+				return DETALLE_USUARIO;
 			}
+			// Actualizar campos del usuario
+			actualizarDatosUsuario(usuarioExistente, usuarioActualizado);
+
+			// Guardar cambios
+			usuarioService.updateUser(usuarioExistente);
+
+			// Enviar correo de confirmación
+			emailService.sendUsuarioConfirmation(usuarioExistente, false, modificada);
+
+			model.addAttribute(MESSAGE, "Usuario modificado con éxito.");
 		} catch (Exception e) {
-			e.printStackTrace();
 			model.addAttribute(ERROR, "Ocurrió un error al actualizar el usuario.");
-			return DETALLE_USUARIO;
 		}
 		return DETALLE_USUARIO;
+	}
+
+	// Método auxiliar para actualizar los datos del usuario
+	private void actualizarDatosUsuario(Usuario usuarioExistente, UsuarioRegistroDto usuarioActualizado) {
+		usuarioExistente.setNombre(usuarioActualizado.getNombre());
+		usuarioExistente.setApellidos(usuarioActualizado.getApellidos());
+		usuarioExistente.setDireccion(usuarioActualizado.getDireccion());
+		usuarioExistente.setTelefono(usuarioActualizado.getTelefono());
+		usuarioExistente.setEmail(usuarioActualizado.getEmail());
+		// Actualiza otros campos según sea necesario
 	}
 
 	@GetMapping("/eliminar-usuario/{id}")
@@ -191,12 +197,9 @@ public class RegistroUsuarioController {
 			SecurityContextHolder.clearContext();
 			return HOME;
 		} catch (DataIntegrityViolationException e) {
-			e.printStackTrace();
-			model.addAttribute(ERROR,
-					"No se puede eliminar el usuario debido a una violación de integridad de datos.");
+			model.addAttribute(ERROR, "No se puede eliminar el usuario debido a una violación de integridad de datos.");
 			return DETALLE_USUARIO;
 		} catch (Exception e) {
-			e.printStackTrace();
 			model.addAttribute(ERROR, "Ocurrió un error al eliminar el usuario.");
 			return DETALLE_USUARIO;
 		}
