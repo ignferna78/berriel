@@ -52,7 +52,8 @@
 		"confirm_booking": "Confirm Booking",
 		"edit_booking": "Edit Booking",
 		"save": "Save changes",
-		"register_form": "Registration form"
+		"register_form": "Registration form",
+		"phone":"Telephone"
 	},
 	"about": {
 		"title": "About Us",

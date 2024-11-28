@@ -12,8 +12,6 @@ import com.project.casaberriel.model.usuarios.Usuario;
 @Service
 public interface UsuarioService {
 
-	
-	//public Usuario guardar(UsuarioRegistroDto registroDto);
 
 	List<Usuario> listarUsuarios();
 
@@ -30,7 +28,9 @@ public interface UsuarioService {
 
 	void savePasswordResetToken(Usuario usuario, String token);
 
-	Usuario findByPasswordResetToken(String token);
+	Usuario findByPasswordResetToken(String token) throws Exception;
 
 	void updatePassword(Usuario usuario, String nuevaPassword);
+
+	void validarPassword(String nuevaPassword);
 }

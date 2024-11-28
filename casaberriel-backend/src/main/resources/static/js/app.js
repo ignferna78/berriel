@@ -176,7 +176,7 @@ function handleReservar() {
 		console.log('Fecha de salida enviada:', fechaSalida);
 	} else {
 		// Muestra el modal de login si el usuario no está logueado
-		$('#modalLogin').modal('show');
+		$('#loginModal').modal('show');
 	}
 }
 
@@ -258,11 +258,124 @@ window.onload = function() {
 };
 
 
+document.addEventListener('DOMContentLoaded', () => {
+		const loginForm = document.querySelector('#loginModal form');
+		const errorDiv = document.getElementById('error');
+
+		loginForm.addEventListener('submit', async (e) => {
+			// Ocultar mensajes de error previos
+			errorDiv.style.display = 'none';
+			errorDiv.textContent = '';
+
+			// Prevenir el envío del formulario de forma predeterminada
+			e.preventDefault();
+
+			// Obtener valores de los campos
+			const email = document.getElementById('email').value.trim();
+			const password = document.getElementById('password').value.trim();
+
+			// Validar que ambos campos no estén vacíos
+			if (!email || !password) {
+				errorDiv.textContent = 'Por favor, completa todos los campos.';
+				errorDiv.style.display = 'block';
+				return;
+			}
+
+			// Validar email con una expresión regular
+			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+			if (!emailRegex.test(email)) {
+				errorDiv.textContent = 'Por favor, ingresa un email válido.';
+				errorDiv.style.display = 'block';
+				return;
+			}
+
+			try {
+				// Verificar las credenciales
+				const response = await fetch('/registro/validarCredenciales', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ email, password })
+				});
+
+				if (response.ok) {
+					// Credenciales válidas, permite el envío del formulario
+					loginForm.submit();
+				} else if (response.status === 401) {
+					// Contraseña incorrecta
+					const errorData = await response.json();
+					errorDiv.textContent = errorData.message;
+					errorDiv.style.display = 'block';
+				} else if (response.status === 404) {
+					// Usuario no encontrado
+					const errorData = await response.json();
+					errorDiv.textContent = errorData.message;
+					errorDiv.style.display = 'block';
+				} else {
+					// Error inesperado
+					errorDiv.textContent = 'Error inesperado al verificar las credenciales.';
+					errorDiv.style.display = 'block';
+				}
+			} catch (error) {
+				// Manejar errores de red
+				errorDiv.textContent = 'Error al conectarse con el servidor.';
+				errorDiv.style.display = 'block';
+				console.error('Error en la verificación de credenciales:', error);
+			}
+		});
+	});
+
+
+
+	document.addEventListener('DOMContentLoaded', function () {
+	    // Inicializar tooltips de Bootstrap
+	    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+	    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+	        new bootstrap.Tooltip(tooltipTriggerEl);
+	    });
+
+	    // Seleccionar el campo de contraseña y su formulario
+	    const passwordField = document.getElementById('password');
+	    const form = passwordField.closest('form'); // Encuentra el formulario asociado
+	    const errorDiv = document.getElementById('password-error'); // Div para mostrar mensajes de error
+
+	    form.addEventListener('submit', function (event) {
+	        const password = passwordField.value;
+
+	        // Limpiar mensajes previos
+	        errorDiv.style.display = 'none';
+	        errorDiv.textContent = '';
+
+	        // Validaciones
+	        const minLength = 5;
+	        const specialCharRegex = /[^a-zA-Z0-9]/; // Detecta caracteres especiales
+
+	        if (password.length < minLength) {
+	            errorDiv.textContent = 'La contraseña debe tener al menos 5 caracteres.';
+	            errorDiv.style.display = 'block';
+	            event.preventDefault(); // Evita el envío del formulario
+	            return;
+	        }
+
+	        if (specialCharRegex.test(password)) {
+	            errorDiv.textContent = 'La contraseña no debe contener caracteres especiales.';
+	            errorDiv.style.display = 'block';
+	            event.preventDefault(); // Evita el envío del formulario
+	            return;
+	        }
+	    });
+	});
 
 
 
 
+	document.getElementById("formRegistro").addEventListener("submit", function (event) {
+	    const telefono = document.getElementById("telefono").value;
 
+	    if (!/^\d{9,12}$/.test(telefono)) {
+	        event.preventDefault();
+	        alert("El número de teléfono debe tener entre 9 y 12 dígitos y solo contener números.");
+	    }
+	});
 
 
 

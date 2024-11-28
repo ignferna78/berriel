@@ -38,7 +38,7 @@
 							<td th:text="${reserva.email}"></td>
 							<td th:text="${#dates.format(reserva.fechaEntrada, 'dd/MM/yyyy')}"></td>
 							<td th:text="${#dates.format(reserva.fechaSalida, 'dd/MM/yyyy')}"></td>
-							<td th:text="${reserva.precioTotal}"></td>
+							<td th:text="${reserva.precioTotal}+ ' €'"></td>
 							<td>
 								<a class="btn btn-outline-success" title="Editar Reserva"
 									th:href="@{'/reservas/editar/' + ${reserva.id}}">
@@ -124,8 +124,8 @@
 						</tr>
 					</tbody>
 				</table>
-				<div th:if="${message1}" class="alert alert-success" role="alert">
-							<span th:text="${message1}"></span>
+				<div th:if="${message}" class="alert alert-success" role="alert">
+							<span th:text="${message}"></span>
 						</div>
 			</div>
 		</div>

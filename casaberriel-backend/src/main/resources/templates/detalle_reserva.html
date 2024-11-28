@@ -11,10 +11,11 @@
 	<th:block th:include="componentes/_nav.html"></th:block>
 
 	<div class="container mt-5">
-		<div class="card">
+		<div class="card" id="card_edit_rva">
 			<div class="card-header">
 				<h1 class="mb-4">Detalle de la Reserva</h1>
 			</div>
+			<div>
 			<div class="card-body" th:object="${reserva}">
 
 				<p class="mb-1">
@@ -50,6 +51,7 @@
 					<strong>Numero personas</strong> <span th:text="${reserva.numPersonas}"></span>
 				</p>
 				<!-- Agrega más campos según sea necesario -->
+			</div>
 			</div>
 		</div>
 		<div class="text-center mt-4">

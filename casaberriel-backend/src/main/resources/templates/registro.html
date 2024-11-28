@@ -16,7 +16,7 @@
 		<div class="card" id="card_edit_rva">
 			<div class="card-header" data-i18n="common.registration"></div>
 			<div class="card-body">
-				<form th:action="@{/registro/nuevo}" method="POST" th:object="${usuario}" id="limpiar">
+				<form th:action="@{/registro/nuevo}" method="POST" th:object="${usuario}" id="limpiar" >
 					<div class="form-group">
 						<label for="nombre" data-i18n="form.name"></label> <input type="text" name="nombre"
 							class="form-control" id="nombre" required>
@@ -31,16 +31,30 @@
 							class="form-control" id="direccion" required>
 					</div>
 					<div class="form-group">
-						<label for="email">Email</label> <input type="email" name="email" class="form-control" id="email"
-							 required>
+						<label for="telefono" data-i18n="form.phone"></label> <input type="text" name="telefono"
+							class="form-control" id="telefono"  min="9" max="12" required>
 					</div>
-
 					<div class="form-group">
-						<label for="password" data-i18n="form.password"></label> <input type="password" name="password"
-							class="form-control" id="password" required>
+						<label for="email">Email</label> <input type="email" name="email" class="form-control"
+							id="email" placeholder="user@example.com" required>
+					</div>
+					<div class="form-group">
+						<label for="password" data-i18n="form.password"></label>
+						<div class="input-group">
+							<input type="password" name="password" class="form-control" id="password" required>
+							<span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="right"
+								title="La contraseña debe tener al menos 5 caracteres y no incluir caracteres especiales.">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+									class="bi bi-info-circle" viewBox="0 0 16 16">
+									<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+									<path
+										d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
+								</svg> </span>
+						</div>
+						<div id="password-error" class="text-danger mt-2" style="display: none;"></div>
 					</div>
 					<div class="text-center mt-4">
-						<button type="submit" class="btn btn-success" data-i18n="common.registration"></button>
+						<button type="submit" class="btn btn-success" id="formRegistro" data-i18n="common.registration"></button>
 					</div>
 				</form>
 
@@ -69,7 +83,7 @@
 				</div>
 				<div class="modal-body">
 					<form th:action="@{/autenticacionUsusario}" method="POST">
-						<div id="error" class="alert alert-danger" style="display: none;"></div>
+						
 
 						<div class="form-group">
 							<label for="email">Email</label>
@@ -93,6 +107,8 @@
 	</div>
 
 	<th:block th:include="componentes/_scripts.html"></th:block>
+
+
 </body>
 
 <th:block th:include="componentes/footer.html"></th:block>

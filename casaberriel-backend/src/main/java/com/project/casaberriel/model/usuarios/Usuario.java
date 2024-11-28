@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import com.project.casaberriel.model.reservas.ReservaEntity;
 
@@ -24,6 +26,10 @@ public class Usuario {
 	
 	@Column(name ="direccion")
 	private String direccion;
+	
+	
+	@Column(name ="telefono")
+	private String telefono;
 
 	@Column(name ="password")
 	private String password;
@@ -67,22 +73,24 @@ public class Usuario {
 		super();
 	}
 	
-	public Usuario(String nombre, String apellidos, String direccion, String password, String email, Collection<Rol> roles) {
+	public Usuario(String nombre, String apellidos, String direccion,String telefono, String password, String email, Collection<Rol> roles) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.direccion = direccion;
+		this.telefono=telefono;
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
 	}
 	
-	public Usuario(Long id, String nombre, String apellidos, String direccion, String password,String email,  Collection<Rol> roles) {
+	public Usuario(Long id, String nombre, String apellidos, String direccion,String telefono, String password,String email,  Collection<Rol> roles) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.direccion = direccion;
+		this.telefono=telefono;
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
@@ -142,6 +150,22 @@ public class Usuario {
 
 	public void setRoles(Collection<Rol> roles) {
 		this.roles = roles;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public List<ReservaEntity> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<ReservaEntity> reservas) {
+		this.reservas = reservas;
 	}
 
 
