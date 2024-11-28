@@ -340,7 +340,7 @@ public class UsuarioServiceImplTest {
         List<Rol> roles = Arrays.asList(rol1, rol2);
 
         // Llamar al método
-        UsuarioServiceImpl usuarioService = new UsuarioServiceImpl(securityConfig, passwordEncoder, usuarioRepositorio); // Asume que este método está en esta clase
+        UsuarioServiceImpl usuarioService = new UsuarioServiceImpl(); // Asume que este método está en esta clase
         Collection<? extends GrantedAuthority> autoridades = usuarioService.mapearAutoridadesRoles(roles);
 
         // Validar el tamaño de la colección resultante
