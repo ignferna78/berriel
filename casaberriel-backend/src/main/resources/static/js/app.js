@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		// Deshabilitar el botón de enviar para evitar múltiples envíos
 		contactFormBtn.disabled = true;
 		contactFormBtn.textContent = "Enviando...";
-
+		contactForm.reset();
 
 		// Realizar la solicitud AJAX
 		const data = {
@@ -243,8 +243,10 @@ document.addEventListener("DOMContentLoaded", function() {
 		    .then(result => {
 		        console.log("Correo enviado:", result);
 		        document.querySelector('.alert-success').style.display = 'block';
-		        contactForm.reset();
+				contactFormBtn.disabled = false;
+				contactForm.reset();
 				contactFormBtn.textContent = "Enviar";
+
 		    })
 		    .catch(error => {
 		        console.error("Error:", error);
