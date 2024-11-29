@@ -22,8 +22,8 @@ public class LoginController {
     @Autowired
     private UsuarioService usuarioService;
     
-    @Autowired
-    public LoginController(@Lazy UsuarioService usuarioService) {
+   
+    public LoginController(UsuarioService usuarioService) {
         this.usuarioService = usuarioService;
     }
 

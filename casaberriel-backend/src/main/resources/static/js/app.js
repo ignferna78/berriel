@@ -180,25 +180,36 @@ function handleReservar() {
 	}
 }
 
-
-
 document.addEventListener("DOMContentLoaded", function() {
 	// Seleccionar el formulario y el botón de envío
 	const contactForm = document.getElementById("contactForm");
 	const contactFormBtn = document.getElementById("contactFormBtn");
 
+	// Función para validar el formato del email
+	function isValidEmail(email) {
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expresión regular para validar email
+		return emailRegex.test(email);
+	}
+
 	// Agregar un evento de escucha para el envío del formulario
 	contactForm.addEventListener("submit", function(event) {
 		event.preventDefault(); // Evitar el envío predeterminado del formulario
-
+		const email = document.querySelector("#mail").value.trim();
 		// Obtener valores de los campos del formulario
-		const name = document.getElementById("name").value;
-		const email = document.getElementById("email").value;
-		const message = document.getElementById("messages").value;
-
+		const name = document.getElementById("name").value.trim();
+		const message = document.getElementById("messages").value.trim();
+	
 		// Validar que los campos no estén vacíos
 		if (!name || !email || !message) {
 			alert("Por favor, complete todos los campos.");
+			return;
+		}
+
+		// Validar formato del email
+		if (!isValidEmail(email)) {
+			alert("Por favor, introduzca un email válido.");
+			document.getElementById("mail").focus(); // Enfocar el campo del email
+			
 			return;
 		}
 
@@ -206,44 +217,43 @@ document.addEventListener("DOMContentLoaded", function() {
 		contactFormBtn.disabled = true;
 		contactFormBtn.textContent = "Enviando...";
 
-		// Crear un objeto con los datos del formulario
-		const data = {
-			name: name,
-			email: email,
-			message: message
-		};
-		console.log(data);
-		// Realizar la solicitud AJAX
-		fetch("/api/send-email", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(data)
-		})
-			.then(response => {
-				if (!response.ok) {
-					return response.text().then(text => {
-						throw new Error(`Error en el envío del mensaje: ${text}`);
-					});
-				}
-				return response.json();
-			})
-			.then(result => {
-				document.querySelector('.alert-success').style.display = 'block';
-				contactForm.reset();
-			})
-			.catch(error => {
-				alert("Hubo un error al enviar el mensaje. Inténtelo de nuevo.");
-				console.error("Error:", error);
-			})
-			.finally(() => {
-				contactFormBtn.disabled = false;
-				contactFormBtn.textContent = "Enviar";
-			});
 
+		// Realizar la solicitud AJAX
+		const data = {
+		    name: name,
+		    email: email,
+		    message: message
+		};
+
+		fetch("/api/send-email", {
+		    method: "POST",
+		    headers: {
+		        "Content-Type": "application/json"
+		    },
+		    body: JSON.stringify(data)
+		})
+		    .then(response => {
+		        if (!response.ok) {
+		            return response.text().then(text => {
+		                throw new Error(`Error en el envío del mensaje: ${text}`);
+		            });
+		        }
+		        return response.json();
+		    })
+		    .then(result => {
+		        console.log("Correo enviado:", result);
+		        document.querySelector('.alert-success').style.display = 'block';
+		        contactForm.reset();
+				contactFormBtn.textContent = "Enviar";
+		    })
+		    .catch(error => {
+		        console.error("Error:", error);
+		        alert("Hubo un error al enviar el mensaje. Inténtelo de nuevo.");
+		    });
 	});
 });
+
+
 
 window.onload = function() {
 	var messageDiv = document.getElementById('message');
@@ -259,123 +269,123 @@ window.onload = function() {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-		const loginForm = document.querySelector('#loginModal form');
-		const errorDiv = document.getElementById('error');
+	const loginForm = document.querySelector('#loginModal form');
+	const errorDiv = document.getElementById('error');
 
-		loginForm.addEventListener('submit', async (e) => {
-			// Ocultar mensajes de error previos
-			errorDiv.style.display = 'none';
-			errorDiv.textContent = '';
+	loginForm.addEventListener('submit', async (e) => {
+		// Ocultar mensajes de error previos
+		errorDiv.style.display = 'none';
+		errorDiv.textContent = '';
 
-			// Prevenir el envío del formulario de forma predeterminada
-			e.preventDefault();
+		// Prevenir el envío del formulario de forma predeterminada
+		e.preventDefault();
 
-			// Obtener valores de los campos
-			const email = document.getElementById('email').value.trim();
-			const password = document.getElementById('password').value.trim();
+		// Obtener valores de los campos
+		const email = document.getElementById('email').value.trim();
+		const password = document.getElementById('password').value.trim();
 
-			// Validar que ambos campos no estén vacíos
-			if (!email || !password) {
-				errorDiv.textContent = 'Por favor, completa todos los campos.';
+		// Validar que ambos campos no estén vacíos
+		if (!email || !password) {
+			errorDiv.textContent = 'Por favor, completa todos los campos.';
+			errorDiv.style.display = 'block';
+			return;
+		}
+
+		// Validar email con una expresión regular
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!emailRegex.test(email)) {
+			errorDiv.textContent = 'Por favor, ingresa un email válido.';
+			errorDiv.style.display = 'block';
+			return;
+		}
+
+		try {
+			// Verificar las credenciales
+			const response = await fetch('/registro/validarCredenciales', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ email, password })
+			});
+
+			if (response.ok) {
+				// Credenciales válidas, permite el envío del formulario
+				loginForm.submit();
+			} else if (response.status === 401) {
+				// Contraseña incorrecta
+				const errorData = await response.json();
+				errorDiv.textContent = errorData.message;
 				errorDiv.style.display = 'block';
-				return;
-			}
-
-			// Validar email con una expresión regular
-			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-			if (!emailRegex.test(email)) {
-				errorDiv.textContent = 'Por favor, ingresa un email válido.';
+			} else if (response.status === 404) {
+				// Usuario no encontrado
+				const errorData = await response.json();
+				errorDiv.textContent = errorData.message;
 				errorDiv.style.display = 'block';
-				return;
-			}
-
-			try {
-				// Verificar las credenciales
-				const response = await fetch('/registro/validarCredenciales', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ email, password })
-				});
-
-				if (response.ok) {
-					// Credenciales válidas, permite el envío del formulario
-					loginForm.submit();
-				} else if (response.status === 401) {
-					// Contraseña incorrecta
-					const errorData = await response.json();
-					errorDiv.textContent = errorData.message;
-					errorDiv.style.display = 'block';
-				} else if (response.status === 404) {
-					// Usuario no encontrado
-					const errorData = await response.json();
-					errorDiv.textContent = errorData.message;
-					errorDiv.style.display = 'block';
-				} else {
-					// Error inesperado
-					errorDiv.textContent = 'Error inesperado al verificar las credenciales.';
-					errorDiv.style.display = 'block';
-				}
-			} catch (error) {
-				// Manejar errores de red
-				errorDiv.textContent = 'Error al conectarse con el servidor.';
+			} else {
+				// Error inesperado
+				errorDiv.textContent = 'Error inesperado al verificar las credenciales.';
 				errorDiv.style.display = 'block';
-				console.error('Error en la verificación de credenciales:', error);
 			}
-		});
+		} catch (error) {
+			// Manejar errores de red
+			errorDiv.textContent = 'Error al conectarse con el servidor.';
+			errorDiv.style.display = 'block';
+			console.error('Error en la verificación de credenciales:', error);
+		}
+	});
+});
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+	// Inicializar tooltips de Bootstrap
+	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+	tooltipTriggerList.forEach(function(tooltipTriggerEl) {
+		new bootstrap.Tooltip(tooltipTriggerEl);
 	});
 
+	// Seleccionar el campo de contraseña y su formulario
+	const passwordField = document.getElementById('password');
+	const form = passwordField.closest('form'); // Encuentra el formulario asociado
+	const errorDiv = document.getElementById('password-error'); // Div para mostrar mensajes de error
 
+	form.addEventListener('submit', function(event) {
+		const password = passwordField.value;
 
-	document.addEventListener('DOMContentLoaded', function () {
-	    // Inicializar tooltips de Bootstrap
-	    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-	    tooltipTriggerList.forEach(function (tooltipTriggerEl) {
-	        new bootstrap.Tooltip(tooltipTriggerEl);
-	    });
+		// Limpiar mensajes previos
+		errorDiv.style.display = 'none';
+		errorDiv.textContent = '';
 
-	    // Seleccionar el campo de contraseña y su formulario
-	    const passwordField = document.getElementById('password');
-	    const form = passwordField.closest('form'); // Encuentra el formulario asociado
-	    const errorDiv = document.getElementById('password-error'); // Div para mostrar mensajes de error
+		// Validaciones
+		const minLength = 5;
+		const specialCharRegex = /[^a-zA-Z0-9]/; // Detecta caracteres especiales
 
-	    form.addEventListener('submit', function (event) {
-	        const password = passwordField.value;
+		if (password.length < minLength) {
+			errorDiv.textContent = 'La contraseña debe tener al menos 5 caracteres.';
+			errorDiv.style.display = 'block';
+			event.preventDefault(); // Evita el envío del formulario
+			return;
+		}
 
-	        // Limpiar mensajes previos
-	        errorDiv.style.display = 'none';
-	        errorDiv.textContent = '';
-
-	        // Validaciones
-	        const minLength = 5;
-	        const specialCharRegex = /[^a-zA-Z0-9]/; // Detecta caracteres especiales
-
-	        if (password.length < minLength) {
-	            errorDiv.textContent = 'La contraseña debe tener al menos 5 caracteres.';
-	            errorDiv.style.display = 'block';
-	            event.preventDefault(); // Evita el envío del formulario
-	            return;
-	        }
-
-	        if (specialCharRegex.test(password)) {
-	            errorDiv.textContent = 'La contraseña no debe contener caracteres especiales.';
-	            errorDiv.style.display = 'block';
-	            event.preventDefault(); // Evita el envío del formulario
-	            return;
-	        }
-	    });
+		if (specialCharRegex.test(password)) {
+			errorDiv.textContent = 'La contraseña no debe contener caracteres especiales.';
+			errorDiv.style.display = 'block';
+			event.preventDefault(); // Evita el envío del formulario
+			return;
+		}
 	});
+});
 
 
 
 
-	document.getElementById("formRegistro").addEventListener("submit", function (event) {
-	    const telefono = document.getElementById("telefono").value;
+document.getElementById("formRegistro").addEventListener("submit", function(event) {
+	const telefono = document.getElementById("telefono").value;
 
-	    if (!/^\d{9,12}$/.test(telefono)) {
-	        event.preventDefault();
-	        alert("El número de teléfono debe tener entre 9 y 12 dígitos y solo contener números.");
-	    }
-	});
+	if (!/^\d{9,12}$/.test(telefono)) {
+		event.preventDefault();
+		alert("El número de teléfono debe tener entre 9 y 12 dígitos y solo contener números.");
+	}
+});
 
 
 

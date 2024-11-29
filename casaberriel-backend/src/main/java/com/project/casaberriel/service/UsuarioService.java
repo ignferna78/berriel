@@ -33,4 +33,6 @@ public interface UsuarioService {
 	void updatePassword(Usuario usuario, String nuevaPassword);
 
 	void validarPassword(String nuevaPassword);
+
+	String validadorEmail(String email);
 }

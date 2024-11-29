@@ -84,12 +84,19 @@ public class RegistroUsuarioController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of(MESSAGE, "El email no existe"));
 		}
 	}
-
+	
+	
 	// Guardar cuenta de usuario
 	@PostMapping("/nuevo")
 	public String guardarCuentaUser(@ModelAttribute("usuario") UsuarioRegistroDto registroDto, Model model,
 			boolean cancelada, boolean modificada) throws MessagingException {
 		try {
+			String emailError = usuarioService.validadorEmail(registroDto.getEmail());
+	        if (emailError != null) {
+	            model.addAttribute(ERROR, emailError);
+	            model.addAttribute("focusField", "email");
+	            return "registro"; // Retorna a la vista de registro si hay error
+	        }
 			Boolean exito = null;
 			Usuario usuario = usuarioService.guardar(registroDto);
 			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(usuario.getEmail(),
