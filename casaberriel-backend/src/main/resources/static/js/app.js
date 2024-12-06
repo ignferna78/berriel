@@ -85,7 +85,7 @@ $(function() {
 	}).datepicker('update', new Date());
 
 	$('#fechaEntrada').datepicker({
-	    startDate: 'today', // No permite seleccionar fechas pasadas
+	    startDate: new Date(), // No permite seleccionar fechas pasadas
 	    autoclose: true,
 	    todayHighlight: true,
 	    format: 'dd/mm/yyyy'
