@@ -2,8 +2,9 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
+	<th:block th:include="componentes/_head.html"></th:block>
 	<meta charset="UTF-8">
-	<title>Reservas</title>
+	<title data-i18n="navbar.booking"></title>
 	<style>
 		html,
 		body {
@@ -40,7 +41,7 @@
 							<p><strong>CheckIn: </strong><span data-i18n="form.check_in"></span></p>
 							<p><strong>CheckOut: </strong><span data-i18n="form.check_out"></span></p>
 							<p><strong data-i18n="form.price"></strong><span>80€</span></p>
-							<p><strong data-i18n="form.stay"></strong><span data-i18n="form.nights"></span></p>
+							<p><strong>Alojamiento Pet friendly</strong></p>
 							<div class="text-center mt-4">
 								<a href="/home/index#form" class="btn btn-danger" data-i18n="form.modify_dates"></a>
 							</div>
@@ -82,8 +83,8 @@
 									<!-- Email -->
 									<div class="col-md-6 mb-3">
 										<b>	<label for="email" class="form-label">Email</label> </b>
-										<input type="email" class="form-control" id="email" name="email"
-											placeholder="example@correo.com" required>
+										<input type="email" class="form-control" id="email" name="email" th:value="${username}"
+											 required readonly>
 									</div>
 									<!-- Dirección -->
 									<div class="col-md-6 mb-3">
@@ -96,6 +97,7 @@
 
 								<input type="hidden" id="fechaEntrada" name="fechaEntrada" th:value="${fechaEntrada}" required>
 								<input type="hidden" id="fechaSalida" name="fechaSalida" th:value="${fechaSalida}" required>
+								<input type="hidden" id="username" name="username" th:value="${username}" required>
 								<div class="row">
 									<!-- Número de Personas -->
 									<div class="col-md-3 mb-3">

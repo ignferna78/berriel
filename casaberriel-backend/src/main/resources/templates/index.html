@@ -59,6 +59,7 @@
 						<button type="submit" id="comprobar-disponibilidad-formBtn" class="btn btn-success"
 							data-i18n="form.check_available"></button>
 					</div>
+					<div id="estanciaminima" class="alert alert-danger" data-i18n="form.nights" role="alert" style="display: none; margin-top: 10px;"></div>
 				</form>
 			</div>
 			<div class="container">
@@ -72,7 +73,7 @@
 							</div>
 						</div>
 					</div>
-					<div th:if="${disponible}">
+					<div th:if="${disponible}" id="disponible">
 						<div class="card">
 							<input type="hidden" id="isUserLoggedIn" th:value="${isUserLoggedIn}">
 							<div class="alert alert-success" role="alert">
@@ -238,9 +239,6 @@
 				</div>
 			</div>
 		</section>
-
-
-
 
 		<div class="container mt-5" id="ubicacion">
 			<h3 class="text-center" data-i18n="common.location"></h3>

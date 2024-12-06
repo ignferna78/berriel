@@ -104,6 +104,17 @@
 	<br>
 
 	<th:block th:include="componentes/_scripts.html"></th:block>
+	<script>
+		document.getElementById("formRegistro").addEventListener("submit", function(event) {
+				const telefono = document.getElementById("telefono").value;
+
+				if (!/^\d{9,12}$/.test(telefono)) {
+					event.preventDefault();
+					alert("El número de teléfono debe tener entre 9 y 12 dígitos y solo contener números.");
+				}
+			});
+
+	</script>
 </body>
 <th:block th:include="componentes/footer.html"></th:block>
 

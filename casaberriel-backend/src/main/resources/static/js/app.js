@@ -85,23 +85,44 @@ $(function() {
 	}).datepicker('update', new Date());
 
 	$('#fechaEntrada').datepicker({
-		startDate: 'today', // No permite seleccionar fechas pasadas
-		autoclose: true,
-		todayHighlight: true,
-		format: 'dd/mm/yyyy'
+	    startDate: 'today', // No permite seleccionar fechas pasadas
+	    autoclose: true,
+	    todayHighlight: true,
+	    format: 'dd/mm/yyyy'
 	}).on('changeDate', function(e) {
-		// Obtener la fecha de entrada y establecerla como fecha mínima en el datepicker de salida
-		let fechaEntrada = new Date(e.date.valueOf());
-		$('#fechaSalida').datepicker('setStartDate', fechaEntrada);
-		$('#fechaSalida').datepicker('update', fechaEntrada); // Limpiar la fecha de salida al cambiar la fecha de entrada
+	    // Obtener la fecha de entrada y establecerla como fecha mínima en el datepicker de salida
+	    let fechaEntrada = new Date(e.date.valueOf());
+	    
+	    // Establecer la fecha mínima de salida a un día después de la fecha de entrada
+	    fechaEntrada.setDate(fechaEntrada.getDate() + 1); // Asegura que la fecha de salida sea al menos 1 día después
+
+	    // Configurar el datepicker de salida para que no permita seleccionar una fecha antes de la fecha mínima
+	    $('#fechaSalida').datepicker('setStartDate', fechaEntrada);
+	    $('#fechaSalida').datepicker('update'); // Limpiar la fecha de salida al cambiar la fecha de entrada
+
+	    // Validar que la fecha de salida actual no sea anterior a la fecha de entrada
+	    let fechaSalida = new Date($('#fechaSalida').datepicker('getDate'));
+	    if (fechaSalida && fechaSalida < fechaEntrada) {
+	        $('#fechaSalida').datepicker('setDate', fechaEntrada); // Si es anterior, ajustamos la fecha de salida
+	    }
 	});
 
 	// Configurar el datepicker para la fecha de salida
 	$('#fechaSalida').datepicker({
-		startDate: 'today', // No permite seleccionar fechas pasadas
-		autoclose: true,
-		todayHighlight: true,
-		format: 'dd/mm/yyyy'
+	    startDate: '+1d', // No permite seleccionar el mismo día de hoy como fecha de salida
+	    autoclose: true,
+	    todayHighlight: true,
+	    format: 'dd/mm/yyyy'
+	}).on('changeDate', function(e) {
+	    // Validar que la fecha de salida no sea anterior a la fecha de entrada
+	    let fechaEntrada = new Date($('#fechaEntrada').datepicker('getDate'));
+	    let fechaSalida = new Date(e.date.valueOf());
+
+	    if (fechaSalida < fechaEntrada) {
+	        // Si la fecha de salida es anterior a la fecha de entrada, la corregimos
+	        $('#fechaSalida').datepicker('setDate', fechaEntrada);
+	        alert('La fecha de salida no puede ser anterior a la fecha de entrada.');
+	    }
 	});
 
 	// Validación antes de enviar el formulario
@@ -164,13 +185,10 @@ document.addEventListener("DOMContentLoaded", function() {
 function handleReservar() {
 	// Obtén el valor de isUserLoggedIn desde el input oculto
 	const isUserLoggedIn = document.getElementById('isUserLoggedIn').value === 'true';
-	//console.log(isUserLoggedIn);
+	const fechaEntrada = document.getElementById('fechaEntrada').value;
+	const fechaSalida = document.getElementById('fechaSalida').value;
 	if (isUserLoggedIn) {
-		//console.log("dentr if " + isUserLoggedIn);
 		// Redirige al formulario de reservas si el usuario está logueado
-		const fechaEntrada = document.getElementById('fechaEntrada').value;
-		const fechaSalida = document.getElementById('fechaSalida').value;
-
 		window.location.href = `/reservas/formReserva?fechaEntrada=${fechaEntrada}&fechaSalida=${fechaSalida}`;
 		console.log('Fecha de entrada enviada:', fechaEntrada);
 		console.log('Fecha de salida enviada:', fechaSalida);
@@ -198,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		// Obtener valores de los campos del formulario
 		const name = document.getElementById("name").value.trim();
 		const message = document.getElementById("messages").value.trim();
-	
+
 		// Validar que los campos no estén vacíos
 		if (!name || !email || !message) {
 			alert("Por favor, complete todos los campos.");
@@ -209,7 +227,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		if (!isValidEmail(email)) {
 			alert("Por favor, introduzca un email válido.");
 			document.getElementById("mail").focus(); // Enfocar el campo del email
-			
+
 			return;
 		}
 
@@ -220,38 +238,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		// Realizar la solicitud AJAX
 		const data = {
-		    name: name,
-		    email: email,
-		    message: message
+			name: name,
+			email: email,
+			message: message
 		};
 
 		fetch("/api/send-email", {
-		    method: "POST",
-		    headers: {
-		        "Content-Type": "application/json"
-		    },
-		    body: JSON.stringify(data)
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(data)
 		})
-		    .then(response => {
-		        if (!response.ok) {
-		            return response.text().then(text => {
-		                throw new Error(`Error en el envío del mensaje: ${text}`);
-		            });
-		        }
-		        return response.json();
-		    })
-		    .then(result => {
-		        console.log("Correo enviado:", result);
-		        document.querySelector('.alert-success').style.display = 'block';
+			.then(response => {
+				if (!response.ok) {
+					return response.text().then(text => {
+						throw new Error(`Error en el envío del mensaje: ${text}`);
+					});
+				}
+				return response.json();
+			})
+			.then(result => {
+				console.log("Correo enviado:", result);
+				document.querySelector('.alert-success').style.display = 'block';
 				contactFormBtn.disabled = false;
 				contactForm.reset();
 				contactFormBtn.textContent = "Enviar";
 
-		    })
-		    .catch(error => {
-		        console.error("Error:", error);
-		        alert("Hubo un error al enviar el mensaje. Inténtelo de nuevo.");
-		    });
+			})
+			.catch(error => {
+				console.error("Error:", error);
+				alert("Hubo un error al enviar el mensaje. Inténtelo de nuevo.");
+			});
 	});
 });
 
@@ -379,15 +397,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
-document.getElementById("formRegistro").addEventListener("submit", function(event) {
-	const telefono = document.getElementById("telefono").value;
-
-	if (!/^\d{9,12}$/.test(telefono)) {
-		event.preventDefault();
-		alert("El número de teléfono debe tener entre 9 y 12 dígitos y solo contener números.");
-	}
-});
 
 
 

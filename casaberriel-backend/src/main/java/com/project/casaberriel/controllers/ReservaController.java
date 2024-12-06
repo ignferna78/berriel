@@ -39,26 +39,26 @@ import com.project.casaberriel.service.UsuarioService;
 @RequestMapping("/reservas")
 @SessionAttributes("reserva")
 public class ReservaController {
-	
+
 	public ReservaController(ReservaService reservaService) {
 		super();
 		this.reservaService = reservaService;
 	}
 
 	private ReservaService reservaService;
-	
+
 	@Autowired
 	private UsuarioService usuarioService;
 
 	private static final String REDIRECT_LISTA_RESERVAS = "redirect:/reservas/lista";
 
-
 	@GetMapping("/formReserva")
 	public String mostrarFormularioReserva(@RequestParam(required = false) String fechaEntrada,
-			@RequestParam(required = false) String fechaSalida, Model model) {
-				model.addAttribute( reservaService.listarReservas());
+			@RequestParam(required = false) String fechaSalida, Model model, Principal principal) {
+		model.addAttribute(reservaService.listarReservas());
+		model.addAttribute("username", principal.getName());
 		model.addAttribute("fechaEntrada", fechaEntrada);
-		model.addAttribute("fechaSalida",fechaSalida);
+		model.addAttribute("fechaSalida", fechaSalida);
 		return "reservas";
 	}
 
@@ -68,7 +68,7 @@ public class ReservaController {
 		// Obtén el nombre del usuario autenticado
 		String username = principal.getName();
 		try {
-		 reservaService.guardarReserva(reserva, fecha, username, cancelada, modificada);
+			reservaService.guardarReserva(reserva, fecha, username, cancelada, modificada);
 		} catch (MessagingException e) {
 			e.getMessage();
 		}
@@ -93,11 +93,11 @@ public class ReservaController {
 	public String miReserva(Model model) {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
-		 Usuario usuario = usuarioService.findUserByEmail(email); // Obtener el usuario usando el email
-		 Long userId = usuario.getId(); // Suponiendo que Usuario tiene un campo ID
+		Usuario usuario = usuarioService.findUserByEmail(email); // Obtener el usuario usando el email
+		Long userId = usuario.getId(); // Suponiendo que Usuario tiene un campo ID
 
-		    // Obtener la reserva por ID del usuario
-		    List<ReservaEntity> reserva = reservaService.obtenerReservaPorIdUsuario(userId);
+		// Obtener la reserva por ID del usuario
+		List<ReservaEntity> reserva = reservaService.obtenerReservaPorIdUsuario(userId);
 
 		// Pasar la reserva al modelo
 		model.addAttribute("reserva", reserva);
@@ -144,67 +144,65 @@ public class ReservaController {
 		}
 	}
 
-
 	@GetMapping("/delete/{id}")
-	public String deleteReserva(@PathVariable Long id, Model model,String email, boolean cancelada, boolean modificada, RedirectAttributes redirectAttributes)
-			throws MessagingException {
-		reservaService.eliminarReserva(id,email, cancelada, modificada);
-		
-		 redirectAttributes.addFlashAttribute("message", "Reserva eliminada con éxito.");
-		 try {
+	public String deleteReserva(@PathVariable Long id, Model model, String email, boolean cancelada, boolean modificada,
+			RedirectAttributes redirectAttributes) throws MessagingException {
+		reservaService.eliminarReserva(id, email, cancelada, modificada);
+
+		redirectAttributes.addFlashAttribute("message", "Reserva eliminada con éxito.");
+		try {
 			if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
-			            .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
-			        // Redirige a admin.html si el usuario es admin
-			        return "redirect:/admin/lista";
-			    }
+					.anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
+				// Redirige a admin.html si el usuario es admin
+				return "redirect:/admin/lista";
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		    // Redirige a la vista "miReserva" si no es admin
-		    return "redirect:/reservas/miReserva";
-		}	
-
-
+		// Redirige a la vista "miReserva" si no es admin
+		return "redirect:/reservas/miReserva";
+	}
 
 	@GetMapping("/comprobar-disponibilidadEdicion")
-	    public ResponseEntity<Map<String, Boolean>> comprobarDisponibilidad(
-	            @RequestParam String fechaEntrada, 
-	            @RequestParam String fechaSalida,@RequestParam(required = false) Long reservaId,  Model model) {
-		
-		  // Verificar si reservaId es nulo
-	    if (reservaId == null) {
-	        model.addAttribute("error", "El ID de la reserva no puede ser nulo");
-	        Map<String, Boolean> response = new HashMap<>();
-	        response.put("disponible", false);
-	        return ResponseEntity.badRequest().body(response);
-	    }
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
-			LocalDate entrada = null;
-			LocalDate salida = null;
-			try {
-				// Intenta convertir las fechas recibidas
-				if (fechaEntrada != null && !fechaEntrada.isEmpty()) {
-					entrada = LocalDate.parse(fechaEntrada, formatter);
-				}
-				if (fechaSalida != null && !fechaSalida.isEmpty()) {
-					salida = LocalDate.parse(fechaSalida, formatter);
-				}
-			} catch (DateTimeParseException e) {
-				model.addAttribute("error", "Formato de fecha no válido");
+	public ResponseEntity<Map<String, Boolean>> comprobarDisponibilidad(@RequestParam String fechaEntrada,
+			@RequestParam String fechaSalida, @RequestParam(required = false) Long reservaId, Model model) {
+
+		// Verificar si reservaId es nulo
+		if (reservaId == null) {
+			model.addAttribute("error", "El ID de la reserva no puede ser nulo");
+			Map<String, Boolean> response = new HashMap<>();
+			response.put("disponible", false);
+			return ResponseEntity.badRequest().body(response);
+		}
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
+		LocalDate entrada = null;
+		LocalDate salida = null;
+		try {
+			// Intenta convertir las fechas recibidas
+			if (fechaEntrada != null && !fechaEntrada.isEmpty()) {
+				entrada = LocalDate.parse(fechaEntrada, formatter);
 			}
-			
-		
-		  ReservaForm reservaForm = new ReservaForm();
-			reservaForm.setFechaEntrada(entrada.format(formatter));
-			reservaForm.setFechaSalida(salida.format(formatter));
-	        boolean disponible = reservaService.comprobarDisponibilidadEdicion(reservaForm,reservaId);// lógica para comprobar disponibilidad 
-			model.addAttribute("fechaEntradaFormateada", entrada != null ? entrada.format(formatter) : "");
-			model.addAttribute("fechaSalidaFormateada", salida != null ? salida.format(formatter) : "");
-			
-	        Map<String, Boolean> response = new HashMap<>();
-	        response.put("disponible", disponible);
-	        return ResponseEntity.ok(response);
-	    }
+			if (fechaSalida != null && !fechaSalida.isEmpty()) {
+				salida = LocalDate.parse(fechaSalida, formatter);
+			}
+		} catch (DateTimeParseException e) {
+			model.addAttribute("error", "Formato de fecha no válido");
+		}
+
+		ReservaForm reservaForm = new ReservaForm();
+		reservaForm.setFechaEntrada(entrada.format(formatter));
+		reservaForm.setFechaSalida(salida.format(formatter));
+		boolean disponible = reservaService.comprobarDisponibilidadEdicion(reservaForm, reservaId);// lógica para
+																									// comprobar
+																									// disponibilidad
+		model.addAttribute("fechaEntradaFormateada", entrada != null ? entrada.format(formatter) : "");
+		model.addAttribute("fechaSalidaFormateada", salida != null ? salida.format(formatter) : "");
+
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("disponible", disponible);
+		return ResponseEntity.ok(response);
+	}
+
 	@GetMapping("/lista")
 	public String mostrarFormularioReserva(@RequestParam String fechaEntrada, @RequestParam String fechaSalida,
 			Model model, HttpSession session) {
@@ -223,9 +221,9 @@ public class ReservaController {
 		return "reservas";
 	}
 
-	   @GetMapping("/recuperarPassword")
-		public String recuperarPassword() {
-			return "recuperarPassword";
-		}
+	@GetMapping("/recuperarPassword")
+	public String recuperarPassword() {
+		return "recuperarPassword";
+	}
 
 }
