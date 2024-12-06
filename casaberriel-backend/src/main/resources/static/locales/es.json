@@ -14,7 +14,9 @@
 	"banner": {
 		"title": "Bienvenidos a CASA BERRIEL",
 		"subtitle": "Una experiencia única en un entorno natural incomparable.",
-		"button": "Descubre Más"
+		"button": "Descubre Más",
+		"welcome": "Bienvenid@ "
+		
 	},
 	"form": {
 		"dates_selected": "Fechas seleccionadas",
