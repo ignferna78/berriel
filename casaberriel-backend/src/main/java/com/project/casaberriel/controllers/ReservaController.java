@@ -50,8 +50,6 @@ public class ReservaController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	private static final String REDIRECT_LISTA_RESERVAS = "redirect:/reservas/lista";
-
 	@GetMapping("/formReserva")
 	public String mostrarFormularioReserva(@RequestParam(required = false) String fechaEntrada,
 			@RequestParam(required = false) String fechaSalida, Model model, Principal principal) {

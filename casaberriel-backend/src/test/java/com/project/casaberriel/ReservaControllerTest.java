@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -25,11 +27,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
@@ -88,7 +92,7 @@ public class ReservaControllerTest {
         reservaActualizada.setNombre("Jane");
         reservaActualizada.setApellidos("Smith");
         reservaActualizada.setEmail("jane.smith@example.com");
-
+     
         reservaForm = new ReservaForm();
     }
 
@@ -121,22 +125,35 @@ public class ReservaControllerTest {
     }
     @Test
     public void testMostrarFormularioReserva() throws Exception {
-        // Simulamos la lista de reservas
-        when(reservaService.listarReservas()).thenReturn(List.of(new ReservaEntity()));
+        // Datos de prueba
+        String fechaEntrada = "2024-12-06";
+        String fechaSalida = "2024-12-12";
 
-        // Realizamos la prueba simulando una solicitud GET
+        // Mock del servicio
+        when(reservaService.listarReservas()).thenReturn(new ArrayList<>());
+
+        // Crear el principal mockeado
+        Principal principal = () -> "testUser";  // Usuario simulado
+
+        // Realizar la llamada al endpoint
         mockMvc.perform(get("/reservas/formReserva")
-                .param("fechaEntrada", "25/11/2024")
-                .param("fechaSalida", "30/11/2024"))
-                .andExpect(status().isOk()) // Validamos que la respuesta sea 200 OK
-                .andExpect(view().name("reservas")) // Validamos que se retorne la vista correcta
-                .andExpect(model().attributeExists("fechaEntrada", "fechaSalida")) // Validamos los atributos del modelo
-                .andExpect(model().attribute("fechaEntrada", "25/11/2024"))
-                .andExpect(model().attribute("fechaSalida", "30/11/2024"));
+                .param("fechaEntrada", fechaEntrada)
+                .param("fechaSalida", fechaSalida)
+                .principal(principal))  // Aquí pasamos el usuario simulado
+                .andExpect(status().isOk())
+                .andExpect(view().name("reservas"))
+                .andExpect(model().attributeExists("username"))
+                .andExpect(model().attributeExists("fechaEntrada"))
+                .andExpect(model().attributeExists("fechaSalida"))
+                .andExpect(model().attribute("fechaEntrada", fechaEntrada))
+                .andExpect(model().attribute("fechaSalida", fechaSalida))
+                .andExpect(model().attribute("username", "testUser"));
 
-        // Verificamos que el servicio fue invocado
+        // Verificar interacciones con el servicio
         verify(reservaService, times(1)).listarReservas();
+        verifyNoMoreInteractions(reservaService);
     }
+
 
     @Test
     public void testDetalleReserva_ReservaExistente() {
