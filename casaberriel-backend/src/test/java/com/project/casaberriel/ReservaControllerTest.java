@@ -115,10 +115,9 @@ public class ReservaControllerTest {
                 .param("fechaSalida", "30/11/2024")
                 .principal(() -> username) // Simulamos el Principal
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
-                .andExpect(status().isOk()) // Validamos que la respuesta sea 200 OK
-                .andExpect(view().name("reservas")) // Validamos que se retorne la vista correcta
-                .andExpect(model().attributeExists("message")) // Validamos que el atributo "message" esté presente
-                .andExpect(model().attribute("message", "Reserva guardada con éxito."));
+                .andExpect(status().is3xxRedirection()) // Validamos que la respuesta sea 200 OK
+                .andExpect(view().name("redirect:/reservas/miReserva")); // Validamos que se retorne la vista correcta
+
 
         // Verificamos que el servicio fue invocado
         verify(reservaService, times(1)).guardarReserva(any(ReservaEntity.class), any(ReservaForm.class), eq(username), anyBoolean(), anyBoolean());
@@ -200,14 +199,14 @@ public class ReservaControllerTest {
                 reservaForm, 
                 "jane.smith@example.com", 
                 false, 
-                true
+                true, redirectAttributes
         );
 
         // Verificar resultados
-        assertEquals("editar_reserva", viewName);
+        assertEquals("redirect:/reservas/miReserva", viewName);
         verify(reservaService, times(1))
                 .guardarReserva(reservaExistente, reservaForm, "jane.smith@example.com", false, true);
-        verify(model).addAttribute("message", "Reserva actualizada con éxito.");
+        redirectAttributes.addFlashAttribute("messageReserva", "Reserva actualizada con éxito.");
         verify(model).addAttribute("modificada", true);
         verify(model).addAttribute("cancelada", false);
 
@@ -230,7 +229,7 @@ public class ReservaControllerTest {
                 reservaForm, 
                 "jane.smith@example.com", 
                 false, 
-                true
+                true,redirectAttributes.addFlashAttribute(redirectAttributes)
         );
 
         // Verificar resultados
@@ -253,7 +252,7 @@ public class ReservaControllerTest {
         // Verificar resultados
         assertEquals("redirect:/reservas/miReserva", viewName);
         verify(reservaService, times(1)).eliminarReserva(1L, "user@example.com", true, false);
-        verify(redirectAttributes).addFlashAttribute("message", "Reserva eliminada con éxito.");
+        verify(redirectAttributes).addFlashAttribute("messageReserva", "Reserva eliminada con éxito.");
     }
     
     @Test

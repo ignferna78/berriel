@@ -36,8 +36,7 @@ public class Usuario {
 	
 	@Column(name ="email")
 	private String email;
-	
-	   // Campos para la recuperación de contraseña
+
     private String passwordResetToken;
     private Long tokenExpirationTime;
 	

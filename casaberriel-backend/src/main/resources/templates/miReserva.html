@@ -69,13 +69,13 @@
 					</tbody>
 				</table>
 
+				<div th:if="${messageReserva}" class="alert alert-success" role="alert">
+						<span th:text="${messageReserva}"></span>
+					</div>
 			</div>
 
 		</div>
-		
-		<div th:if="${message}" class="alert alert-success" role="alert" id="message">
-			<span th:text="${message}"></span>
-		</div>
+
 		<div th:if="${#lists.isEmpty(reserva)}" class="alert alert-info" role="alert" data-i18n="form.no_bookings">
 
 		</div>
@@ -85,6 +85,11 @@
 			<a th:if="${#authorization.expression('hasRole(''ROLE_USER'')')}" href="/home/index"
 				class="btn btn-primary mt-4" data-i18n="common.back"></a>
 		</div>
+		<div class="text-center mt-4">
+					<!-- Botón para el rol USER -->
+					<a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" href="/admin/lista"
+						class="btn btn-primary mt-4" data-i18n="common.back"></a>
+				</div>
 	</div>
 
 	

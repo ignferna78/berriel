@@ -10,7 +10,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.project.casaberriel.model.reservas.ReservaEntity;
 import com.project.casaberriel.model.reservas.ReservaForm;
 import com.project.casaberriel.model.usuarios.Usuario;
-import com.project.casaberriel.service.IEmailService;
 import com.project.casaberriel.service.ReservaService;
 import com.project.casaberriel.service.UsuarioService;
 
@@ -62,16 +60,17 @@ public class ReservaController {
 
 	@PostMapping("/guardar")
 	public String guardarReserva(ReservaEntity reserva, ReservaForm fecha, Principal principal, Model model,
-			boolean cancelada, boolean modificada) {
+			boolean cancelada, boolean modificada,RedirectAttributes redirectAttributes) {
 		// Obtén el nombre del usuario autenticado
 		String username = principal.getName();
 		try {
 			reservaService.guardarReserva(reserva, fecha, username, cancelada, modificada);
+			
 		} catch (MessagingException e) {
 			e.getMessage();
 		}
-		model.addAttribute("message", "Reserva guardada con éxito.");
-		return "reservas";
+		redirectAttributes.addFlashAttribute("messageReserva", "Reserva guardada con éxito.");
+		return "redirect:/reservas/miReserva";
 	}
 
 	@GetMapping("/detalle/{id}")
@@ -111,7 +110,7 @@ public class ReservaController {
 		ReservaEntity reserva = reservaService.obtenerReservaPorId(id);
 		if (reserva != null) {
 			model.addAttribute("reserva", reserva);
-			return "editar_reserva"; // Nombre de la vista para editar la reserva
+			return "editar_reserva";
 		} else {
 			return "redirect:/error"; // Redirigir a una página de error si la reserva no se encuentra
 		}
@@ -120,7 +119,7 @@ public class ReservaController {
 	@PostMapping("/editar/{id}")
 	public String guardarReservaEditada(@PathVariable Long id,
 			@ModelAttribute("reserva") ReservaEntity reservaActualizada, Model model, ReservaForm fecha, String email,
-			boolean cancelada, boolean modificada) throws MessagingException {
+			boolean cancelada, boolean modificada,RedirectAttributes redirectAttributes) throws MessagingException {
 		ReservaEntity reservaExistente = reservaService.obtenerReservaPorId(id);
 		if (reservaExistente != null) {
 			reservaExistente.setNombre(reservaActualizada.getNombre());
@@ -133,10 +132,10 @@ public class ReservaController {
 			reservaExistente.setNumPersonas(reservaActualizada.getNumPersonas());
 			reservaExistente.setObservaciones(reservaActualizada.getObservaciones());
 			reservaService.guardarReserva(reservaExistente, fecha, email, cancelada, modificada);
-			model.addAttribute("message", "Reserva actualizada con éxito.");
+			 redirectAttributes.addFlashAttribute("messageReserva", "Reserva actualizada con éxito.");
 			model.addAttribute("modificada", modificada);
 			model.addAttribute("cancelada", cancelada);
-			return "editar_reserva"; // Redirigir a la vista de administración
+			return "redirect:/reservas/miReserva"; 
 		} else {
 			return "redirect:/error"; // Redirigir a una página de error si la reserva no se encuentra
 		}
@@ -147,7 +146,7 @@ public class ReservaController {
 			RedirectAttributes redirectAttributes) throws MessagingException {
 		reservaService.eliminarReserva(id, email, cancelada, modificada);
 
-		redirectAttributes.addFlashAttribute("message", "Reserva eliminada con éxito.");
+		redirectAttributes.addFlashAttribute("messageReserva", "Reserva eliminada con éxito.");
 		try {
 			if (SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
 					.anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"))) {
@@ -190,9 +189,7 @@ public class ReservaController {
 		ReservaForm reservaForm = new ReservaForm();
 		reservaForm.setFechaEntrada(entrada.format(formatter));
 		reservaForm.setFechaSalida(salida.format(formatter));
-		boolean disponible = reservaService.comprobarDisponibilidadEdicion(reservaForm, reservaId);// lógica para
-																									// comprobar
-																									// disponibilidad
+		boolean disponible = reservaService.comprobarDisponibilidadEdicion(reservaForm, reservaId);
 		model.addAttribute("fechaEntradaFormateada", entrada != null ? entrada.format(formatter) : "");
 		model.addAttribute("fechaSalidaFormateada", salida != null ? salida.format(formatter) : "");
 
@@ -209,7 +206,7 @@ public class ReservaController {
 			// Redirigir al modal de login
 			model.addAttribute("redirectUrl",
 					"/reservas/lista?fechaEntrada=" + fechaEntrada + "&fechaSalida=" + fechaSalida);
-			return "registro"; // Nombre de la vista del modal de login
+			return "registro"; 
 		}
 		ReservaForm reservaForm = new ReservaForm();
 		reservaForm.setFechaEntrada(fechaEntrada);

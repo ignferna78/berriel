@@ -27,6 +27,6 @@ public class AdminController {
 		 
 		 model.addAttribute("reservas", reservaService.listarReservas());
 		 model.addAttribute("usuario", usuarioService.listarUsuarios());
-	        return "admin"; // Devuelve la vista 'admin.html'
+	        return "admin";
 	    }
 }

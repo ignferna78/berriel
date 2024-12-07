@@ -282,7 +282,7 @@ window.onload = function() {
 			messageDiv.classList.add('hidden');
 			setTimeout(function() {
 				messageDiv.style.display = 'none';
-			}, 1000); // Match the transition duration
+			}, 1000); 
 		}, 5000);
 	}
 };
@@ -357,16 +357,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('DOMContentLoaded', function() {
-	// Inicializar tooltips de Bootstrap
 	var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 	tooltipTriggerList.forEach(function(tooltipTriggerEl) {
 		new bootstrap.Tooltip(tooltipTriggerEl);
 	});
 
-	// Seleccionar el campo de contraseña y su formulario
 	const passwordField = document.getElementById('password');
-	const form = passwordField.closest('form'); // Encuentra el formulario asociado
-	const errorDiv = document.getElementById('password-error'); // Div para mostrar mensajes de error
+	const form = passwordField.closest('form'); 
+	const errorDiv = document.getElementById('password-error');
 
 	form.addEventListener('submit', function(event) {
 		const password = passwordField.value;

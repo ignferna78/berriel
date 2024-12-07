@@ -49,9 +49,7 @@ public class HomeController {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
 		LocalDate entrada = null;
 		LocalDate salida = null;
-
 		try {
-			// Intenta convertir las fechas recibidas
 			if (fechaEntrada != null && !fechaEntrada.isEmpty()) {
 				entrada = LocalDate.parse(fechaEntrada, formatter);
 			}
