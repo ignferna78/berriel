@@ -1,5 +1,6 @@
 package com.project.casaberriel.controllers;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.mail.MessagingException;
@@ -28,8 +29,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.casaberriel.dto.UsuarioRegistroDto;
+import com.project.casaberriel.model.usuarios.Rol;
 import com.project.casaberriel.model.usuarios.Usuario;
 import com.project.casaberriel.service.IEmailService;
+import com.project.casaberriel.service.RolService;
 import com.project.casaberriel.service.UsuarioService;
 import com.project.casaberriel.utils.LoginRequest;
 
@@ -42,6 +45,9 @@ public class RegistroUsuarioController {
 
 	@Autowired
 	private IEmailService emailService;
+	
+	@Autowired
+    private RolService rolService;
 
 	private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	private static final String REGISTRO = "registro";
@@ -131,6 +137,8 @@ public class RegistroUsuarioController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName(); // Obtener el nombre de usuario (email)
 		Usuario usuario = null;
+		List<Rol> roles = rolService.obtenerTodosRoles(); 
+		 model.addAttribute("roles", roles);
 		try {
 			usuario = usuarioService.findUserByEmail(email);
 		} catch (Exception e) {
@@ -143,6 +151,8 @@ public class RegistroUsuarioController {
 	@GetMapping("/editar-usuario/{id}")
 	public String mostrarFormularioEdicion(@PathVariable("id") Long id, Model model) {
 		Usuario usuario = usuarioService.findUserById(id);
+	    List<Rol> roles = rolService.obtenerTodosRoles(); 
+	    model.addAttribute("roles", roles);
 		model.addAttribute("usuario", usuario);
 		return DETALLE_USUARIO;
 	}
@@ -174,11 +184,12 @@ public class RegistroUsuarioController {
 
 	// Método auxiliar para actualizar los datos del usuario
 	private void actualizarDatosUsuario(Usuario usuarioExistente, UsuarioRegistroDto usuarioActualizado) {
-		usuarioExistente.setNombre(usuarioActualizado.getNombre());
-		usuarioExistente.setApellidos(usuarioActualizado.getApellidos());
+		usuarioExistente.setNombre(usuarioActualizado.getNombre());        
+		usuarioExistente.setApellidos(usuarioActualizado.getApellidos());  
 		usuarioExistente.setDireccion(usuarioActualizado.getDireccion());
 		usuarioExistente.setTelefono(usuarioActualizado.getTelefono());
 		usuarioExistente.setEmail(usuarioActualizado.getEmail());
+		usuarioExistente.setRol(usuarioActualizado.getRol ());
 		// Actualiza otros campos según sea necesario
 	}
 

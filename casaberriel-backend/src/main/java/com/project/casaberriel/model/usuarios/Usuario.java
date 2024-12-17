@@ -36,8 +36,20 @@ public class Usuario {
 	
 	@Column(name ="email")
 	private String email;
+	
+	   @ManyToOne
+	    @JoinColumn(name = "rol_id")
+	    private Rol rol;
 
-    private String passwordResetToken;
+    public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
+	private String passwordResetToken;
     private Long tokenExpirationTime;
 	
 	
