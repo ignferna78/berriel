@@ -65,7 +65,7 @@ class ReservaServiceImplTest {
     }
 
     @Test
-    void guardarReserva_shouldSaveAndSendEmail() throws MessagingException {
+    void guardarReserva_shouldSaveAndSendEmail() throws Exception {
         // Arrange
         ReservaEntity reserva = new ReservaEntity();
         reserva.setPrecioPorDia(80.0);

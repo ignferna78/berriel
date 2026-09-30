@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -25,6 +26,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,12 +38,16 @@ import com.project.casaberriel.dto.UsuarioRegistroDto;
 import com.project.casaberriel.model.usuarios.Usuario;
 import com.project.casaberriel.service.IEmailService;
 import com.project.casaberriel.service.UsuarioService;
+import com.project.casaberriel.service.RolService;
 import com.project.casaberriel.utils.LoginRequest;
 
 public class RegistroUsuarioControllerTest {
 
     @Mock
     private UsuarioService usuarioService;
+
+    @Mock
+    private RolService rolService;
     
     @Mock
     private AuthenticationManager authenticationManager;
@@ -66,6 +72,11 @@ public class RegistroUsuarioControllerTest {
     @BeforeEach
     public void setUp() {
     	 MockitoAnnotations.initMocks(this);
+    }
+
+    @AfterEach
+    void clearSecurityContext() {
+        SecurityContextHolder.clearContext();
     }
 
     @Test
@@ -302,6 +313,9 @@ public class RegistroUsuarioControllerTest {
     @Test
     public void testEliminarUsuario_DataIntegrityViolationException() {
         // Arrange
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken("test@example.com", null,
+                        AuthorityUtils.createAuthorityList("ROLE_USER")));
         Usuario usuario = new Usuario();
         usuario.setId(1L);
 
@@ -312,6 +326,7 @@ public class RegistroUsuarioControllerTest {
         String viewName = registroUsuarioController.eliminarUsuario(1L, model, request, response, true);
 
         // Assert
+        verify(usuarioService).deleteUserById(1L);
         assertEquals("detalle_usuario", viewName);
         verify(model).addAttribute("error", "No se puede eliminar el usuario debido a una violación de integridad de datos.");
     }
@@ -319,6 +334,9 @@ public class RegistroUsuarioControllerTest {
     @Test
     public void testEliminarUsuario_Exception() {
         // Arrange
+        SecurityContextHolder.getContext().setAuthentication(
+                new UsernamePasswordAuthenticationToken("test@example.com", null,
+                        AuthorityUtils.createAuthorityList("ROLE_USER")));
         Usuario usuario = new Usuario();
         usuario.setId(1L);
 
@@ -329,6 +347,7 @@ public class RegistroUsuarioControllerTest {
         String viewName = registroUsuarioController.eliminarUsuario(1L, model, request, response, true);
 
         // Assert
+        verify(usuarioService).deleteUserById(1L);
         assertEquals("detalle_usuario", viewName);
         verify(model).addAttribute("error", "Ocurrió un error al eliminar el usuario.");
     }

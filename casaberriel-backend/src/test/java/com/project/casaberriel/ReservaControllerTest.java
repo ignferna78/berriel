@@ -17,8 +17,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
@@ -76,7 +76,7 @@ public class ReservaControllerTest {
     private ReservaEntity reservaActualizada;
     private ReservaForm reservaForm;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(reservaController).build();
@@ -94,6 +94,11 @@ public class ReservaControllerTest {
         reservaActualizada.setEmail("jane.smith@example.com");
      
         reservaForm = new ReservaForm();
+    }
+
+    @AfterEach
+    void clearSecurityContext() {
+        SecurityContextHolder.clearContext();
     }
 
     @Test
@@ -206,7 +211,7 @@ public class ReservaControllerTest {
         assertEquals("redirect:/reservas/miReserva", viewName);
         verify(reservaService, times(1))
                 .guardarReserva(reservaExistente, reservaForm, "jane.smith@example.com", false, true);
-        redirectAttributes.addFlashAttribute("messageReserva", "Reserva actualizada con éxito.");
+        verify(redirectAttributes).addFlashAttribute("messageReserva", "Reserva actualizada con éxito.");
         verify(model).addAttribute("modificada", true);
         verify(model).addAttribute("cancelada", false);
 
@@ -229,7 +234,7 @@ public class ReservaControllerTest {
                 reservaForm, 
                 "jane.smith@example.com", 
                 false, 
-                true,redirectAttributes.addFlashAttribute(redirectAttributes)
+                true, redirectAttributes
         );
 
         // Verificar resultados
@@ -239,22 +244,27 @@ public class ReservaControllerTest {
 
     @Test
     public void testDeleteReserva_AsAdmin() throws Exception {
-        // Crear la colección de authorities
-        Collection<? extends GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        assertDeleteRedirect("ROLE_ADMIN", "redirect:/admin/lista");
+    }
 
-        // Configurar mocks
-        when(securityContext.getAuthentication()).thenReturn(authentication);
-     
+    @Test
+    public void testDeleteReserva_AsUser() throws Exception {
+        assertDeleteRedirect("ROLE_USER", "redirect:/reservas/miReserva");
+    }
 
-        // Ejecutar el método
-        String viewName = reservaController.deleteReserva(1L, null, "user@example.com", true, false, redirectAttributes);
+    private void assertDeleteRedirect(String role, String expectedView) throws Exception {
+        Authentication auth = new UsernamePasswordAuthenticationToken(
+                "user@example.com", null, List.of(new SimpleGrantedAuthority(role)));
+        when(securityContext.getAuthentication()).thenReturn(auth);
 
-        // Verificar resultados
-        assertEquals("redirect:/reservas/miReserva", viewName);
-        verify(reservaService, times(1)).eliminarReserva(1L, "user@example.com", true, false);
+        String viewName = reservaController.deleteReserva(
+                1L, null, "user@example.com", true, false, redirectAttributes);
+
+        assertEquals(expectedView, viewName);
+        verify(reservaService).eliminarReserva(1L, "user@example.com", true, false);
         verify(redirectAttributes).addFlashAttribute("messageReserva", "Reserva eliminada con éxito.");
     }
-    
+
     @Test
     public void testComprobarDisponibilidad() {
         // Datos de entrada simulados

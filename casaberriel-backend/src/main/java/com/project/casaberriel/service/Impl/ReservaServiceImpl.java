@@ -45,29 +45,32 @@ public class ReservaServiceImpl implements ReservaService {
 
 	@Override
 	public ReservaEntity guardarReserva(ReservaEntity reserva, ReservaForm fecha, String email,boolean cancelada, boolean modificada) throws MessagingException {
-	    Date desde = Utils.obtenerFechaFormateada(fecha.getFechaEntrada());
-	    Date hasta = Utils.obtenerFechaFormateada(fecha.getFechaSalida());
-	    reserva.setFechaEntrada(desde);
-	    reserva.setFechaSalida(hasta);
-	    
-	    // Obtén el usuario autenticado desde el username y asignarlo a la reserva
-	    Usuario usuario = usuarioRepository.findByEmail(email);
-	    if (usuario != null) {
-	        reserva.setUsuario(usuario);
-	    } else {
-	        throw new IllegalArgumentException("Usuario no encontrado");
-	    }
-	    LocalDate fechaEntrada = LocalDate.parse(fecha.getFechaEntrada(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-	    LocalDate fechaSalida = LocalDate.parse(fecha.getFechaSalida(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-	    long totalDias = Utils.calculateTotalDays(fechaEntrada, fechaSalida);
-	    double precioTotal = Utils.calculateTotalPrice(fechaEntrada, fechaSalida, reserva.getPrecioPorDia());
-	    reserva.setPrecioTotal(precioTotal);
-	    reserva.setPrecioPorDia(80.0);
-	    if(totalDias==0) {reserva.setPrecioTotal(reserva.getPrecioPorDia());}
-	    LOGGER.info("Precio total: " + reserva.getPrecioTotal());
-	    ReservaEntity savedReserva = reservaRepository.save(reserva);
-	    emailService.sendReservationConfirmation(savedReserva,cancelada,modificada);
-	    return savedReserva;
+
+			Date desde = Utils.obtenerFechaFormateada(fecha.getFechaEntrada());
+			Date hasta = Utils.obtenerFechaFormateada(fecha.getFechaSalida());
+			reserva.setFechaEntrada(desde);
+			reserva.setFechaSalida(hasta);
+
+			// Obtén el usuario autenticado desde el username y asignarlo a la reserva
+			Usuario usuario = usuarioRepository.findByEmail(email);
+			if (usuario != null) {
+				reserva.setUsuario(usuario);
+			} else {
+				throw new IllegalArgumentException("Usuario no encontrado");
+			}
+			LocalDate fechaEntrada = LocalDate.parse(fecha.getFechaEntrada(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			LocalDate fechaSalida = LocalDate.parse(fecha.getFechaSalida(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+			long totalDias = Utils.calculateTotalDays(fechaEntrada, fechaSalida);
+			double precioTotal = Utils.calculateTotalPrice(fechaEntrada, fechaSalida, reserva.getPrecioPorDia());
+			reserva.setPrecioTotal(precioTotal);
+			reserva.setPrecioPorDia(80.0);
+			if (totalDias == 0) {
+			    reserva.setPrecioTotal(reserva.getPrecioPorDia());
+		    }
+			LOGGER.info("Precio total: " + reserva.getPrecioTotal());
+			ReservaEntity savedReserva = reservaRepository.save(reserva);
+			emailService.sendReservationConfirmation(savedReserva, cancelada, modificada);
+			return savedReserva;
 	}
 
 

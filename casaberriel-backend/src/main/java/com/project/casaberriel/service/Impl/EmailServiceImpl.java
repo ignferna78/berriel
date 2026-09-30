@@ -67,7 +67,6 @@ public class EmailServiceImpl implements IEmailService {
 		if (reserva.getEmail() == null || reserva.getEmail().isEmpty()) {
 	        throw new IllegalArgumentException("El correo electrónico de la reserva es nulo o está vacío.");
 	    }
-		try {
 			MimeMessage message = javaMailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
@@ -106,9 +105,6 @@ public class EmailServiceImpl implements IEmailService {
 			String contentHtml = templateEngine.process("reservaConfirmacion", context);
 			helper.setText(contentHtml, true);
 			javaMailSender.send(message);
-		} catch (Exception e) {
-			throw new RuntimeException("Error al enviar el correo de confirmación de reserva: " + e.getMessage(), e);
-		}
 	}
 
 	public void sendUsuarioConfirmation(Usuario usuario, boolean cancelada, boolean modificada)

@@ -72,6 +72,13 @@
 				<div th:if="${messageReserva}" class="alert alert-success" role="alert">
 						<span th:text="${messageReserva}"></span>
 					</div>
+				<div th:if="${messageReservaError}" class="alert alert-warning" role="alert">
+					<span th:text="${messageReservaError}"></span>
+				</div>
+				<div th:if="${ErrorGeneral}" class="alert alert-danger" role="alert">
+					<span th:text="${ErrorGeneral}"></span>
+				</div>
+
 			</div>
 
 		</div>
