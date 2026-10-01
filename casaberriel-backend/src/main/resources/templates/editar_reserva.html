@@ -68,9 +68,7 @@
 							class="btn btn-danger" data-i18n="common.cancel"></a>
 					</div><br>
 
-					<div th:if="${message}" class="alert alert-success" role="alert">
-						<span th:text="${message}"></span>
-					</div>
+					
 				</form>
 			</div>
 
@@ -114,11 +112,10 @@
 
 				// Realizar la comprobación de disponibilidad
 				$.ajax({
-					url: '/reservas/comprobar-disponibilidadEdicion', // Asegúrate de que esta URL es correcta
+					url: '/reservas/comprobar-disponibilidadEdicion', 
 					type: 'GET',
 					data: formData,
 					success: function (response) {
-						// Manejar la respuesta de la disponibilidad
 						if (response.disponible) {
 							// Si las fechas están disponibles, enviar el formulario
 							$('form').submit();

@@ -60,3 +60,6 @@ nbproject/
 /persistence.xml
 /pom.properties
 
+
+# Local development database and logs
+.local/

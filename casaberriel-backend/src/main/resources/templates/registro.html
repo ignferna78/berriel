@@ -19,29 +19,30 @@
 				<form th:action="@{/registro/nuevo}" method="POST" th:object="${usuario}" id="limpiar" >
 					<div class="form-group">
 						<label for="nombre" data-i18n="form.name"></label> <input type="text" name="nombre"
-							class="form-control" id="nombre" required>
+							class="form-control" id="nombre" th:value="*{nombre}" required>
 					</div>
 
 					<div class="form-group">
 						<label for="apellidos" data-i18n="form.surname"></label> <input type="text" name="apellidos"
-							class="form-control" id="apellidos" required>
+							class="form-control" id="apellidos"  th:value="*{apellidos}" required>
 					</div>
 					<div class="form-group">
 						<label for="direccion" data-i18n="form.address"></label> <input type="text" name="direccion"
-							class="form-control" id="direccion" required>
+							class="form-control" id="direccion" th:value="*{direccion}" required>
 					</div>
 					<div class="form-group">
 						<label for="telefono" data-i18n="form.phone"></label> <input type="text" name="telefono"
-							class="form-control" id="telefono"  min="9" max="12" required>
+							class="form-control" id="telefono"  min="9" max="12"  th:value="*{telefono}" required>
 					</div>
 					<div class="form-group">
 						<label for="email">Email</label> <input type="email" name="email" class="form-control"
-							id="email" placeholder="user@example.com" required>
+							id="email" placeholder="user@example.com"  th:value="*{email}" required>
+
 					</div>
 					<div class="form-group">
 						<label for="password" data-i18n="form.password"></label>
 						<div class="input-group">
-							<input type="password" name="password" class="form-control" id="password" required>
+							<input type="password" name="password" class="form-control" id="password"  th:value="*{password}" required>
 							<span class="input-group-text" data-bs-toggle="tooltip" data-bs-placement="right"
 								title="La contraseña debe tener al menos 5 caracteres y no incluir caracteres especiales.">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -51,11 +52,10 @@
 										d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0" />
 								</svg> </span>
 						</div>
-						<div id="password-error" class="text-danger mt-2" style="display: none;"></div>
 					</div>
 					<div class="text-center mt-4">
 						<button type="submit" class="btn btn-success" id="formRegistro" data-i18n="common.registration"></button>
-					</div>
+					</div><input type="hidden" id="focusField" th:value="${focusField}" />
 				</form>
 
 			</div>
@@ -107,7 +107,25 @@
 	</div>
 
 	<th:block th:include="componentes/_scripts.html"></th:block>
+	<script>
+	    document.addEventListener('DOMContentLoaded', () => {
+	        const focusField = document.getElementById('focusField').value;
+	        if (focusField) {
+	            const input = document.getElementById(focusField);
+	            if (input) {
+	                input.focus();
+	            }
+	        }
+	    });
+		document.getElementById("formRegistro").addEventListener("submit", function(event) {
+				const telefono = document.getElementById("telefono").value;
 
+				if (!/^\d{9,12}$/.test(telefono)) {
+					event.preventDefault();
+					alert("El número de teléfono debe tener entre 9 y 12 dígitos y solo contener números.");
+				}
+			});
+	</script>
 
 </body>
 

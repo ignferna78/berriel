@@ -37,8 +37,19 @@ public class Usuario {
 	@Column(name ="email")
 	private String email;
 	
-	   // Campos para la recuperación de contraseña
-    private String passwordResetToken;
+	   @ManyToOne
+	    @JoinColumn(name = "rol_id")
+	    private Rol rol;
+
+    public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		this.rol = rol;
+	}
+
+	private String passwordResetToken;
     private Long tokenExpirationTime;
 	
 	

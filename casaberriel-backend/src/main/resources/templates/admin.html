@@ -84,9 +84,12 @@
 				</div>
 			</div>
 		</div>
-		<div th:if="${message}" class="alert alert-success" role="alert">
-			<span th:text="${message}"></span>
+		<div th:if="${messageReserva}" class="alert alert-success" role="alert">
+			<span th:text="${messageReserva}"></span>
 		</div>
+		<div th:if="${message}" class="alert alert-success" role="alert">
+				<span th:text="${message}"></span>
+			</div>
 
 		<!-- Card de Usuarios -->
 		<div class="card">
@@ -100,7 +103,7 @@
 							<th data-i18n="form.surname"></th>
 							<th>Email</th>
 							<th data-i18n="form.address"></th>
-							<th data-i18n="form.password"></th>
+							<th data-i18n="form.phone"></th>
 
 							<th data-i18n="form.accions"></th>
 						</tr>
@@ -112,7 +115,7 @@
 							<td th:text="${usuario.apellidos}"></td>
 							<td th:text="${usuario.email}"></td>
 							<td th:text="${usuario.direccion}"></td>
-							<td th:text="${usuario.password}"></td>
+							<td th:text="${usuario.telefono}"></td>
 							
 
 							<td>

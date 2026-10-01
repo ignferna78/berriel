@@ -1,5 +1,7 @@
 package com.project.casaberriel.dto;
 
+import com.project.casaberriel.model.usuarios.Rol;
+
 public class UsuarioRegistroDto {
 
 	private Long id;
@@ -9,13 +11,14 @@ public class UsuarioRegistroDto {
 	private String telefono;
 	private String email;
 	private String password;
+	private Rol rol;
 
 	public UsuarioRegistroDto(String email) {
 		super();
 		this.email = email;
 	}
 
-	public UsuarioRegistroDto(String nombre, String apellidos,String direccion,String telefono, String email, String password) {
+	public UsuarioRegistroDto(String nombre, String apellidos,String direccion,String telefono, String email, String password, Rol rol) {
 		super();
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -23,6 +26,7 @@ public class UsuarioRegistroDto {
 		this.telefono = telefono;
 		this.email = email;
 		this.password = password;
+		this.setRol(rol);
 	}
 
 	public UsuarioRegistroDto(Long id, String nombre, String apellidos, String direccion, String telefono,String email, String password) {
@@ -96,6 +100,14 @@ public class UsuarioRegistroDto {
 
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol2) {
+		this.rol = rol2;
 	}
 	
 

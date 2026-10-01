@@ -33,7 +33,7 @@ public class PasswordRecoveryController {
 	private UsuarioService usuarioService;
 
 	@Autowired
-	private IEmailService emailService; // Un servicio para enviar correos electrónicos
+	private IEmailService emailService;
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepository;
@@ -46,7 +46,7 @@ public class PasswordRecoveryController {
 			usuario = usuarioService.findUserByEmail(email);
 		} catch (UsernameNotFoundException e) {
 			redirectAttributes.addFlashAttribute("errorMail", e.getMessage());
-			return "redirect:/reservas/recuperarPassword"; // Redirige a la misma página con el mensaje de error
+			return "redirect:/reservas/recuperarPassword"; 
 		}
 
 		// Generar un token de recuperación de contraseña

@@ -14,7 +14,8 @@
 	"banner": {
 		"title": "Welcome to CASA BERRIEL",
 		"subtitle": "A unique experience in an unparalleled natural setting.",
-		"button": "Discover More"
+		"button": "Discover More",
+		"welcome": "Welcome "
 	},
 	"form": {
 		"dates_selected": "Selected dates",
@@ -24,7 +25,7 @@
 		"total_price": "Total Price",
 		"price": "Price per night: ",
 		"stay": "Minimum stay: ",
-		"nights": "2 nights",
+		"nights": "The minimum stay is 1 night. Please adjust the dates.",
 		"accions": "Accions",
 		"check_available": "Check Availability",
 		"arrival": "Arrival date: ",

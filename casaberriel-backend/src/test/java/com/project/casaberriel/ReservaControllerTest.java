@@ -8,6 +8,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -15,8 +17,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
@@ -25,11 +27,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
@@ -72,7 +76,7 @@ public class ReservaControllerTest {
     private ReservaEntity reservaActualizada;
     private ReservaForm reservaForm;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(reservaController).build();
@@ -88,8 +92,13 @@ public class ReservaControllerTest {
         reservaActualizada.setNombre("Jane");
         reservaActualizada.setApellidos("Smith");
         reservaActualizada.setEmail("jane.smith@example.com");
-
+     
         reservaForm = new ReservaForm();
+    }
+
+    @AfterEach
+    void clearSecurityContext() {
+        SecurityContextHolder.clearContext();
     }
 
     @Test
@@ -111,32 +120,44 @@ public class ReservaControllerTest {
                 .param("fechaSalida", "30/11/2024")
                 .principal(() -> username) // Simulamos el Principal
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
-                .andExpect(status().isOk()) // Validamos que la respuesta sea 200 OK
-                .andExpect(view().name("reservas")) // Validamos que se retorne la vista correcta
-                .andExpect(model().attributeExists("message")) // Validamos que el atributo "message" esté presente
-                .andExpect(model().attribute("message", "Reserva guardada con éxito."));
+                .andExpect(status().is3xxRedirection()) // Validamos que la respuesta sea 200 OK
+                .andExpect(view().name("redirect:/reservas/miReserva")); // Validamos que se retorne la vista correcta
+
 
         // Verificamos que el servicio fue invocado
         verify(reservaService, times(1)).guardarReserva(any(ReservaEntity.class), any(ReservaForm.class), eq(username), anyBoolean(), anyBoolean());
     }
     @Test
     public void testMostrarFormularioReserva() throws Exception {
-        // Simulamos la lista de reservas
-        when(reservaService.listarReservas()).thenReturn(List.of(new ReservaEntity()));
+        // Datos de prueba
+        String fechaEntrada = "2024-12-06";
+        String fechaSalida = "2024-12-12";
 
-        // Realizamos la prueba simulando una solicitud GET
+        // Mock del servicio
+        when(reservaService.listarReservas()).thenReturn(new ArrayList<>());
+
+        // Crear el principal mockeado
+        Principal principal = () -> "testUser";  // Usuario simulado
+
+        // Realizar la llamada al endpoint
         mockMvc.perform(get("/reservas/formReserva")
-                .param("fechaEntrada", "25/11/2024")
-                .param("fechaSalida", "30/11/2024"))
-                .andExpect(status().isOk()) // Validamos que la respuesta sea 200 OK
-                .andExpect(view().name("reservas")) // Validamos que se retorne la vista correcta
-                .andExpect(model().attributeExists("fechaEntrada", "fechaSalida")) // Validamos los atributos del modelo
-                .andExpect(model().attribute("fechaEntrada", "25/11/2024"))
-                .andExpect(model().attribute("fechaSalida", "30/11/2024"));
+                .param("fechaEntrada", fechaEntrada)
+                .param("fechaSalida", fechaSalida)
+                .principal(principal))  // Aquí pasamos el usuario simulado
+                .andExpect(status().isOk())
+                .andExpect(view().name("reservas"))
+                .andExpect(model().attributeExists("username"))
+                .andExpect(model().attributeExists("fechaEntrada"))
+                .andExpect(model().attributeExists("fechaSalida"))
+                .andExpect(model().attribute("fechaEntrada", fechaEntrada))
+                .andExpect(model().attribute("fechaSalida", fechaSalida))
+                .andExpect(model().attribute("username", "testUser"));
 
-        // Verificamos que el servicio fue invocado
+        // Verificar interacciones con el servicio
         verify(reservaService, times(1)).listarReservas();
+        verifyNoMoreInteractions(reservaService);
     }
+
 
     @Test
     public void testDetalleReserva_ReservaExistente() {
@@ -183,14 +204,14 @@ public class ReservaControllerTest {
                 reservaForm, 
                 "jane.smith@example.com", 
                 false, 
-                true
+                true, redirectAttributes
         );
 
         // Verificar resultados
-        assertEquals("editar_reserva", viewName);
+        assertEquals("redirect:/reservas/miReserva", viewName);
         verify(reservaService, times(1))
                 .guardarReserva(reservaExistente, reservaForm, "jane.smith@example.com", false, true);
-        verify(model).addAttribute("message", "Reserva actualizada con éxito.");
+        verify(redirectAttributes).addFlashAttribute("messageReserva", "Reserva actualizada con éxito.");
         verify(model).addAttribute("modificada", true);
         verify(model).addAttribute("cancelada", false);
 
@@ -213,7 +234,7 @@ public class ReservaControllerTest {
                 reservaForm, 
                 "jane.smith@example.com", 
                 false, 
-                true
+                true, redirectAttributes
         );
 
         // Verificar resultados
@@ -223,22 +244,27 @@ public class ReservaControllerTest {
 
     @Test
     public void testDeleteReserva_AsAdmin() throws Exception {
-        // Crear la colección de authorities
-        Collection<? extends GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_USER"));
-
-        // Configurar mocks
-        when(securityContext.getAuthentication()).thenReturn(authentication);
-     
-
-        // Ejecutar el método
-        String viewName = reservaController.deleteReserva(1L, null, "user@example.com", true, false, redirectAttributes);
-
-        // Verificar resultados
-        assertEquals("redirect:/reservas/miReserva", viewName);
-        verify(reservaService, times(1)).eliminarReserva(1L, "user@example.com", true, false);
-        verify(redirectAttributes).addFlashAttribute("message", "Reserva eliminada con éxito.");
+        assertDeleteRedirect("ROLE_ADMIN", "redirect:/admin/lista");
     }
-    
+
+    @Test
+    public void testDeleteReserva_AsUser() throws Exception {
+        assertDeleteRedirect("ROLE_USER", "redirect:/reservas/miReserva");
+    }
+
+    private void assertDeleteRedirect(String role, String expectedView) throws Exception {
+        Authentication auth = new UsernamePasswordAuthenticationToken(
+                "user@example.com", null, List.of(new SimpleGrantedAuthority(role)));
+        when(securityContext.getAuthentication()).thenReturn(auth);
+
+        String viewName = reservaController.deleteReserva(
+                1L, null, "user@example.com", true, false, redirectAttributes);
+
+        assertEquals(expectedView, viewName);
+        verify(reservaService).eliminarReserva(1L, "user@example.com", true, false);
+        verify(redirectAttributes).addFlashAttribute("messageReserva", "Reserva eliminada con éxito.");
+    }
+
     @Test
     public void testComprobarDisponibilidad() {
         // Datos de entrada simulados
